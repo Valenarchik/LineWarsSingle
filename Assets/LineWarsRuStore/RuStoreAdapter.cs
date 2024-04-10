@@ -5,7 +5,6 @@ using RuStore;
 using System.Collections.Generic;
 using System.Linq;
 using LineWars.Interface;
-using UnityEngine.SceneManagement;
 using LineWars.Controllers;
 
 namespace RuStoreLineWars
@@ -40,30 +39,11 @@ namespace RuStoreLineWars
             GameRoot.Instance.StartGame();
         }
 
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneChanged;
-        }
-
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneChanged;
-        }
-
         private void Update()
         {
             timeSinceLastAd += Time.unscaledDeltaTime;
         }
-
-        private void OnSceneChanged(Scene scene, LoadSceneMode mode)
-        {
-            if (timeSinceLastAd >= adFreePause)
-            {
-                timeSinceLastAd = 0;
-                FullscreenShow();
-            }
-        }
-
+        
         private void CheckPurchasesAvailability()
         {
             ruStoreBillingClient.CheckPurchasesAvailability(OnError, OnSuccess);
@@ -205,7 +185,11 @@ namespace RuStoreLineWars
 
         public override void FullscreenShow()
         {
-            interstitialAd.ShowInterstitial();
+            if (timeSinceLastAd >= adFreePause)
+            {
+                timeSinceLastAd = 0;
+                interstitialAd.ShowInterstitial();
+            }
         }
 
         public override int GetProductCount()
