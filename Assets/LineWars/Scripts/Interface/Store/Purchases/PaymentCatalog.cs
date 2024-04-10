@@ -8,7 +8,7 @@ namespace LineWars.Interface
 {
     public class PaymentCatalog: MonoBehaviour
     {
-        private static SDKAdapterBase SdkAdapter => GameRoot.Instance.SdkAdapter;
+        private static SDKAdapter SdkAdapter => GameRoot.Instance.SdkAdapter;
         
         [Header("References")]
         [SerializeField] private PurchaseBuyPanel purchaseBuyPanel;

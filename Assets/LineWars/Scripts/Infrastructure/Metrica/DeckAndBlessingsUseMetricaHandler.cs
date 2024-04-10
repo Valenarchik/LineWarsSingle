@@ -9,7 +9,7 @@ namespace LineWars.Infrastructure
     public class DeckAndBlessingsUseMetricaHandler: MonoBehaviour
     {
         private DecksController DecksController => GameRoot.Instance?.DecksController;
-        private SDKAdapterBase SdkAdapter => GameRoot.Instance?.SdkAdapter;
+        private SDKAdapter SdkAdapter => GameRoot.Instance?.SdkAdapter;
         private BlessingsController BlessingsController => GameRoot.Instance?.BlessingsController;
         
         

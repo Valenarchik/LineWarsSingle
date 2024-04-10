@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using AYellowpaper.SerializedCollections;
 using LineWars.Infrastructure;
 using LineWars.Interface;
 using LineWars.Model;
@@ -10,7 +8,7 @@ using UnityEngine.Events;
 
 namespace LineWars.Controllers
 {
-    public abstract class SDKAdapterBase: MonoBehaviour
+    public abstract class SDKAdapter: MonoBehaviour
     {
         [SerializeField] private UnityEvent<PrizeType, int> rewardVideoEvent;
         [SerializeField] private UnityEvent errorVideoEvent;
@@ -27,37 +25,33 @@ namespace LineWars.Controllers
         public event Action SuccesLockAd; 
         
         protected UserInfoController UserInfoController => GameRoot.Instance.UserController;
-        private IDictionary<string, Prize> promocodes;
-        public virtual bool NeedInterstitialAd => false;
+        private IDictionary<string, Prize> _promocodes;
 
         public void Initialize(IDictionary<string, Prize> promocodes)
         {
-            this.promocodes = promocodes;
+            _promocodes = promocodes;
             Initialize();
         }
 
         protected abstract void Initialize();
         public abstract bool SDKEnabled { get; }
         public abstract void LockAd();
-        public bool AdIsLocked => UserInfoController.LockAd;
-        
-        public void RewardForAd(Prize prize) => RewardForAd(prize.Type, prize.Amount); 
+        public abstract void FullscreenShow();
         protected abstract void RewardForAd(PrizeType prizeType, int amount);
         public abstract bool CanBuyProduct(string id);
         public abstract void BuyProduct(string id);
         public abstract ProductData ProductByID(string id);
-        
         public abstract int GetProductCount();
         public abstract int GetProductCount(PrizeType prizeType);
         public abstract ProductData[] GetProducts();
         public abstract ProductData[] GetProducts(PrizeType prizeType);
       
         
+        public void RewardForAd(Prize prize) => RewardForAd(prize.Type, prize.Amount); 
         protected void _Reward(Prize prize)
         {
             _Reward(prize.Type, prize.Amount);
         }
-
         protected void _Reward(PrizeType prizeType, int amount)
         {
             switch (prizeType)
@@ -75,13 +69,11 @@ namespace LineWars.Controllers
                     throw new ArgumentOutOfRangeException(nameof(prizeType), prizeType, null);
             }
         }
-
         public void Reward(Prize prize)
         {
             _Reward(prize);
             UIPanel.OpenSuccessPanel(prize);
         }
-
         protected void InvokeRewardVideoEvent(PrizeType prizeType, int amount)
         {
             rewardVideoEvent?.Invoke(prizeType, amount);
@@ -340,7 +332,7 @@ namespace LineWars.Controllers
         public bool UsePromoCode(string promoCode)
         {
             if (!string.IsNullOrEmpty(promoCode)
-                && promocodes.TryGetValue(promoCode, out var prize)
+                && _promocodes.TryGetValue(promoCode, out var prize)
                 && !UserInfoController.PromoCodeIsUsed(promoCode))
             {
                 _Reward(prize);

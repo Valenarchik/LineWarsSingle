@@ -2,59 +2,48 @@
 using LineWars.Model;
 using RuStore.BillingClient;
 using RuStore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using LineWars.Interface;
-using UnityEngine.SceneManagement;
-using YandexMobileAds.Base;
 using LineWars.Controllers;
 
 namespace RuStoreLineWars
 {
-    public class RuStoreAdapter : SDKAdapterBase
+    public class RuStoreAdapter : SDKAdapter
     {
         [SerializeField] private string[] productsId;
         [SerializeField] private Sprite diamondsSprite;
         [SerializeField] private float adFreePause;
         [SerializeField] private string interstitialAdUnitId = "demo-interstitial-yandex";
         [SerializeField] private string rewardAdUnitId = "demo-rewarded-yandex";
+        
         private YandexInterstitialAd interstitialAd;
         private YandexRewardAd rewardAd;
         private RuStoreBillingClient ruStoreBillingClient;
         private bool isPurchasesAvailable;
         private List<ProductData> products;
-        public override bool SDKEnabled => isPurchasesAvailable;
         private float timeSinceLastAd;
+        
+        public override bool SDKEnabled => isPurchasesAvailable;
 
         protected override void Initialize()
         {
-            interstitialAd = new();
-            interstitialAd.Initialize(interstitialAdUnitId);
-            rewardAd = new();
-            rewardAd.Initialize(rewardAdUnitId);
+            interstitialAd = new YandexInterstitialAd(interstitialAdUnitId);
+            rewardAd = new YandexRewardAd(rewardAdUnitId);
+            
             ruStoreBillingClient = RuStoreBillingClient.Instance;
             ruStoreBillingClient.Init();
+            
             CheckPurchasesAvailability();
             timeSinceLastAd = adFreePause;
             GameRoot.Instance.StartGame();
-            SceneManager.sceneLoaded += OnSceneChanged;
         }
 
         private void Update()
         {
             timeSinceLastAd += Time.unscaledDeltaTime;
         }
-
-        private void OnSceneChanged(Scene _, LoadSceneMode _1)
-        {
-            if (timeSinceLastAd >= adFreePause)
-            {
-                timeSinceLastAd = 0;
-                FullScreenAd();
-            }
-        }
-
+        
         private void CheckPurchasesAvailability()
         {
             ruStoreBillingClient.CheckPurchasesAvailability(OnError, OnSuccess);
@@ -77,16 +66,6 @@ namespace RuStoreLineWars
 
         private void FinishPurchases()
         {
-            /*var purchaseListData = purchaseProvider.Load(0);
-            var purchaseList = new List<UnfinishedPurchaseData>(purchaseListData.purchaseList);
-            foreach (var purchase in purchaseList)
-            {
-                if (purchase.IsSuccess)
-                {
-                    ConfirmSuccessfulPurchase(purchase.PurchaseId, purchase.ProductId);
-                }
-            }*/
-
             ruStoreBillingClient.GetPurchases(OnFailure, OnSuccess);
 
             void OnFailure(RuStoreError error)
@@ -186,8 +165,6 @@ namespace RuStoreLineWars
 
             void OnError(RuStoreError error)
             {
-                Debug.Log(error.name);
-                Debug.Log(error.description);
                 OnPurchaseFailedEvent(purchaseId);
             }
 
@@ -206,10 +183,13 @@ namespace RuStoreLineWars
             return RewardUtilities.CanDecodePurchaseId(id);
         }
 
-        private void FullScreenAd()
+        public override void FullscreenShow()
         {
-            Debug.Log("SHOWING AD!");
-            interstitialAd.ShowInterstitial();
+            if (timeSinceLastAd >= adFreePause)
+            {
+                timeSinceLastAd = 0;
+                interstitialAd.ShowInterstitial();
+            }
         }
 
         public override int GetProductCount()
@@ -225,9 +205,9 @@ namespace RuStoreLineWars
             if (!CheckEnableSdk())
                 return -1;
 
-            return products
-                .Where(x => x.Prize != null && x.Prize.Type == prizeType)
-                .Count();
+            return products.Count(
+                x => x.Prize != null 
+                     && x.Prize.Type == prizeType);
         }
 
         public override ProductData[] GetProducts()
@@ -244,43 +224,41 @@ namespace RuStoreLineWars
                 .Where(x => x.Prize != null && x.Prize.Type == prizeType)
                 .ToArray();
         }
-
-
-        public override void LockAd()
-        {
-            //НЕ НАДО
-        }
-
+        
         public override ProductData ProductByID(string id)
         {
-            return products
-                .Where(item => item.Id == id)
-                .FirstOrDefault();
+            return products.FirstOrDefault(item => item.Id == id);
         }
-
-        public override void SendMetrica(string eventName)
-        {
-            //НЕ НАДО
-        }
-
-        public override void SendMetrica(string eventName, IDictionary<string, string> eventParams)
-        {
-            //НЕ НАДО
-        }
-
+        
         protected override void RewardForAd(PrizeType prizeType, int amount)
         { 
-            rewardAd.Rewarded += OnRewarded;
-            rewardAd.ShowRewardedAd();
+            rewardAd.ShowRewardedAd(OnSuccess, OnFailure);
 
-            void OnRewarded(object _, Reward _1)
+            void OnSuccess()
             {
-                rewardAd.Rewarded -= OnRewarded;
                 _Reward(prizeType, amount);
 
                 UIPanel.OpenSuccessPanel(new Money(CostType.Gold, amount));
                 InvokeRewardVideoEvent(prizeType, amount);
             }
+
+            void OnFailure()
+            {
+                UIPanel.OpenErrorPanel();
+                InvokeErrorVideoEvent();
+            }
+        }
+        
+        public override void LockAd()
+        {
+        }
+        
+        public override void SendMetrica(string eventName)
+        {
+        }
+
+        public override void SendMetrica(string eventName, IDictionary<string, string> eventParams)
+        {
         }
     }
 }

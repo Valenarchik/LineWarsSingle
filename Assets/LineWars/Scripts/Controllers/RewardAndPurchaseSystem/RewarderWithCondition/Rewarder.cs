@@ -10,7 +10,7 @@ namespace LineWars.Infrastructure
         [SerializeField] private Prize prize;
         
 
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
         
         private void Awake()
         {

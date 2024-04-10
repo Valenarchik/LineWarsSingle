@@ -15,7 +15,7 @@ namespace LineWars.Infrastructure
         private bool started;
         public static GameRoot GameRoot => GameRoot.Instance;
         public static UserInfoController UserInfoController => GameRoot?.UserController;
-        public static SDKAdapterBase SDKAdapter => GameRoot?.SdkAdapter;
+        public static SDKAdapter SDKAdapter => GameRoot?.SdkAdapter;
         
         private void Start()
         {

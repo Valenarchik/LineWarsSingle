@@ -7,7 +7,7 @@ namespace LineWars.Infrastructure
     public class EndlessLevelMetricaHandler: LevelEventsHandler
     {
         [SerializeField] private InfinityGame infinityGame;
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
         protected override void LevelStarted()
         {
             if (SDKAdapter != null && infinityGame.CurrentMode != null)

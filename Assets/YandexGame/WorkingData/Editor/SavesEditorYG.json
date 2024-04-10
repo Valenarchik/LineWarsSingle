@@ -1,0 +1,308 @@
+{
+    "idSave": 85,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "UserInfo": {
+        "Diamonds": 137,
+        "Gold": 175,
+        "UpgradeCards": 2,
+        "PassingGameModes": 0,
+        "DefaultBlessingsIsAdded": true,
+        "LockAd": false,
+        "LootBoxes": {
+            "_serializedList": [
+                {
+                    "Key": 0,
+                    "Value": 0
+                },
+                {
+                    "Key": 1,
+                    "Value": 0
+                },
+                {
+                    "Key": 2,
+                    "Value": 0
+                }
+            ]
+        },
+        "CardLevels": {
+            "_serializedList": [
+                {
+                    "Key": 1,
+                    "Value": 0
+                },
+                {
+                    "Key": 0,
+                    "Value": 0
+                },
+                {
+                    "Key": 5,
+                    "Value": 0
+                },
+                {
+                    "Key": 2,
+                    "Value": 0
+                },
+                {
+                    "Key": 3,
+                    "Value": 0
+                },
+                {
+                    "Key": 4,
+                    "Value": 0
+                },
+                {
+                    "Key": 6,
+                    "Value": 0
+                },
+                {
+                    "Key": 7,
+                    "Value": 0
+                },
+                {
+                    "Key": 8,
+                    "Value": 0
+                },
+                {
+                    "Key": 9,
+                    "Value": 0
+                },
+                {
+                    "Key": 10,
+                    "Value": 0
+                },
+                {
+                    "Key": 11,
+                    "Value": 0
+                },
+                {
+                    "Key": 12,
+                    "Value": 0
+                },
+                {
+                    "Key": 13,
+                    "Value": 0
+                },
+                {
+                    "Key": 14,
+                    "Value": 0
+                },
+                {
+                    "Key": 15,
+                    "Value": 0
+                },
+                {
+                    "Key": 16,
+                    "Value": 0
+                },
+                {
+                    "Key": 17,
+                    "Value": 0
+                },
+                {
+                    "Key": 18,
+                    "Value": 0
+                },
+                {
+                    "Key": 19,
+                    "Value": 0
+                },
+                {
+                    "Key": 20,
+                    "Value": 0
+                },
+                {
+                    "Key": 21,
+                    "Value": 0
+                }
+            ]
+        },
+        "Blessings": {
+            "_serializedList": [
+                {
+                    "Key": {
+                        "blessingType": 2,
+                        "rarity": 0
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 0,
+                        "rarity": 0
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 3,
+                        "rarity": 1
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 1,
+                        "rarity": 0
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 6,
+                        "rarity": 0
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 7,
+                        "rarity": 0
+                    },
+                    "Value": 5
+                },
+                {
+                    "Key": {
+                        "blessingType": 4,
+                        "rarity": 0
+                    },
+                    "Value": 2
+                },
+                {
+                    "Key": {
+                        "blessingType": 8,
+                        "rarity": 0
+                    },
+                    "Value": 4
+                }
+            ]
+        },
+        "KeyToDateTime": {
+            "_serializedList": [
+                {
+                    "Key": "timer_first60SecondTimer",
+                    "Value": "03/14/2024 00:16:24"
+                },
+                {
+                    "Key": "25gold",
+                    "Value": "03/29/2024 19:28:37"
+                }
+            ]
+        },
+        "KeyToBool": {
+            "_serializedList": [
+                {
+                    "Key": "ShkatulkaMart2024",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuCloseIntroButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuSingleGameButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuOpenAdButton2",
+                    "Value": true
+                },
+                {
+                    "Key": "DublicateButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuInfoButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuShopButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuDeckButton",
+                    "Value": true
+                },
+                {
+                    "Key": "MainMenuOpenBlessingsPanel",
+                    "Value": true
+                },
+                {
+                    "Key": "skipFinishBuyTurnDialog",
+                    "Value": true
+                },
+                {
+                    "Key": "firstPurchase",
+                    "Value": true
+                }
+            ]
+        },
+        "UnlockedCards": [
+            1,
+            0,
+            5,
+            18,
+            8
+        ],
+        "SelectedBlessings": [
+            {
+                "blessingType": 2,
+                "rarity": 0
+            },
+            {
+                "blessingType": 0,
+                "rarity": 0
+            },
+            {
+                "blessingType": 3,
+                "rarity": 1
+            }
+        ],
+        "UsedPromoCodes": [
+            "UIPGLFQDS",
+            "BVURUYSEW",
+            "ZZPQJOVCR",
+            "SFGHJCZCC"
+        ]
+    },
+    "Decks": [
+        {
+            "Id": 0,
+            "Name": "default",
+            "Cards": [
+                {
+                    "CardId": 1
+                },
+                {
+                    "CardId": 0
+                },
+                {
+                    "CardId": 5
+                }
+            ]
+        }
+    ],
+    "Missions": [
+        {
+            "MissionId": 0,
+            "MissionStatus": 1
+        },
+        {
+            "MissionId": 1,
+            "MissionStatus": 1
+        },
+        {
+            "MissionId": 11,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 12,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 13,
+            "MissionStatus": 1
+        }
+    ]
+}

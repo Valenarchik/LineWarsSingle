@@ -6,14 +6,17 @@ namespace LineWars.Controllers
 {
     public class YandexRewardAd
     {
-        private string adUnitId;
+        private readonly string adUnitId;
         private RewardedAdLoader rewardedAdLoader;
         private RewardedAd rewardedAd;
-        public Action<object, Reward> Rewarded;
 
-        public void Initialize(string adUnitId)
+        private Action onSuccess;
+        private Action onFailure;
+
+        public YandexRewardAd(string adUnitId)
         {
             this.adUnitId = adUnitId;   
+            
             SetupLoader();
             RequestRewardedAd();
         }
@@ -27,24 +30,25 @@ namespace LineWars.Controllers
 
         private void RequestRewardedAd()
         {
-            AdRequestConfiguration adRequestConfiguration = new AdRequestConfiguration.Builder(adUnitId).Build();
+            var adRequestConfiguration = new AdRequestConfiguration.Builder(adUnitId).Build();
             rewardedAdLoader.LoadAd(adRequestConfiguration);
         }
 
-        public void ShowRewardedAd()
+        public void ShowRewardedAd(Action onSuccess, Action onFailure)
         {
             if (rewardedAd != null)
             {
+                this.onSuccess = onSuccess;
+                this.onFailure = onFailure;
+                
                 rewardedAd.Show();
             }
         }
 
         private void HandleAdLoaded(object sender, RewardedAdLoadedEventArgs args)
         {
-            // The ad was loaded successfully. Now you can handle it.
             rewardedAd = args.RewardedAd;
 
-            // Add events handlers for ad actions
             rewardedAd.OnAdClicked += HandleAdClicked;
             rewardedAd.OnAdShown += HandleAdShown;
             rewardedAd.OnAdFailedToShow += HandleAdFailedToShow;
@@ -55,50 +59,37 @@ namespace LineWars.Controllers
 
         private void HandleAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
         {
-            // Ad {args.AdUnitId} failed for to load with {args.Message}
-            // Attempting to load a new ad from the OnAdFailedToLoad event is strongly discouraged.
         }
 
         private void HandleAdDismissed(object sender, EventArgs args)
         {
-            // Called when an ad is dismissed.
-
-            // Clear resources after an ad dismissed.
             DestroyRewardedAd();
-
-            // Now you can preload the next rewarded ad.
             RequestRewardedAd();
+            onFailure?.Invoke();
         }
 
         private void HandleAdFailedToShow(object sender, AdFailureEventArgs args)
         {
-            // Called when rewarded ad failed to show.
-
-            // Clear resources after an ad dismissed.
             DestroyRewardedAd();
-
-            // Now you can preload the next rewarded ad.
             RequestRewardedAd();
+            onFailure?.Invoke();
         }
 
         private void HandleAdClicked(object sender, EventArgs args)
         {
-            // Called when a click is recorded for an ad.
         }
 
         private void HandleAdShown(object sender, EventArgs args)
         {
-            // Called when an ad is shown.
         }
 
         private void HandleImpression(object sender, ImpressionData impressionData)
         {
-            // Called when an impression is recorded for an ad.
         }
 
         private void HandleRewarded(object sender, Reward args)
         {
-            Rewarded.Invoke(sender, args);
+            onSuccess?.Invoke();
         }
 
         private void DestroyRewardedAd()

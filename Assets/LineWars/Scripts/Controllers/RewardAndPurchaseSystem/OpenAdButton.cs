@@ -9,7 +9,7 @@ namespace LineWars.Controllers
     [DisallowMultipleComponent]
     public class OpenAdButton: MonoBehaviour
     {
-        private static SDKAdapterBase SdkAdapter => GameRoot.Instance.SdkAdapter;
+        private static SDKAdapter SdkAdapter => GameRoot.Instance.SdkAdapter;
         
         [SerializeField] private Prize prizeForAd;
         private Button button;
