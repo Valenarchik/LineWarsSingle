@@ -8,7 +8,7 @@ namespace LineWars.Infrastructure
     {
         private const string Id = "firstPurchase";
         public UserInfoController UserInfoController => GameRoot.Instance?.UserController;
-        private SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
 
         
         private void Start()

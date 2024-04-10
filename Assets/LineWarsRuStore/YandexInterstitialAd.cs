@@ -7,11 +7,12 @@ namespace LineWars.Controllers
 {
     public class YandexInterstitialAd
     {
+        private readonly string adUnitId;
+        
         private InterstitialAdLoader interstitialAdLoader;
         private Interstitial interstitial;
-        private string adUnitId = "demo-interstitial-yandex";
 
-        public void Initialize(string adUnitId)
+        public YandexInterstitialAd(string adUnitId)
         {
             this.adUnitId = adUnitId;
             SetupLoader();

@@ -9,7 +9,7 @@ namespace LineWars.Infrastructure
     {
         private static Store Store => GameRoot.Instance?.Store;
         private static LootBoxController LootBoxController => GameRoot.Instance?.LootBoxController;
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
 
         private void Start()
         {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using LineWars.Model;
+using UnityEngine;
 
 namespace LineWars.Controllers
 {
-    public class FakeSDKAdapter: SDKAdapterBase
+    public class FakeSDKAdapter: SDKAdapter
     {
         public override bool SDKEnabled => true;
 
@@ -14,7 +15,12 @@ namespace LineWars.Controllers
         }
         public override void LockAd()
         {
-            
+            Debug.Log("LockAd");
+        }
+
+        public override void FullscreenShow()
+        {
+            Debug.Log("FullScreenShow");
         }
 
         protected override void RewardForAd(PrizeType prizeType, int amount)

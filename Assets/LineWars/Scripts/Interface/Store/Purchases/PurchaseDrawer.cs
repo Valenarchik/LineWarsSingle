@@ -10,7 +10,7 @@ namespace LineWars.Interface
 {
     public class PurchaseDrawer: PurchaseContainer
     {
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance.SdkAdapter;
         
         [SerializeField] private TextMeshProUGUI title, description, priceValue, currencyValue;
         [SerializeField] private Image image;

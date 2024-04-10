@@ -5,7 +5,7 @@ namespace LineWars.Infrastructure
     public class FirstCompanyMetricaHandler: LevelEventsHandler
     {
         private const string Id = "firstCompany";
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
         private static UserInfoController UserController => GameRoot.Instance?.UserController;
         
         protected override void LevelStarted()

@@ -8,7 +8,7 @@ namespace LineWars.Interface
 {
     public class BuyPurchaseButton: MonoBehaviour
     {
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance.SdkAdapter;
         
         [SerializeField] private Button button;
         [SerializeField] private PurchaseContainer purchaseContainer;

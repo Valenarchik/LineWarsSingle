@@ -7,7 +7,7 @@ namespace LineWars.Interface
     public class WinOrLosePanel: MonoBehaviour
     {
         [SerializeField] private OpenAdButton openAdButton;
-        private SDKAdapterBase SDKAdapter => GameRoot.Instance.SdkAdapter;
+        private SDKAdapter SDKAdapter => GameRoot.Instance.SdkAdapter;
 
         private void OnEnable()
         {

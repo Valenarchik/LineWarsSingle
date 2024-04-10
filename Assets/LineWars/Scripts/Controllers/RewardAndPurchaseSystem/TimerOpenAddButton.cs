@@ -10,7 +10,7 @@ namespace LineWars.Controllers
     [RequireComponent(typeof(Button))]
     public class TimerOpenAddButton: MonoBehaviour
     {
-        private static SDKAdapterBase SdkAdapter => GameRoot.Instance.SdkAdapter;
+        private static SDKAdapter SdkAdapter => GameRoot.Instance.SdkAdapter;
         private static UserInfoController UserController => GameRoot.Instance.UserController;
         private static IGetter<DateTime> TimeGetter => GameRoot.Instance.TimeGetter;
         

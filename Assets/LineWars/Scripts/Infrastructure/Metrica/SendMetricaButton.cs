@@ -10,7 +10,7 @@ namespace LineWars.Infrastructure
     {
         [SerializeField] private string buttonId;
         [SerializeField] private bool listenFirstClick = true;
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
         private static UserInfoController UserInfoController => GameRoot.Instance?.UserController;
         protected override void OnClick()
         {

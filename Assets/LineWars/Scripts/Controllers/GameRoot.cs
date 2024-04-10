@@ -29,9 +29,9 @@ namespace LineWars.Controllers
         [SerializeField] private ProviderBase yandexGameProvider;
         
         [Header("Api")]
-        [SerializeField] private SDKAdapterBase ruStoreAdapter;
-        [SerializeField] private SDKAdapterBase yandexGameSdkAdapter;
-        [SerializeField] private SDKAdapterBase fakeSDKAdapter;
+        [SerializeField] private SDKAdapter ruStoreAdapter;
+        [SerializeField] private SDKAdapter yandexGameSdkAdapter;
+        [SerializeField] private SDKAdapter fakeSDKAdapter;
 
         [Space]
         [SerializeField] private Platform platform;
@@ -44,7 +44,7 @@ namespace LineWars.Controllers
         private IProvider<UserInfo> userInfoProvider;
         private IGetter<DateTime> timeGetter;
         private IGetter<DateTime> reusableTimeGetter;
-        private SDKAdapterBase sdkAdapter;
+        private SDKAdapter sdkAdapter;
 
         public IStorage<int, DeckCard> CardsDatabase => GameStartedLog() ? cardsDatabase : null;
         public IStorage<int, MissionData> MissionsStorage => GameStartedLog() ? missionsStorage : null;
@@ -56,7 +56,7 @@ namespace LineWars.Controllers
         public CompaniesController CompaniesController => GameStartedLog() ? companiesController : null;
         public UserInfoController UserController =>  GameStartedLog() ? userController : null;
         public LootBoxController LootBoxController =>  GameStartedLog() ? lootBoxController : null;
-        public SDKAdapterBase SdkAdapter => GameStartedLog() ? sdkAdapter : null;
+        public SDKAdapter SdkAdapter => GameStartedLog() ? sdkAdapter : null;
 
         public BlessingsController BlessingsController =>  GameStartedLog() ? blessingsController : null;
         public Store Store => GameStartedLog() ? store : null;

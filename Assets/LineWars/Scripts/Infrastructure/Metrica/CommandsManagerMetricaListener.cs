@@ -9,7 +9,7 @@ namespace LineWars.Infrastructure
     public class CommandsManagerMetricaListener: MonoBehaviour
     {
         private CommandsManager commandsManager;
-        private static SDKAdapterBase SDKAdapter => GameRoot.Instance?.SdkAdapter;
+        private static SDKAdapter SDKAdapter => GameRoot.Instance?.SdkAdapter;
         private void Awake()
         {
             commandsManager = GetComponent<CommandsManager>();

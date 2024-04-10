@@ -11,7 +11,7 @@ namespace LineWars.Controllers
         private RewardedAd rewardedAd;
         public Action<object, Reward> Rewarded;
 
-        public void Initialize(string adUnitId)
+        public YandexRewardAd(string adUnitId)
         {
             this.adUnitId = adUnitId;   
             SetupLoader();
