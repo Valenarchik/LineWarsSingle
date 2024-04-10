@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using LineWars.Interface;
 using UnityEngine.SceneManagement;
-using YandexMobileAds.Base;
 using LineWars.Controllers;
 
 namespace RuStoreLineWars
@@ -249,16 +248,20 @@ namespace RuStoreLineWars
         
         protected override void RewardForAd(PrizeType prizeType, int amount)
         { 
-            rewardAd.Rewarded += OnRewarded;
-            rewardAd.ShowRewardedAd();
+            rewardAd.ShowRewardedAd(OnSuccess, OnFailure);
 
-            void OnRewarded(object _, Reward _1)
+            void OnSuccess()
             {
-                rewardAd.Rewarded -= OnRewarded;
                 _Reward(prizeType, amount);
 
                 UIPanel.OpenSuccessPanel(new Money(CostType.Gold, amount));
                 InvokeRewardVideoEvent(prizeType, amount);
+            }
+
+            void OnFailure()
+            {
+                UIPanel.OpenErrorPanel();
+                InvokeErrorVideoEvent();
             }
         }
         
