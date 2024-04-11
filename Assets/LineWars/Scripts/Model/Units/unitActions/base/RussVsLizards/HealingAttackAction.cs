@@ -9,11 +9,10 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.HealingAttack;
+        public override CommandType CommandType { get; set; } = CommandType.HealingAttack;
         public int Damage => Executor.CurrentPower;
-        public HealingAttackMode Mode { get; }
-        public int ConsHeal { get; }
-
+        public HealingAttackMode Mode { get; set; }
+        public int ConsHeal { get; set; }
         public event Action<int> DamageChanged;
         
         public HealingAttackAction(TUnit executor, HealingAttackMode mode, int consHeal) : base(executor)

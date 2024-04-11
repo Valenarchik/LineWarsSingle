@@ -11,7 +11,7 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public override CommandType CommandType => CommandType.Move;
+        public override CommandType CommandType { get; set; } = CommandType.Move;
 
         public MoveAction(TUnit executor) : base(executor)
         {
@@ -48,8 +48,7 @@ namespace LineWars.Model
 
         public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
 
-        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) =>
-            visitor.Visit(this);
+        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
 
         #region CallBack
 

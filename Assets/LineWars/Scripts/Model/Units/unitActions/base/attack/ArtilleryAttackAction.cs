@@ -8,6 +8,16 @@
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
+        public override CommandType CommandType { get; set; } = CommandType.Explosion;
+        public ArtilleryAttackAction(
+            TUnit executor,
+            bool isPenetratingDamage,
+            uint distance,
+            IGraphForGame<TNode, TEdge, TUnit> graph)
+            : base(executor, isPenetratingDamage, distance, graph)
+        {
+        }
+        
         public override bool CanAttackFrom(TNode node, TEdge edge, bool ignoreActionPointsCondition = false)
         {
             var pathLen1 = Graph.FindShortestPath(node, edge.FirstNode).Count - 1;
@@ -19,8 +29,7 @@
                        || pathLen2 <= Distance && pathLen1 + 1 <= Distance)
                    && (ignoreActionPointsCondition || ActionPointsCondition());
         }
-
-
+        
         public override void Attack(TEdge edge)
         {
             edge.CurrentHp -= Executor.CurrentPower;
@@ -40,20 +49,10 @@
             CompleteAndAutoModify();
         }
 
-        public override CommandType CommandType => CommandType.Explosion;
 
         public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor)
         {
             visitor.Visit(this);
-        }
-
-        public ArtilleryAttackAction(
-            TUnit executor,
-            bool isPenetratingDamage,
-            uint distance,
-            IGraphForGame<TNode, TEdge, TUnit> graph)
-            : base(executor, isPenetratingDamage, distance, graph)
-        {
         }
     }
 }

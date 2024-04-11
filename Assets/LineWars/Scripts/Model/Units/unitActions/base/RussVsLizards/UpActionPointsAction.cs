@@ -7,7 +7,7 @@
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.UpActionPoints;
+        public override CommandType CommandType { get; set; } = CommandType.UpActionPoints;
 
         public UpActionPointsAction(TUnit executor) : base(executor)
         {

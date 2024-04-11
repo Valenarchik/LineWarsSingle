@@ -7,11 +7,11 @@
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
+        public override CommandType CommandType { get; set; } = CommandType.PowerBasedHeal;
+        
         public PowerBasedHealAction(TUnit executor) : base(executor)
         {
         }
-
-        public override CommandType CommandType => CommandType.PowerBasedHeal;
 
         public bool IsAvailable(TUnit target)
         {

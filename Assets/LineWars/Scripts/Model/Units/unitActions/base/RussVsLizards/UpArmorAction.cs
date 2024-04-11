@@ -7,7 +7,7 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.UpArmor;
+        public override CommandType CommandType { get; set; } = CommandType.UpArmor;
         public UpArmorAction(TUnit executor) : base(executor)
         {
         }

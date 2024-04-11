@@ -8,7 +8,7 @@
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public override CommandType CommandType => CommandType.Block;
+        public override CommandType CommandType { get; set; } = CommandType.Block;
 
         public RLBlockAction(TUnit executor) : base(executor)
         {

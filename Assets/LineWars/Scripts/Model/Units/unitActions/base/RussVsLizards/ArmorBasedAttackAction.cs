@@ -10,7 +10,7 @@ namespace LineWars
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.ArmorBasedAttack;
+        public override CommandType CommandType { get; set; } = CommandType.ArmorBasedAttack;
         public int Damage => Executor.CurrentArmor;
         public event Action<int> DamageChanged;
         

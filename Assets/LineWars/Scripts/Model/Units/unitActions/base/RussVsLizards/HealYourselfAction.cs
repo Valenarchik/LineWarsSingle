@@ -8,13 +8,13 @@
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
         public int HealAmount { get; }
+        public override CommandType CommandType { get; set; } = CommandType.VodaBajkalskaya;
         
         public HealYourselfAction(TUnit executor, int healAmount) : base(executor)
         {
             HealAmount = healAmount;
         }
 
-        public override CommandType CommandType => CommandType.VodaBajkalskaya;
         
         public bool CanExecute()
         {

@@ -157,7 +157,7 @@ namespace LineWars.Model
 
         public void Visit(SpawningUnitAction<TNode, TEdge, TUnit> action)
         {
-            Result = new SpawningUnitAction<TNode, TEdge, TUnit>(Unit, action.UnitFabric, action.CommandType);
+            Result = new SpawningUnitAction<TNode, TEdge, TUnit>(Unit, action.UnitFabric);
             Result.ActionModifier = action.ActionModifier;
         }
 

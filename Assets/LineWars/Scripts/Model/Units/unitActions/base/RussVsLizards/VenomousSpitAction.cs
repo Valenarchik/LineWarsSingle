@@ -11,15 +11,10 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
         private int venomRounds;
-        public override CommandType CommandType => CommandType.VenomousSpit;
+        public override CommandType CommandType { get; set; } = CommandType.VenomousSpit;
         public int VenomRounds => venomRounds;
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
-        private void OnUnitPowerChanged(TUnit unit, int before, int after)
-        {
-            DamageChanged?.Invoke(after);
-        }
-
         public VenomousSpitAction(TUnit executor, int venomRounds) : base(executor)
         {
             this.venomRounds = venomRounds;
@@ -30,7 +25,12 @@ namespace LineWars.Model
         {
             Executor.UnitPowerChanged -= OnUnitPowerChanged;
         }
-
+        
+        private void OnUnitPowerChanged(TUnit unit, int before, int after)
+        {
+            DamageChanged?.Invoke(after);
+        }
+        
         public bool IsAvailable(TUnit target)
         {
             var line = Executor.Node.GetLine(target.Node);

@@ -9,7 +9,7 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.Stun;
+        public override CommandType CommandType { get; set; } = CommandType.Stun;
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
         private void OnUnitPowerChanged(TUnit unit, int before, int after)

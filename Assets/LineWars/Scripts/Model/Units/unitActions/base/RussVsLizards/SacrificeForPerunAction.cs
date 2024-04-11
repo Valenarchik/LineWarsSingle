@@ -11,7 +11,7 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public override CommandType CommandType => CommandType.SacrificePerun;
+        public override CommandType CommandType { get; set; } = CommandType.SacrificePerun;
 
         public SacrificeForPerunAction(TUnit executor) : base(executor)
         {

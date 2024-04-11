@@ -9,28 +9,26 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        private int minJumpDistance;
-        private int maxJumpDistance;
+        public override CommandType CommandType { get; set; } = CommandType.Jump;
 
-        public override CommandType CommandType => CommandType.Jump;
+        public int MinJumpDistance { get; set; }
 
-        public int MinJumpDistance => minJumpDistance;
-        public int MaxJumpDistance => maxJumpDistance;
+        public int MaxJumpDistance { get; set; }
 
         public JumpAction(
             TUnit executor, 
             int minJumpDistance, 
             int maxJumpDistance) : base(executor)
         {
-            this.minJumpDistance = minJumpDistance;
-            this.maxJumpDistance = maxJumpDistance;
+            this.MinJumpDistance = minJumpDistance;
+            this.MaxJumpDistance = maxJumpDistance;
         }
 
         public bool IsAvailable(TNode target)
         {
             var distance = Graph<TNode, TEdge>.StaticFindShortestPath(Executor.Node, target).Count;
-            return distance >= minJumpDistance &&
-                distance <= maxJumpDistance &&
+            return distance >= MinJumpDistance &&
+                distance <= MaxJumpDistance &&
                 FreeNodeCondition() &&
                 ForBigCondition() &&
                 ActionPointsCondition()

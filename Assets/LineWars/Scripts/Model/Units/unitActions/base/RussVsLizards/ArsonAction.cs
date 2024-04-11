@@ -9,15 +9,15 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.Arson;
-        private int fireEffectRounds;
-        public int FireEffectRounds => fireEffectRounds;
+        public override CommandType CommandType { get; set; } = CommandType.Arson;
+        public int FireEffectRounds { get; set; }
+
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
 
         public ArsonAction(TUnit executor, int fireEffectRounds) : base(executor)
         {
-            this.fireEffectRounds = fireEffectRounds;
+            this.FireEffectRounds = fireEffectRounds;
             Executor.UnitPowerChanged += OnUnitPowerChanged;
         }
 
@@ -56,7 +56,7 @@ namespace LineWars.Model
         private void FireUnit(TUnit unit)
         {
             var effect = new FireEffect<TNode, TEdge, TUnit>
-                (unit, fireEffectRounds, Executor.CurrentPower);
+                (unit, FireEffectRounds, Executor.CurrentPower);
             unit.AddEffect(effect);
         }
 

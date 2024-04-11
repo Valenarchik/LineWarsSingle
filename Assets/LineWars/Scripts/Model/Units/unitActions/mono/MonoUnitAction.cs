@@ -29,6 +29,8 @@ namespace LineWars.Model
         [SerializeField, ReadOnlyInspector] private Unit executor;
         [SerializeField] private int initializePriority;
         [SerializeField] protected IntModifier actionModifier;
+        [SerializeField] protected Optional<CommandType> overrideCommandType;
+        
         private TAction action;
         public override event Action ActionCompleted;
         

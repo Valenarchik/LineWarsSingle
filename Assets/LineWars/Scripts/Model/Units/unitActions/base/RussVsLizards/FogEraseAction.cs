@@ -15,7 +15,7 @@ namespace LineWars.Model
         {
         }
 
-        public override CommandType CommandType => CommandType.EraseFog;
+        public override CommandType CommandType { get; set; } = CommandType.EraseFog;
 
         public bool IsAvailable(TNode target)
         {
@@ -24,7 +24,6 @@ namespace LineWars.Model
 
         public void Execute(TNode target)
         {
-            //Всем привет, вы на канале АртёмCool2003, и сегодня мы создаем бесполезный класс! Подписывайтесь!
             CompleteAndAutoModify();
         }
 

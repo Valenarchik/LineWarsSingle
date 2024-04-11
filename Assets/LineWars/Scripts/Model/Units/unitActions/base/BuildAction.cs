@@ -11,14 +11,16 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.Build;
+        public override CommandType CommandType { get; set; } = CommandType.Build;
 
         public BuildAction(TUnit executor) : base(executor)
         {
         }
 
         public bool CanUpRoad([NotNull] TEdge edge, bool ignoreActionPointsCondition = false)
-            => CanUpRoad(edge, Executor.Node, ignoreActionPointsCondition);
+        {
+            return CanUpRoad(edge, Executor.Node, ignoreActionPointsCondition);
+        }
 
         public bool CanUpRoad([NotNull] TEdge edge, [NotNull] TNode node, bool ignoreActionPointsCondition = false)
         {
@@ -38,9 +40,14 @@ namespace LineWars.Model
             CompleteAndAutoModify();
         }
         
-        public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
-
-        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) =>
+        public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor)
+        {
             visitor.Visit(this);
+        }
+
+        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 }

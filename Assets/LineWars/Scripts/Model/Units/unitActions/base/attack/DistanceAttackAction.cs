@@ -12,7 +12,8 @@ namespace LineWars.Model
         #endregion 
     {
         protected readonly IGraphForGame<TNode, TEdge, TUnit> Graph;
-        public uint Distance { get; }
+        public uint Distance { get; set; }
+        public override CommandType CommandType { get; set; } = CommandType.Fire;
 
         public DistanceAttackAction(
             TUnit executor,
@@ -41,7 +42,6 @@ namespace LineWars.Model
         }
         
 
-        public override CommandType CommandType => CommandType.Fire;
         
         public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
         public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) => visitor.Visit(this);

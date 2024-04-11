@@ -9,7 +9,7 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.HealSacrifice;
+        public override CommandType CommandType { get; set; } = CommandType.HealSacrifice;
         public readonly IReadOnlyDictionary<UnitType, int> unitsToBuffAttack;
 
         public HealSacrificeAction(TUnit executor, IReadOnlyDictionary<UnitType, int> unitsToBuffAttack) : base(executor)

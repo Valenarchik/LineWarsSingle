@@ -7,11 +7,10 @@
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
+        public override CommandType CommandType { get; set; } = CommandType.ConsumeUnit;
         public ConsumeUnitAction(TUnit executor) : base(executor)
         {
         }
-
-        public override CommandType CommandType => CommandType.ConsumeUnit;
 
         public void Execute(TUnit target)
         {

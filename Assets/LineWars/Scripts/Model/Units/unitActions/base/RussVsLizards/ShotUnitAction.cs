@@ -12,7 +12,7 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public override CommandType CommandType => CommandType.ShotUnit;
+        public override CommandType CommandType { get; set; } = CommandType.ShotUnit;
 
 
         public ShotUnitAction(TUnit executor) : base(executor)

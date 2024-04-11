@@ -9,7 +9,7 @@ namespace LineWars.Model
     {
         public T Executor { get; }
         public IntModifier ActionModifier { get; set; }
-        public abstract CommandType CommandType { get; }
+        public abstract CommandType CommandType { get; set; }
         public event Action ActionCompleted;
 
         protected ExecutorAction([NotNull] T executor)

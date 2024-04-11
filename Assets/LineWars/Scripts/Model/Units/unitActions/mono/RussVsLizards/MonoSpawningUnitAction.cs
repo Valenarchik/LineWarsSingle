@@ -7,7 +7,6 @@ namespace LineWars.Model
         ISpawningUnitAction<Node, Edge, Unit>
     {
         [SerializeField] private Unit spawnUnit;
-        [SerializeField] private CommandType commandType;
         [SerializeField] private UnitAnimation spawnAnimation;
 
         protected override bool NeedAutoComplete => false;
@@ -16,8 +15,7 @@ namespace LineWars.Model
         {
             var player = new System.Lazy<BasePlayer>(() => Executor.Owner);
             var unitFabric = new MonoUnitFabric(player, spawnUnit);
-            return new SpawningUnitAction<Node, Edge, Unit>
-                (Executor, unitFabric, commandType);
+            return new SpawningUnitAction<Node, Edge, Unit>(Executor, unitFabric);
         }
 
         public void Execute(Node target)

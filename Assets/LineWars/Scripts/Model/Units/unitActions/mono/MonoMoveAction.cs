@@ -15,8 +15,7 @@ namespace LineWars.Model
 
         protected override bool NeedAutoComplete => false;
 
-        public bool CanMoveTo(Node target) =>
-            Action.CanMoveTo(target);
+        public bool CanMoveTo(Node target) => Action.CanMoveTo(target);
         
         public void MoveTo(Node target)
         {

@@ -9,9 +9,18 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public override CommandType CommandType => CommandType.BlowWithSwing;
+        public override CommandType CommandType { get; set; } = CommandType.BlowWithSwing;
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
+        public BlowWithSwingAction(TUnit executor) : base(executor)
+        {
+            Executor.UnitPowerChanged += OnUnitPowerChanged;
+        }
+
+        ~BlowWithSwingAction()
+        {
+            Executor.UnitPowerChanged -= OnUnitPowerChanged;
+        }
         private void OnUnitPowerChanged(TUnit unit, int before, int after)
         {
             DamageChanged?.Invoke(after);
@@ -40,17 +49,7 @@ namespace LineWars.Model
 
             CompleteAndAutoModify();
         }
-
-        public BlowWithSwingAction(TUnit executor) : base(executor)
-        {
-            Executor.UnitPowerChanged += OnUnitPowerChanged;
-        }
-
-        ~BlowWithSwingAction()
-        {
-            Executor.UnitPowerChanged -= OnUnitPowerChanged;
-        }
-
+        
         public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor)
         {
             visitor.Visit(this);

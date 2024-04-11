@@ -168,7 +168,7 @@ namespace LineWars.Model
         public void Visit(MonoSpawningUnitAction action)
         {
             var fabric = new FakeUnitFabric();
-            Result = new SpawningUnitAction<NodeProjection, EdgeProjection, UnitProjection>(Unit, fabric, CommandType.None);
+            Result = new SpawningUnitAction<NodeProjection, EdgeProjection, UnitProjection>(Unit, fabric);
             Result.ActionModifier = action.Action.ActionModifier;
         }
 

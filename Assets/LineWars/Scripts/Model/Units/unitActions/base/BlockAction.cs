@@ -20,7 +20,7 @@ namespace LineWars.Model
         
         public bool IsBlocked => isBlocked || Protection;
         
-        public override CommandType CommandType => CommandType.Block;
+        public override CommandType CommandType { get; set; } = CommandType.Block;
 
         public BlockAction(
             TUnit executor,

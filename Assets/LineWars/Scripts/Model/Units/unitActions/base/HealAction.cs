@@ -15,7 +15,7 @@ namespace LineWars.Model
         public int HealingAmount { get; set; }
         public bool HealLocked { get; set; }
         
-        public override CommandType CommandType => CommandType.Heal;
+        public override CommandType CommandType { get; set; } = CommandType.Heal;
 
         public HealAction(TUnit executor, bool isMassHeal, int healingAmount) : base(executor)
         {

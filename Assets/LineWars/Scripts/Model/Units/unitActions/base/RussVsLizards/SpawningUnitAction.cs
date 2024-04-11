@@ -7,15 +7,12 @@
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        private CommandType commandType;
         public IUnitFabric<TNode, TEdge, TUnit> UnitFabric { get; private set; }
-        public override CommandType CommandType => commandType;
+        public override CommandType CommandType { get; set; }
 
-        public SpawningUnitAction(TUnit executor, 
-            IUnitFabric<TNode, TEdge, TUnit> unitFabric, 
-            CommandType commandType) : base(executor)
+        public SpawningUnitAction(TUnit executor, IUnitFabric<TNode, TEdge, TUnit> unitFabric) 
+            : base(executor)
         {
-            this.commandType = commandType;
             this.UnitFabric = unitFabric;
         }
 

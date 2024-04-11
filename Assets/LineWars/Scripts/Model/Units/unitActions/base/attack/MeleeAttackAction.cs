@@ -13,12 +13,21 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public UnitBlockerSelector BlockerSelector { get; }
-        public bool Onslaught { get; }
-
-        public event Action<TNode> Moved; 
-
-        public override CommandType CommandType => CommandType.MeleeAttack;
+        public UnitBlockerSelector BlockerSelector { get; set; }
+        public bool Onslaught { get; set; }
+        public override CommandType CommandType { get; set; } = CommandType.MeleeAttack;
+        public MeleeAttackAction(
+            TUnit executor,
+            bool isPenetrating,
+            bool onslaught,
+            [NotNull] UnitBlockerSelector blockerSelector) : base(executor, isPenetrating)
+        {
+            if (blockerSelector == null) throw new ArgumentException();
+            Onslaught = onslaught;
+            if (blockerSelector == null)
+                throw new ArgumentException($"blocker selector is null");
+            BlockerSelector = blockerSelector;
+        }
 
         public override bool CanAttackFrom([NotNull] TNode node, [NotNull] TUnit enemy,
             bool ignoreActionPointsCondition = false)
@@ -67,7 +76,6 @@ namespace LineWars.Model
                )
             {
                 UnitUtilities<TNode, TEdge, TUnit>.MoveTo(Executor, enemyNode);
-                Moved?.Invoke(enemyNode);
             }
         }
 
@@ -80,22 +88,15 @@ namespace LineWars.Model
             CompleteAndAutoModify();
         }
 
-        public MeleeAttackAction(
-            TUnit executor,
-            bool isPenetrating,
-            bool onslaught,
-            [NotNull] UnitBlockerSelector blockerSelector) : base(executor, isPenetrating)
+
+        public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor)
         {
-            if (blockerSelector == null) throw new ArgumentException();
-            Onslaught = onslaught;
-            if (blockerSelector == null)
-                throw new ArgumentException($"blocker selector is null");
-            BlockerSelector = blockerSelector;
+            visitor.Visit(this);
         }
 
-        public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
-
-        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) =>
-            visitor.Visit(this);
+        public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 }

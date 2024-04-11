@@ -12,13 +12,10 @@ namespace LineWars.Model
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
 
     {
-        public override CommandType CommandType => CommandType.Ram;
+        public override CommandType CommandType { get; set; } = CommandType.Ram;
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
-        private void OnUnitPowerChanged(TUnit unit, int before, int after)
-        {
-            DamageChanged?.Invoke(after);
-        }
+        
         public RamAction(TUnit executor) : base(executor)
         {
             Executor.UnitPowerChanged += OnUnitPowerChanged;
@@ -27,6 +24,11 @@ namespace LineWars.Model
         ~RamAction()
         {
             Executor.UnitPowerChanged -= OnUnitPowerChanged;
+        }
+        
+        private void OnUnitPowerChanged(TUnit unit, int before, int after)
+        {
+            DamageChanged?.Invoke(after);
         }
 
         public bool CanRam(TNode node)
