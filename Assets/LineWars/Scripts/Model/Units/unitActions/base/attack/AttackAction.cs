@@ -10,8 +10,9 @@ namespace LineWars.Model
         where TEdge : class, IEdgeForGame<TNode, TEdge, TUnit>
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
     {
-        public bool AttackLocked { get; protected set; }
-        public bool IsPenetratingDamage { get; protected set; }
+        public bool AttackLocked { get;  set; }
+        public bool IsPenetratingDamage { get; set; }
+        
         public int Damage => Executor.CurrentPower;
         public event Action<int> DamageChanged;
 

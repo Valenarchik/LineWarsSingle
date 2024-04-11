@@ -1,12 +1,12 @@
 {
-    "idSave": 153,
+    "idSave": 158,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
         "Diamonds": 99731,
         "Gold": 98946,
-        "UpgradeCards": 43,
+        "UpgradeCards": 25,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
         "LockAd": false,
@@ -118,6 +118,10 @@
                 },
                 {
                     "Key": 22,
+                    "Value": 2
+                },
+                {
+                    "Key": 23,
                     "Value": 2
                 }
             ]
@@ -341,7 +345,8 @@
             6,
             10,
             16,
-            22
+            22,
+            23
         ],
         "SelectedBlessings": [
             {
@@ -380,6 +385,9 @@
                 },
                 {
                     "CardId": 22
+                },
+                {
+                    "CardId": 23
                 }
             ]
         }

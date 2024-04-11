@@ -184,6 +184,12 @@ namespace LineWars.Model
             Result = new VenomousSpitAction<TNode, TEdge, TUnit>(Unit, action.VenomRounds);
             Result.ActionModifier = action.ActionModifier; 
         }
+
+        public void Visit(LichKingMeleeAttack<TNode, TEdge, TUnit> action)
+        {
+            Result = new LichKingMeleeAttack<TNode, TEdge, TUnit>(
+                Unit, action.IsPenetratingDamage, action.Onslaught, action.BlockerSelector);
+        }
     }
 
     public static class CopyActionVisitor

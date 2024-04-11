@@ -395,7 +395,10 @@ namespace LineWars.Model
             }
         }
 
-        //private void VisitUnitBasedAction(UnitAction<TNode, TEdge, TUnit> action, )
+        public void Visit(LichKingMeleeAttack<TNode, TEdge, TUnit> action)
+        {
+            // TODO
+        }
     }
 
     public static class ConvertUnitActionToBlueprints

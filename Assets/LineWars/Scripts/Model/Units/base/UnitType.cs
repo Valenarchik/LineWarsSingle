@@ -38,6 +38,7 @@ namespace LineWars.Model
         VenomLizard,
         Michailo,
         Prashchnik,
-        Svatogor
+        Svatogor,
+        LichKing
     }
 }

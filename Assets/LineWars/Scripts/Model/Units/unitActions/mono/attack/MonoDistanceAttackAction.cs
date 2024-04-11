@@ -9,9 +9,11 @@ namespace LineWars.Model
         MonoAttackAction<DistanceAttackAction<Node, Edge, Unit>>,
         IDistanceAttackAction<Node, Edge, Unit>
     {
-        [field: SerializeField, Min(0)] public int InitialDistance { get; private set; }
-        public uint Distance => Action.Distance;
         [SerializeField] private DistanceAttackAnimation distanceAttackAnimation;
+        [SerializeField] private bool useInfinityDistance;
+        [SerializeField, ConditionallyVisible(nameof(useInfinityDistance), true)] private int initialDistance = 1;
+        public uint Distance => Action.Distance;
+        public bool InfinityDistance => Action.InfinityDistance;
         protected override bool NeedAutoComplete => false;
         
         protected override DistanceAttackAction<Node, Edge, Unit> GetAction()
@@ -19,7 +21,7 @@ namespace LineWars.Model
             return new DistanceAttackAction<Node, Edge, Unit>(
                 Executor,
                 InitialIsPenetratingDamage,
-                (uint)InitialDistance,
+                (uint)initialDistance,
                 MonoGraph.Instance);
         }
 

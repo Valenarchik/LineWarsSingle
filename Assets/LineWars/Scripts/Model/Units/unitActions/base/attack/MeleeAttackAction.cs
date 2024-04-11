@@ -22,10 +22,9 @@ namespace LineWars.Model
             bool onslaught,
             [NotNull] UnitBlockerSelector blockerSelector) : base(executor, isPenetrating)
         {
-            if (blockerSelector == null) throw new ArgumentException();
             Onslaught = onslaught;
             if (blockerSelector == null)
-                throw new ArgumentException($"blocker selector is null");
+                throw new ArgumentNullException($"blocker selector is null");
             BlockerSelector = blockerSelector;
         }
 

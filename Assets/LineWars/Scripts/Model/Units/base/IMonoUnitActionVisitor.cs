@@ -30,5 +30,6 @@ namespace LineWars.Model
         public void Visit(MonoJumpAction action);
         public void Visit(MonoHealSacrificeAction action);
         public void Visit(MonoVenomousSpitAction action);
+        public void Visit(MonoLichKingAttackAction action);
     }
 }

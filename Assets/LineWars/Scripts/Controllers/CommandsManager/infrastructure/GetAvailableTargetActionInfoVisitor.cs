@@ -189,6 +189,11 @@ namespace LineWars.Controllers
             return ForUnit(action, 1);
         }
 
+        public IEnumerable<TargetActionInfo> Visit(ILichKingMeleeAttack<Node, Edge, Unit> action)
+        {
+            return ForUnit(action, 1);
+        }
+
         public class ForShotUnitAction
         {
             private readonly ITarget[] targets;

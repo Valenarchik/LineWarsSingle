@@ -15,8 +15,18 @@ namespace LineWars.Model
         [field: SerializeField] public bool InitialOnslaught { get; private set; }
 
         [SerializeField] private ActionUnitAnimation attackAnimation;
-        public bool Onslaught => Action.Onslaught;
-        public UnitBlockerSelector BlockerSelector => Action.BlockerSelector;
+        public bool Onslaught
+        {
+            get => Action.Onslaught;
+            set => Action.Onslaught = value;
+        }
+
+        public UnitBlockerSelector BlockerSelector
+        {
+            get => Action.BlockerSelector;
+            set => Action.BlockerSelector = value;
+        }
+
         protected override bool NeedAutoComplete => false;
         
         public override void Attack(ITargetedAlive enemy)

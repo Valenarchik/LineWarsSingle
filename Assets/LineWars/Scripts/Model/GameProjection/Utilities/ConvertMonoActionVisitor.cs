@@ -1,4 +1,3 @@
-
 namespace LineWars.Model
 {
     public class ConvertMonoActionVisitor : IMonoUnitActionVisitor
@@ -7,7 +6,8 @@ namespace LineWars.Model
         public IGraphForGame<NodeProjection, EdgeProjection, UnitProjection> Graph { get; private set; }
         public UnitAction<NodeProjection, EdgeProjection, UnitProjection> Result { get; private set; }
 
-        public ConvertMonoActionVisitor(UnitProjection unit, IGraphForGame<NodeProjection, EdgeProjection, UnitProjection> graph)
+        public ConvertMonoActionVisitor(UnitProjection unit,
+            IGraphForGame<NodeProjection, EdgeProjection, UnitProjection> graph)
         {
             Unit = unit;
             Graph = graph;
@@ -42,8 +42,12 @@ namespace LineWars.Model
 
         public void Visit(MonoDistanceAttackAction action)
         {
-            Result = new DistanceAttackAction<NodeProjection, EdgeProjection, UnitProjection>
-                (Unit, action.IsPenetratingDamage, action.Distance, Graph);
+            var newUnitAction = new DistanceAttackAction<NodeProjection, EdgeProjection, UnitProjection>(
+                Unit, action.IsPenetratingDamage, action.Distance, Graph)
+            {
+                InfinityDistance = action.InfinityDistance
+            };
+            Result = newUnitAction;
             Result.ActionModifier = action.Action.ActionModifier;
         }
 
@@ -104,7 +108,7 @@ namespace LineWars.Model
             Result.ActionModifier = action.Action.ActionModifier;
         }
 
-        public static ConvertMonoActionVisitor Create(UnitProjection unit, 
+        public static ConvertMonoActionVisitor Create(UnitProjection unit,
             IGraphForGame<NodeProjection, EdgeProjection, UnitProjection> graph)
 
         {
@@ -119,7 +123,8 @@ namespace LineWars.Model
 
         public void Visit(MonoHealingAttackAction action)
         {
-            Result = new HealingAttackAction<NodeProjection, EdgeProjection, UnitProjection>(Unit, action.Mode, action.ConstHeal);
+            Result = new HealingAttackAction<NodeProjection, EdgeProjection, UnitProjection>(Unit, action.Mode,
+                action.ConstHeal);
             Result.ActionModifier = action.Action.ActionModifier;
         }
 
@@ -198,5 +203,12 @@ namespace LineWars.Model
                 (Unit, action.Rounds);
             Result.ActionModifier = action.Action.ActionModifier;
         }
-    }    
+
+        public void Visit(MonoLichKingAttackAction action)
+        {
+            Result = new LichKingMeleeAttack<NodeProjection, EdgeProjection, UnitProjection>(
+                Unit, action.IsPenetratingDamage, action.Onslaught, action.BlockerSelector);
+            Result.ActionModifier = action.Action.ActionModifier;
+        }
+    }
 }

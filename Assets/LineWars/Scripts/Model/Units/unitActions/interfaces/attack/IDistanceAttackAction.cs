@@ -10,5 +10,6 @@
         #endregion 
     {
         public uint Distance { get; }
+        public bool InfinityDistance { get; }
     }
 }

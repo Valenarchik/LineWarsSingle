@@ -13,6 +13,7 @@ namespace LineWars.Model
     {
         protected readonly IGraphForGame<TNode, TEdge, TUnit> Graph;
         public uint Distance { get; set; }
+        public bool InfinityDistance { get; set; }
         public override CommandType CommandType { get; set; } = CommandType.Fire;
 
         public DistanceAttackAction(
@@ -24,6 +25,15 @@ namespace LineWars.Model
             Distance = distance;
             Graph = graph;
         }
+        
+        public DistanceAttackAction(
+            TUnit executor,
+            bool isPenetratingDamage,
+            IGraphForGame<TNode, TEdge, TUnit> graph) : base(executor, isPenetratingDamage)
+        {
+            InfinityDistance = true;
+            Graph = graph;
+        }
 
         
         public override bool CanAttackFrom(TNode node, TUnit enemy, bool ignoreActionPointsCondition = false)
@@ -31,7 +41,7 @@ namespace LineWars.Model
             return !AttackLocked
                    && Executor.CurrentPower > 0
                    && enemy.OwnerId != Executor.OwnerId
-                   && Graph.FindShortestPath(node, enemy.Node).Count - 1 <= Distance
+                   && InfinityDistance || Graph.FindShortestPath(node, enemy.Node).Count - 1 <= Distance
                    && (ignoreActionPointsCondition || ActionPointsCondition());
         }
 
@@ -40,8 +50,6 @@ namespace LineWars.Model
             enemy.DealDamageThroughArmor(Executor.CurrentPower);
             CompleteAndAutoModify();
         }
-        
-
         
         public override void Accept(IBaseUnitActionVisitor<TNode, TEdge, TUnit> visitor) => visitor.Visit(this);
         public override TResult Accept<TResult>(IUnitActionVisitor<TResult, TNode, TEdge, TUnit> visitor) => visitor.Visit(this);

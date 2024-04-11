@@ -10,6 +10,7 @@ namespace LineWars.Model
         [field: SerializeField, Min(0)] public int InitialDistance { get; private set; }
         [SerializeField] private SimpleEffect explosionPrefab;
         public uint Distance => Action.Distance;
+        public bool InfinityDistance => Action.InfinityDistance;
 
         public override void Attack(ITargetedAlive enemy)
         {
