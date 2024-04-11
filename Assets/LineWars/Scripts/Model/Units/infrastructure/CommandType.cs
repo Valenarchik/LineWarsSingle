@@ -29,7 +29,9 @@
         UpActionPoints,
         Jump,
         HealSacrifice,
-        VenomousSpit
+        VenomousSpit,
+        PrashchnikShoot,
+        SvatogorShoot
     }
 
     public static class CommandTypeExtensions

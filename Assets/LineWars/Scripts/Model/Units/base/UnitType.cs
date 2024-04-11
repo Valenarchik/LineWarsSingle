@@ -37,11 +37,7 @@ namespace LineWars.Model
         Hedgehog,
         VenomLizard,
         Michailo,
-        SuperHedgehog,
-        SuperVenomLizard,
-        SuperBig,
-        SuperLizLuchnik,
-        SuperLizMechnik,
-        SuperRider
+        Prashchnik,
+        Svatogor
     }
 }

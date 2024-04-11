@@ -4,6 +4,7 @@
     {
         Simple,
         Medium,
-        Hard
+        Hard,
+        Insane
     }
 }

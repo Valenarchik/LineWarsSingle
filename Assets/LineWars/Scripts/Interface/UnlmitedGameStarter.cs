@@ -17,11 +17,13 @@ namespace LineWars
         [SerializeField] [TextArea] private string simpleDescription;
         [SerializeField] [TextArea] private string mediumDescription;
         [SerializeField] [TextArea] private string hardDescription;
+        [SerializeField] [TextArea] private string insaneDescription;
 
 
         [SerializeField] private Color easyColor;
         [SerializeField] private Color middleColor;
         [SerializeField] private Color hardColor;
+        [SerializeField] private Color insaneColor;
 
 
         private Dictionary<InfinityGameMode, (string, Color)> tuplesDict;
@@ -37,8 +39,9 @@ namespace LineWars
             tuplesDict = new Dictionary<InfinityGameMode, (string, Color)>
             {
                 { InfinityGameMode.Simple, (simpleDescription, easyColor) },
+                { InfinityGameMode.Medium, (mediumDescription, middleColor) },
                 { InfinityGameMode.Hard, (hardDescription, hardColor) },
-                { InfinityGameMode.Medium, (mediumDescription, middleColor) }
+                { InfinityGameMode.Insane, (insaneDescription, insaneColor) },
             };
         }
 
@@ -52,6 +55,7 @@ namespace LineWars
         public void ChooseMedium() => ChooseMode(InfinityGameMode.Medium);
 
         public void ChooseHard() => ChooseMode(InfinityGameMode.Hard);
+        public void ChooseInsane() => ChooseMode(InfinityGameMode.Insane);
 
         private void ChooseMode(InfinityGameMode gameMode)
         {

@@ -52,7 +52,6 @@ namespace LineWars
             
             playersScore[basePlayer] = score;
             ScoreChanged?.Invoke(basePlayer, score, scoreForWin);
-            Debug.Log(score);
 
             if (GetScoreForPlayer(basePlayer) >= scoreForWin)
             {

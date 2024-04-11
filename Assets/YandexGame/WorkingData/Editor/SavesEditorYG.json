@@ -1,13 +1,13 @@
 {
-    "idSave": 85,
+    "idSave": 153,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
-        "Diamonds": 137,
-        "Gold": 175,
-        "UpgradeCards": 2,
-        "PassingGameModes": 0,
+        "Diamonds": 99731,
+        "Gold": 98946,
+        "UpgradeCards": 43,
+        "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
         "LockAd": false,
         "LootBoxes": {
@@ -115,6 +115,10 @@
                 {
                     "Key": 21,
                     "Value": 0
+                },
+                {
+                    "Key": 22,
+                    "Value": 2
                 }
             ]
         },
@@ -125,35 +129,35 @@
                         "blessingType": 2,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 13
                 },
                 {
                     "Key": {
                         "blessingType": 0,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 16
                 },
                 {
                     "Key": {
                         "blessingType": 3,
                         "rarity": 1
                     },
-                    "Value": 3
+                    "Value": 10
                 },
                 {
                     "Key": {
                         "blessingType": 1,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 8
                 },
                 {
                     "Key": {
                         "blessingType": 6,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 5
                 },
                 {
                     "Key": {
@@ -167,14 +171,91 @@
                         "blessingType": 4,
                         "rarity": 0
                     },
-                    "Value": 2
+                    "Value": 3
                 },
                 {
                     "Key": {
                         "blessingType": 8,
                         "rarity": 0
                     },
+                    "Value": 11
+                },
+                {
+                    "Key": {
+                        "blessingType": 9,
+                        "rarity": 1
+                    },
+                    "Value": 13
+                },
+                {
+                    "Key": {
+                        "blessingType": 7,
+                        "rarity": 1
+                    },
+                    "Value": 13
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 1
+                    },
+                    "Value": 7
+                },
+                {
+                    "Key": {
+                        "blessingType": 7,
+                        "rarity": 3
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 3
+                    },
                     "Value": 4
+                },
+                {
+                    "Key": {
+                        "blessingType": 6,
+                        "rarity": 1
+                    },
+                    "Value": 14
+                },
+                {
+                    "Key": {
+                        "blessingType": 8,
+                        "rarity": 1
+                    },
+                    "Value": 10
+                },
+                {
+                    "Key": {
+                        "blessingType": 4,
+                        "rarity": 1
+                    },
+                    "Value": 7
+                },
+                {
+                    "Key": {
+                        "blessingType": 2,
+                        "rarity": 1
+                    },
+                    "Value": 9
+                },
+                {
+                    "Key": {
+                        "blessingType": 1,
+                        "rarity": 1
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 0
+                    },
+                    "Value": 5
                 }
             ]
         },
@@ -243,7 +324,24 @@
             0,
             5,
             18,
-            8
+            8,
+            9,
+            17,
+            13,
+            2,
+            7,
+            3,
+            20,
+            19,
+            14,
+            11,
+            15,
+            21,
+            4,
+            6,
+            10,
+            16,
+            22
         ],
         "SelectedBlessings": [
             {
@@ -279,6 +377,9 @@
                 },
                 {
                     "CardId": 5
+                },
+                {
+                    "CardId": 22
                 }
             ]
         }
