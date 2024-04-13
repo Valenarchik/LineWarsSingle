@@ -1,12 +1,12 @@
 {
-    "idSave": 85,
+    "idSave": 114,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
-        "Diamonds": 137,
-        "Gold": 175,
-        "UpgradeCards": 2,
+        "Diamonds": 19,
+        "Gold": 213,
+        "UpgradeCards": 14,
         "PassingGameModes": 0,
         "DefaultBlessingsIsAdded": true,
         "LockAd": false,
@@ -125,7 +125,7 @@
                         "blessingType": 2,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 7
                 },
                 {
                     "Key": {
@@ -153,14 +153,14 @@
                         "blessingType": 6,
                         "rarity": 0
                     },
-                    "Value": 3
+                    "Value": 7
                 },
                 {
                     "Key": {
                         "blessingType": 7,
                         "rarity": 0
                     },
-                    "Value": 5
+                    "Value": 10
                 },
                 {
                     "Key": {
@@ -173,6 +173,69 @@
                     "Key": {
                         "blessingType": 8,
                         "rarity": 0
+                    },
+                    "Value": 4
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 1
+                    },
+                    "Value": 1
+                },
+                {
+                    "Key": {
+                        "blessingType": 2,
+                        "rarity": 1
+                    },
+                    "Value": 4
+                },
+                {
+                    "Key": {
+                        "blessingType": 8,
+                        "rarity": 3
+                    },
+                    "Value": 8
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 3
+                    },
+                    "Value": 4
+                },
+                {
+                    "Key": {
+                        "blessingType": 4,
+                        "rarity": 3
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 2,
+                        "rarity": 3
+                    },
+                    "Value": 3
+                },
+                {
+                    "Key": {
+                        "blessingType": 5,
+                        "rarity": 0
+                    },
+                    "Value": 2
+                },
+                {
+                    "Key": {
+                        "blessingType": 0,
+                        "rarity": 1
+                    },
+                    "Value": 5
+                },
+                {
+                    "Key": {
+                        "blessingType": 8,
+                        "rarity": 1
                     },
                     "Value": 4
                 }
@@ -243,7 +306,15 @@
             0,
             5,
             18,
-            8
+            8,
+            10,
+            20,
+            14,
+            2,
+            15,
+            12,
+            21,
+            17
         ],
         "SelectedBlessings": [
             {
@@ -279,6 +350,15 @@
                 },
                 {
                     "CardId": 5
+                },
+                {
+                    "CardId": 17
+                },
+                {
+                    "CardId": 10
+                },
+                {
+                    "CardId": 14
                 }
             ]
         }
@@ -302,6 +382,18 @@
         },
         {
             "MissionId": 13,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 2,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 3,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 4,
             "MissionStatus": 1
         }
     ]

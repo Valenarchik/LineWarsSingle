@@ -207,6 +207,43 @@ namespace LineWars.Model
                 InvokeEnded();
             }
 
+
+            protected void PlayCommand(ICommandBlueprint blueprint, GameProjection projection, Action commandExecuted)
+            {
+                var command = blueprint.GenerateMonoCommand(projection);
+
+                if (command is IActionCommand actionCommand)
+                {
+                    Debug.Log(actionCommand.Action);
+                    var isCompleted = false;
+                    actionCommand.Action.ActionCompleted += OnActionCompleted;
+                    if (actionCommand.Action is IExecutorAction<Unit> unitAction)
+                    {
+                        unitAction.Executor.Died.AddListener(OnUnitActionCompleted);
+                    }
+
+                    UnitsController.ExecuteCommand(command);
+
+                    void OnActionCompleted()
+                    {
+                        if (isCompleted) return;
+                        if (actionCommand.Action is IExecutorAction<Unit> uAction)
+                            uAction.Executor.Died.RemoveListener(OnUnitActionCompleted);
+                        actionCommand.Action.ActionCompleted -= OnActionCompleted;
+                        isCompleted = true;
+                        commandExecuted?.Invoke();
+                    }
+                    void OnUnitActionCompleted(Unit unit)
+                    {
+                        OnActionCompleted();
+                    }
+                }
+                else
+                {
+                    UnitsController.ExecuteCommand(command);
+                    commandExecuted?.Invoke();
+                }
+            }
             
         }
     }

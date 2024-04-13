@@ -17,28 +17,66 @@ namespace LineWars.Model
 
             public override void Start()
             {
-                var gameProjection = GameProjectionCreator.FromMono(
+                ai.StartCoroutine(PlayTurn());
+            }
+
+            private IEnumerator PlayTurn()
+            {
+                var executorId = -1;
+                yield return new WaitForSeconds(ai.firstCommandPause);
+                while (true)
+                {
+                    var gameProjection = GameProjectionCreator.FromMono(
                     SingleGameRoot.Instance.AllPlayers.Values,
                     MonoGraph.Instance,
                     PhaseManager.Instance);
-                var possibleCommands =
-                        CommandBlueprintCollector.CollectAllCommands(
-                        gameProjection,
-                        depthDetailsData.GetDepthDetails(1).AvailableCommands);
-                var allOutcomes = new List<PossibleOutcome>();
-                //Debug.Log("---------------------");
-                foreach (var command in possibleCommands)
-                {
-                    var commandChain = new List<ICommandBlueprint>();
-                    var possibleOutcome = MinMax(gameProjection, command, 1, -1, commandChain, true);
-                    allOutcomes.Add(possibleOutcome);
-                    //Debug.Log($"{possibleOutcome.Score}, {possibleOutcome.Commands.First()}");
-                }
+                    if (executorId != -1)
+                    {
+                        if (!SingleGameRoot.Instance.AllUnits.TryGetValue(executorId, out var unit) ||
+                            !unit.CanDoAnyAction)
+                        {
+                            InvokeEnded();
+                            yield break;
+                        }
+                    }
+                    var possibleCommands =
+                            CommandBlueprintCollector.CollectAllCommands(
+                            gameProjection,
+                            depthDetailsData.GetDepthDetails(1).AvailableCommands);
 
-                var bestOutcome = allOutcomes.MaxItem((i1, i2) => i1.Score.CompareTo(i2.Score));
-                //Debug.Log($"Chosen: {bestOutcome.Score}, {bestOutcome.Commands.First()}");
-                ai.StartCoroutine(PlayOutcome(bestOutcome, gameProjection));
+                    if (executorId != -1)
+                    {
+                        possibleCommands = possibleCommands
+                            .Where(command => command.ExecutorId == executorId)
+                            .ToList();
+                    }
+                    var allOutcomes = new List<PossibleOutcome>();
+
+                    foreach (var command in possibleCommands)
+                    {
+                        var commandChain = new List<ICommandBlueprint>();
+                        var possibleOutcome = MinMax(gameProjection, command, 1, -1, commandChain, true);
+                        allOutcomes.Add(possibleOutcome);
+                    }
+
+                    var bestOutcome = allOutcomes.MaxItem((i1, i2) => i1.Score.CompareTo(i2.Score));
+
+                    var bestCommand = bestOutcome.Commands.First();
+                    executorId = bestCommand.ExecutorId;
+                    var isDone = false;
+                    PlayCommand(bestCommand, gameProjection, OnCommandExecuted);
+                    while (!isDone)
+                    {
+                        yield return new WaitForFixedUpdate();
+                    }
+                    yield return new WaitForSeconds(ai.commandPause);
+                    void OnCommandExecuted()
+                    {
+                        isDone = true;
+                    }
+                }
             }
+                
         }
     }
 }
