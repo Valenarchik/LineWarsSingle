@@ -33,7 +33,7 @@ namespace LineWars.Model
                 stopwatch.Start();
                 var allCommands = await FindAllOutcomes(gameProjection);
                 stopwatch.Stop();
-                UnityEngine.Debug.Log($"{stopwatch.ElapsedMilliseconds} ms");
+                Debug.Log($"{stopwatch.ElapsedMilliseconds} ms");
 
                 var bestBlueprint = allCommands.MaxItem((i1, i2) => i1.Score.CompareTo(i2.Score));
                 ai.StartCoroutine(PlayOutcome(bestBlueprint, gameProjection));
