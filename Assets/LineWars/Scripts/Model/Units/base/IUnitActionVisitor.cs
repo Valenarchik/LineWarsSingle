@@ -10,7 +10,6 @@
         public TResult Visit(IMoveAction<TNode, TEdge, TUnit> action);
         public TResult Visit(IHealAction<TNode, TEdge, TUnit> action);
         public TResult Visit(IDistanceAttackAction<TNode, TEdge, TUnit> action);
-        public TResult Visit(IArtilleryAttackAction<TNode, TEdge, TUnit> action);
         public TResult Visit(IMeleeAttackAction<TNode, TEdge, TUnit> action);
         public TResult Visit(IRLBlockAction<TNode, TEdge, TUnit> action);
         public TResult Visit(ISacrificeForPerunAction<TNode, TEdge, TUnit> action);

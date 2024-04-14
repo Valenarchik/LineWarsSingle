@@ -1,7 +1,5 @@
-﻿using System;
-using JetBrains.Annotations;
-using LineWars.Controllers;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace LineWars.Model
 {
@@ -9,20 +7,34 @@ namespace LineWars.Model
         MonoAttackAction<DistanceAttackAction<Node, Edge, Unit>>,
         IDistanceAttackAction<Node, Edge, Unit>
     {
-        [SerializeField] private DistanceAttackAnimation distanceAttackAnimation;
+        [SerializeField] private UnitAnimation distanceAttackAnimation;
+        [SerializeField] private DistanceAttackType attackType;
         [SerializeField] private bool useInfinityDistance;
         [SerializeField, ConditionallyVisible(nameof(useInfinityDistance), true)] private int initialDistance = 1;
-        public uint Distance => Action.Distance;
-        public bool InfinityDistance => Action.InfinityDistance;
+        [SerializeField] private UnityEvent<Unit> onUnitAttacked;
+        public uint Distance { get => Action.Distance; set => Action.Distance = value; }
+        public DistanceAttackType Type { get => Action.Type; set => Action.Type = value; }
+
         protected override bool NeedAutoComplete => false;
         
         protected override DistanceAttackAction<Node, Edge, Unit> GetAction()
         {
+            if (useInfinityDistance)
+            {
+                return new DistanceAttackAction<Node, Edge, Unit>(
+                    Executor,
+                    MonoGraph.Instance,
+                    InitialIsPenetratingDamage,
+                    uint.MaxValue,
+                    attackType);
+            }
+            
             return new DistanceAttackAction<Node, Edge, Unit>(
                 Executor,
+                MonoGraph.Instance,
                 InitialIsPenetratingDamage,
                 (uint)initialDistance,
-                MonoGraph.Instance);
+                attackType);
         }
 
         public override void Attack(ITargetedAlive enemy)
@@ -56,6 +68,7 @@ namespace LineWars.Model
             base.Attack(enemy);
             if (enemy == null || enemy.CurrentHp <= 0)
             {
+                onUnitAttacked.Invoke((Unit)enemy);
                 Complete();
                 return;
             }
@@ -70,16 +83,21 @@ namespace LineWars.Model
                 if (respond != null)
                     respond.Ended.AddListener(CompleteOnRespondEnd);
                 else
+                {
+                    onUnitAttacked.Invoke((Unit)enemy);
                     Complete();
+                }
             }
             else
             {
+                onUnitAttacked.Invoke((Unit)enemy);
                 Complete();
             }
 
             void CompleteOnRespondEnd(UnitAnimation respond)
             {
                 respond.Ended.RemoveListener(CompleteOnRespondEnd);
+                onUnitAttacked.Invoke((Unit)enemy);
                 Complete();
             }
         }

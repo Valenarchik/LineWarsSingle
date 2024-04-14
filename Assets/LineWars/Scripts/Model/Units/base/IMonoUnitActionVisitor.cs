@@ -7,7 +7,6 @@ namespace LineWars.Model
         public void Visit(MonoMoveAction action);
         public void Visit(MonoHealAction action);
         public void Visit(MonoDistanceAttackAction action);
-        public void Visit(MonoArtilleryAttackAction action);
         public void Visit(MonoMeleeAttackAction action);
         public void Visit(MonoRLBlockAction action);
         public void Visit(MonoSacrificeForPerunAction action);

@@ -9,7 +9,13 @@
         where TUnit : class, IUnit<TNode, TEdge, TUnit>
         #endregion 
     {
-        public uint Distance { get; }
-        public bool InfinityDistance { get; }
+        public DistanceAttackType Type { get; set; } 
+        public uint Distance { get; set; }
+    }
+
+    public enum DistanceAttackType
+    {
+        Single,
+        HalfMultiple
     }
 }

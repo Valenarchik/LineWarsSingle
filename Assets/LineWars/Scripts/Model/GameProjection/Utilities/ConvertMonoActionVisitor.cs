@@ -43,18 +43,8 @@ namespace LineWars.Model
         public void Visit(MonoDistanceAttackAction action)
         {
             var newUnitAction = new DistanceAttackAction<NodeProjection, EdgeProjection, UnitProjection>(
-                Unit, action.IsPenetratingDamage, action.Distance, Graph)
-            {
-                InfinityDistance = action.InfinityDistance
-            };
+                Unit, Graph, action.IsPenetratingDamage, action.Distance, action.Type);
             Result = newUnitAction;
-            Result.ActionModifier = action.Action.ActionModifier;
-        }
-
-        public void Visit(MonoArtilleryAttackAction action)
-        {
-            Result = new ArtilleryAttackAction<NodeProjection, EdgeProjection, UnitProjection>
-                (Unit, action.IsPenetratingDamage, action.Distance, Graph);
             Result.ActionModifier = action.Action.ActionModifier;
         }
 

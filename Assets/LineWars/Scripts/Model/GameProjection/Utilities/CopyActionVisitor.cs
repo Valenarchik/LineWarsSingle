@@ -42,17 +42,11 @@ namespace LineWars.Model
 
         public void Visit(DistanceAttackAction<TNode, TEdge, TUnit> action)
         {
-            Result = new DistanceAttackAction
-                <TNode, TEdge, TUnit>(Unit,action.IsPenetratingDamage, action.Distance, Graph);
+            Result = new DistanceAttackAction<TNode, TEdge, TUnit>(
+                Unit, Graph, action.IsPenetratingDamage, action.Distance, action.Type);
             Result.ActionModifier = action.ActionModifier;
         }
-
-        public void Visit(ArtilleryAttackAction<TNode, TEdge, TUnit> action)
-        {
-            Result = new ArtilleryAttackAction<TNode, TEdge, TUnit>(Unit, action.IsPenetratingDamage, action.Distance, Graph);
-            Result.ActionModifier = action.ActionModifier;
-        }
-
+        
         public void Visit(MeleeAttackAction<TNode, TEdge, TUnit> action)
         {
             Result = new MeleeAttackAction<TNode, TEdge, TUnit>(Unit,action.IsPenetratingDamage, action.Onslaught, action.BlockerSelector);

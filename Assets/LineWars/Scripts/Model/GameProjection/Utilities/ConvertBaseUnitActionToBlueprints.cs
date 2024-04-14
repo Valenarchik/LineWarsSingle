@@ -83,11 +83,6 @@ namespace LineWars.Model
             ProcessAttackAction(action, (uint)action.Executor.MaxActionPoints);
         }
 
-        public void Visit(ArtilleryAttackAction<TNode, TEdge, TUnit> action)
-        {
-            ProcessAttackAction(action, (uint)action.Executor.MaxActionPoints);
-        }
-
         public void Visit(MeleeAttackAction<TNode, TEdge, TUnit> action)
         {
             ProcessAttackAction(action, 2);

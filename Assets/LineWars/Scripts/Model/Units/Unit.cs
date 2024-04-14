@@ -387,5 +387,10 @@ namespace LineWars.Model
                 return 0;
             return maxActionPoints / moveAction.GetActionPointsCost();
         }
+
+        public void DisableFogWarOn(Unit unit)
+        {
+            Player.LocalPlayer.SetAdditionalVisibleNodeForRound(unit.Node, 1);
+        }
     }
 }

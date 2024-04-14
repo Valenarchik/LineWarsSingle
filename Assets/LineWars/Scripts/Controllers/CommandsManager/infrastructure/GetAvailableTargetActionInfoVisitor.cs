@@ -43,11 +43,6 @@ namespace LineWars.Controllers
             return ForUnit(action, action.Distance);
         }
 
-        public IEnumerable<TargetActionInfo> Visit(IArtilleryAttackAction<Node, Edge, Unit> action)
-        {
-            return ForUnit(action, action.Distance);
-        }
-
         public IEnumerable<TargetActionInfo> Visit(IMeleeAttackAction<Node, Edge, Unit> action)
         {
             return ForUnit(action, 1);

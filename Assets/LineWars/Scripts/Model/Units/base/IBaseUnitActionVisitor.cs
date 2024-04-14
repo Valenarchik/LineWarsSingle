@@ -10,7 +10,6 @@ namespace LineWars.Model
         public void Visit(MoveAction<TNode, TEdge, TUnit> action);
         public void Visit(HealAction<TNode, TEdge, TUnit> action);
         public void Visit(DistanceAttackAction<TNode, TEdge, TUnit> action);
-        public void Visit(ArtilleryAttackAction<TNode, TEdge, TUnit> action);
         public void Visit(MeleeAttackAction<TNode, TEdge, TUnit> action);
         public void Visit(RLBlockAction<TNode, TEdge, TUnit> action);
         public void Visit(SacrificeForPerunAction<TNode, TEdge, TUnit> action);
