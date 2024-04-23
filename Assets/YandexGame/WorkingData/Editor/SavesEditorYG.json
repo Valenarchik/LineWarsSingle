@@ -1,11 +1,11 @@
 {
-    "idSave": 177,
+    "idSave": 196,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
-        "Diamonds": 99731,
-        "Gold": 98971,
+        "Diamonds": 99733,
+        "Gold": 99021,
         "UpgradeCards": 25,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
@@ -320,6 +320,10 @@
                 {
                     "Key": "firstPurchase",
                     "Value": true
+                },
+                {
+                    "Key": "MainMenuSettingsButton",
+                    "Value": true
                 }
             ]
         },
@@ -411,6 +415,10 @@
         },
         {
             "MissionId": 13,
+            "MissionStatus": 0
+        },
+        {
+            "MissionId": 2,
             "MissionStatus": 1
         }
     ]

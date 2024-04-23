@@ -438,6 +438,7 @@ namespace LineWars.Interface
         {
             [SerializeField] private GameObject panelObject;
             [SerializeField] private TMP_InputField inputField;
+            [SerializeField] private InputField obsolete_inputField;
             [SerializeField] private int characterLimit = 9;
             [SerializeField] private GameObject onErrorPanel;
 
@@ -445,9 +446,18 @@ namespace LineWars.Interface
             
             public void Initialize()
             {
-                inputField.text = "";
-                inputField.characterLimit = characterLimit;
-                inputField.onValueChanged.AddListener(OnValueChanged);
+                if (inputField)
+                {
+                    inputField.text = "";
+                    inputField.characterLimit = characterLimit;
+                    inputField.onValueChanged.AddListener(OnValueChanged);
+                }
+                else if (obsolete_inputField)
+                {
+                    obsolete_inputField.text = "";
+                    obsolete_inputField.characterLimit = characterLimit;
+                    obsolete_inputField.onValueChanged.AddListener(OnValueChanged);
+                }
             }
 
             private void OnValueChanged(string value)
@@ -464,7 +474,12 @@ namespace LineWars.Interface
                     onErrorPanel.gameObject.SetActive(true);
                 else
                 {
-                    inputField.text = "";
+                    if (inputField)
+                        inputField.text = "";
+                    else if (obsolete_inputField)
+                    {
+                        obsolete_inputField.text = "";
+                    }
                 }
             }
 

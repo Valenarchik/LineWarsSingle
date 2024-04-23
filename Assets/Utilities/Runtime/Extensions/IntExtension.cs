@@ -40,49 +40,32 @@ public static class IntExtension
 
     public static string ToText(this int value)
     {
-        switch (value)
+        return value switch
         {
-            case 0:
-                return "Ноль";
-            case 1:
-                return "Один";
-            case 2:
-                return "Два";
-            case 3:
-                return "Три";
-            case 4:
-                return "Четыре";
-            case 5:
-                return "Пять";
-            case 6:
-                return "Шесть";
-            case 7:
-                return "Семь";
-            case 8:
-                return "Восемь";
-            case 9:
-                return "Девять";
-            case 10:
-                return "Десять";
-            case 11:
-                return "Одиннадцать";
-            case 12:
-                return "Двенадцать";
-            case 13:
-                return "Тринадцать";
-            case 14:
-                return "Четырнадцать";
-            case 15:
-                return "Пятнадцать";
-            case 16:
-                return "Шестнадцать";
-            case 17:
-                return "Семнадцать";
-            case 18:
-                return "Восемнадцать";
-            default:
-                return value.ToString() + "Incorrect";
-        }
+            0 => "Ноль",
+            1 => "Один",
+            2 => "Два",
+            3 => "Три",
+            4 => "Четыре",
+            5 => "Пять",
+            6 => "Шесть",
+            7 => "Семь",
+            8 => "Восемь",
+            9 => "Девять",
+            10 => "Десять",
+            11 => "Одиннадцать",
+            12 => "Двенадцать",
+            13 => "Тринадцать",
+            14 => "Четырнадцать",
+            15 => "Пятнадцать",
+            16 => "Шестнадцать",
+            17 => "Семнадцать",
+            18 => "Восемнадцать",
+            19 => "Девятнадцать",
+            20 => "Двадцать",
+            21 => "Двадцать один",
+            _ => value.ToString() + "Incorrect"
+        };
     }
     /// <summary>
     /// Возвращает слова в падеже, зависимом от заданного числа

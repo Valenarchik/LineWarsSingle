@@ -25,6 +25,7 @@ namespace LineWars.Controllers
         private PluginMusicLogic logic;
         private float initialVolume;
         public PluginMusicData CurrentMusicData { get; private set; }
+        public SourceAudio Source => source;
         public UnityEvent<PluginMusicData, PluginMusicData> MusicChanged;
         public UnityEvent<PluginMusicManager, PluginMusicData> MusicFinished;
 

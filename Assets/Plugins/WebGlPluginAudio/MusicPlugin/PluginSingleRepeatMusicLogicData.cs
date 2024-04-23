@@ -21,7 +21,6 @@ namespace LineWars.Controllers
     {
         private readonly PluginSingleRepeatMusicLogicData data;
         private Coroutine musicCoroutine;
-        private bool isPlaying;
 
         public PluginSingleRepeatMusicLogic(PluginMusicManager manager, PluginSingleRepeatMusicLogicData data) : base(manager)
         {
@@ -30,30 +29,24 @@ namespace LineWars.Controllers
 
         public override void Start()
         {
-            isPlaying = true;
+            manager.Source.Loop = true;
             musicCoroutine = manager.StartCoroutine(MusicCoroutine());
         }
 
         public override void Exit()
-        {
-            isPlaying = false;
-            if(musicCoroutine != null)
+        { 
+            if (musicCoroutine != null)
                 manager.StopCoroutine(musicCoroutine);
+            musicCoroutine = null;
+
+            manager.Source.Loop = false;
             manager.Stop();
         }
 
         private IEnumerator MusicCoroutine()
         {
             yield return new WaitForSeconds(data.PauseTime);
-            manager.MusicFinished.AddListener(OnMusicEnd);
             manager.Play(data.MusicData);
-
-            void OnMusicEnd(PluginMusicManager _, PluginMusicData _1)
-            {
-                if (!isPlaying) return;
-                manager.MusicFinished.RemoveListener(OnMusicEnd);
-                musicCoroutine = manager.StartCoroutine(MusicCoroutine());
-            }
         }
     }
 }

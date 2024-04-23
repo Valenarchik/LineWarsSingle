@@ -19,14 +19,14 @@ public class LevelInfoPanel : MonoBehaviour
                 typeName.text = "Режим захват точек";
                 typeDescription.text =
                     "Для победы нужно удерживать ключевые точки, они обведены желтым. За контроль каждой точки вы будете получать одно победное очко" +
-                    $"\n \nЧтобы победить наберите {captureThePointsGameReferee.ScoreForWin.ToText().ToLower()}" +
+                    $"\n \nЧтобы победить наберите {captureThePointsGameReferee.ScoreForWin}" +
                     $" победных {captureThePointsGameReferee.ScoreForWin.Pluralize("очко","очка","очков")}";
                 break;
             case NewDominationGameReferee newDominationGameReferee:
                 typeName.text = "Режим доминация";
                 typeDescription.text = 
                     $"Для победы нужно захватить больше точек чем ящеры и удерживать их. Игра длится " +
-                    $"{newDominationGameReferee.RoundsForWin.ToText().ToLower()} {newDominationGameReferee.RoundsForWin.Pluralize("раунд","раунда","раундов")}" +
+                    $"{newDominationGameReferee.RoundsForWin} {newDominationGameReferee.RoundsForWin.Pluralize("раунд","раунда","раундов")}" +
                     $"\n \nВы победите, если на момент последнего раунда у вас будет больше точек, чем у ящеров";
                 break;
             case KingOfMountainScoreReferee kingOfMountainScoreReferee:
@@ -34,20 +34,20 @@ public class LevelInfoPanel : MonoBehaviour
                 typeDescription.text = 
                     $"На карте есть точка горы, она обведена желтым цветом. За каждый раунд, который вы контроллируете гору вам достается одно очко." +
                     $"\n \nЧтобы победить удерживайте контроль над горой " +
-                    $"{kingOfMountainScoreReferee.ScoreForWin.ToText().ToLower()} {kingOfMountainScoreReferee.ScoreForWin.Pluralize("раунд","раунда","раундов")}";
+                    $"{kingOfMountainScoreReferee.ScoreForWin} {kingOfMountainScoreReferee.ScoreForWin.Pluralize("раунд","раунда","раундов")}";
                 break;
             case MapCaptureScoreReferee mapCaptureScoreReferee:
                 typeName.text = "Режим захват карты";
                 typeDescription.text =
                     $"Чтобы победить нужно захватить " +
-                    $"{mapCaptureScoreReferee.ScoreForWin.ToText().ToLower()} {mapCaptureScoreReferee.ScoreForWin.Pluralize("точка","точки", "точек")}" +
+                    $"{mapCaptureScoreReferee.ScoreForWin} {mapCaptureScoreReferee.ScoreForWin.Pluralize("точка","точки", "точек")}" +
                     $" раньше, чем это сделают ящеры.";
                 break;
             case SiegeGameReferee siegeGameReferee:
                 typeName.text = "Режим осада";
                 typeDescription.text =
                     $"Чтобы победить нужно продержаться " +
-                    $"{siegeGameReferee.RoundsToWin.ToText().ToLower()} {siegeGameReferee.RoundsToWin.Pluralize("раунд", "раунда", "раундов")}" +
+                    $"{siegeGameReferee.RoundsToWin} {siegeGameReferee.RoundsToWin.Pluralize("раунд", "раунда", "раундов")}" +
                     $"\n \nВ этом режиме вы не можете покупать юнитов во время боя, их нужно выбрать заранее.";
                 break;
             case WallToWallGameReferee wallToWallGameReferee:
