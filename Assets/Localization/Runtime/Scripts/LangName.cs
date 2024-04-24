@@ -1,0 +1,33 @@
+﻿namespace Localization
+{
+    public enum LangName
+    {
+        ru,
+        en,
+        tr,
+        az,
+        be,
+        he,
+        hy,
+        ka,
+        et,
+        fr,
+        kk,
+        ky,
+        lt,
+        lv,
+        ro,
+        tg,
+        tk,
+        uk,
+        uz,
+        es,
+        pt,
+        ar,
+        id,
+        ja,
+        it,
+        de,
+        hi
+    }
+}
