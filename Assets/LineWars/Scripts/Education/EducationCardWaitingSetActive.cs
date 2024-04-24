@@ -6,7 +6,7 @@ namespace LineWars.Scripts.Education
 {
     public class EducationCardWaitingSetActive : EducationCardBase
     {
-        [SerializeField] private EnablingCallback gameObject;
+        [SerializeField] private new EnablingCallback gameObject;
         private void OnEnable()
         {
             gameObject.Enabled.AddListener(Enabled);

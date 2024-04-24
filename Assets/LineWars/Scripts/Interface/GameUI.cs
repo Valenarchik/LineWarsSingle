@@ -99,7 +99,7 @@ namespace LineWars.Interface
             foreach (var unit in units)
             {
                 var drawer = unit.GetComponent<UnitDrawer>();
-                if (isAvailable && (!unit.CanDoAnyAction || CommandsManager.Executor == unit))
+                if (isAvailable && (!unit.CanDoAnyAction || (Unit) CommandsManager.Executor == unit))
                 {
                     drawer.ReDrawAvailability(false);
                     continue;
