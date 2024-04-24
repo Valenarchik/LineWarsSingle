@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LineWars.Controllers;
+using Localization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,9 +16,9 @@ namespace LineWars.Model
     {
         [Header("Units Settings")] 
         [SerializeField, ReadOnlyInspector] private int index;
-
-        [SerializeField] private string unitName;
-        [SerializeField][TextArea] private string unitDescription;
+        
+        [SerializeField] private LanguageField<string> langUnitName;
+        [SerializeField][LanguageTextArea]private LanguageField<string> langUnitDescription; 
         
         [SerializeField, Min(0)] private int initialPower;
         [SerializeField, Min(0)] private int maxHp;
@@ -79,7 +80,7 @@ namespace LineWars.Model
         #region Properties
         public int Id => index;
         public bool IsVisible => Node.IsVisible;
-        public string UnitName => unitName;
+        public string UnitName => langUnitName.CurrentValue;
 
         public int InitialPower
         {
@@ -180,7 +181,7 @@ namespace LineWars.Model
             }
         }
 
-        public string UnitDescription => unitDescription;
+        public string UnitDescription => langUnitDescription.CurrentValue;
         public UnitType Type => unitType;
 
         public UnitDirection UnitDirection

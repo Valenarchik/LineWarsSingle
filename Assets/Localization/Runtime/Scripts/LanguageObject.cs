@@ -7,7 +7,7 @@ namespace Localization
     public abstract class LanguageObject<T> : MonoBehaviour
     {
         public LanguageField<T> Value;
-        public T CurrentValue => Value[LocalizationManager.LangName];
+        public T CurrentValue => Value.CurrentValue;
         public T[] Values => Value.Values;
         
 

@@ -19,7 +19,10 @@ namespace Localization
         private void SwitchObjects()
         {
             foreach (var o in Values)
-                o.SetActive(false);
+            {
+                if (o != null)
+                    o.SetActive(false);
+            }
             CurrentValue.SetActive(true);
         }
     }
