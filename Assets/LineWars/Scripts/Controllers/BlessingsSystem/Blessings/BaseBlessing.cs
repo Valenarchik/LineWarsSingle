@@ -12,7 +12,6 @@ namespace LineWars.Model
         [SerializeField] private Optional<string> overrideName;
         [SerializeField] private Optional<string> overrideDescription;
         [SerializeField] private Sprite icon;
-        //[SerializeField] private Optional<Money> cost;
         
         protected Player Player => Player.LocalPlayer;
         public abstract event Action Completed;
@@ -26,6 +25,5 @@ namespace LineWars.Model
         public string Name => overrideName.Enabled ? overrideName.Value : DefaultName;
         public string Description => overrideDescription.Enabled ? overrideDescription.Value : DefaultDescription;
         public Sprite Icon => icon;
-        //public Money Cost => cost.Enabled ? cost.Value : new Money(CostType.Gold, -1);
     }
 }
