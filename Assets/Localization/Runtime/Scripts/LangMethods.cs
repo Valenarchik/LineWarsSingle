@@ -338,5 +338,40 @@ namespace Localization
 
             return name;
         }
+        
+        public static string[] FullNameLanguages()
+        {
+            string[] s = new string[27];
+
+            s[0] = "RUSSIAN";
+            s[1] = "ENGLISH";
+            s[2] = "TURKISH";
+            s[3] = "AZERBAIJANIAN";
+            s[4] = "BELARUSIAN";
+            s[5] = "HEBREW";
+            s[6] = "ARMENIAN";
+            s[7] = "GEORGIAN";
+            s[8] = "ESTONIAN";
+            s[9] = "FRENCH";
+            s[10] = "KAZAKH";
+            s[11] = "KYRGYZ";
+            s[12] = "LITHUANIAN";
+            s[13] = "LATVIAN";
+            s[14] = "ROMANIAN";
+            s[15] = "TAJICK";
+            s[16] = "TURKMEN";
+            s[17] = "UKRAINIAN";
+            s[18] = "UZBEK";
+            s[19] = "SPANISH";
+            s[20] = "PORTUGUESE";
+            s[21] = "ARABIAN";
+            s[22] = "INDONESIAN";
+            s[23] = "JAPANESE";
+            s[24] = "ITALIAN";
+            s[25] = "GERMAN";
+            s[26] = "HINDI";
+
+            return s;
+        }
     }
 }

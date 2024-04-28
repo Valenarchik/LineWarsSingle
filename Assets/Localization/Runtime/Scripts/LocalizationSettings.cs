@@ -30,6 +30,8 @@ namespace Localization
     [Serializable]
     public class Languages
     {
+        public readonly int Count = 27;
+        
         [Tooltip("RUSSIAN")] public bool ru = true;
         [Tooltip("ENGLISH")] public bool en = true;
         [Tooltip("TURKISH")] public bool tr = true;

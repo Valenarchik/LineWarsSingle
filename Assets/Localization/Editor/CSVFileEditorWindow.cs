@@ -14,7 +14,7 @@ namespace Localization
         }
 
         Vector2 scrollPosition = Vector2.zero;
-        List<GameObject> objectsTranlate = new List<GameObject>();
+        List<GameObject> objectsTranlate = new();
 
         private void OnGUI()
         {
@@ -80,7 +80,7 @@ namespace Localization
                     {
                         LanguageText scr = objectsTranlate[i].GetComponent<LanguageText>();
 
-                        if (CSVManager.GetKeyForLangYG(scr) == null || CSVManager.GetKeyForLangYG(scr) == "")
+                        if (CSVManager.GetKeyForObject(scr) == null || CSVManager.GetKeyForObject(scr) == "")
                         {
                             Debug.LogError("(en) The text field is not filled in in the Text/TextMesh component, fill it in. (ru) На данном объекте не указан ID! В компоненте Text/TextMesh не заполнено поле text, заполните его.", scr);
                             continue;
@@ -151,7 +151,7 @@ namespace Localization
                     string[] idArr = new string[langObj.Count];
                     for (int i = 0; i < idArr.Length; i++)
                     {
-                        idArr[i] = CSVManager.GetKeyForLangYG(langObj[i]);
+                        idArr[i] = CSVManager.GetKeyForObject(langObj[i]);
                     }
 
                     if (langObj.Count > 0)

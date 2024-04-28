@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Linq;
 using TMPro;
 
 namespace Localization
@@ -9,30 +10,33 @@ namespace Localization
     {
         public static readonly string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
 
-        // Чтение CSV файла. Поиск переводов по ключу
         public static string[] ImportTransfersByKey(LanguageText lang)
         {
-            TextAsset data = Resources.Load(lang.Settings.CSVFileTranslate.name) as TextAsset;
+            return ImportTransfersByKey(lang.Settings, GetKeyForObject(lang));
+        }
 
-            string[] keys = Regex.Split(CommaFormat(data.text), LINE_SPLIT_RE);
-            string[] result = new string[lang.languages.Length];
+        public static string[] ImportTransfersByKey(LocalizationSettings settings, string key)
+        {
+            key = key.Replace(",", "*");
 
-            bool complete = false;
+            var data = Resources.Load(settings.CSVFileTranslate.name) as TextAsset;
 
-            for (int i = 1; i < keys.Length; i++)
+            var keys = Regex.Split(CommaFormat(data.text), LINE_SPLIT_RE);
+            var result = new string[settings.languages.Count];
+
+            var complete = false;
+
+            for (var i = 1; i < keys.Length; i++)
             {
-                string[] translates = Regex.Split(keys[i], ",");
+                var translates = Regex.Split(keys[i], ",");
+                if (translates[0] != key) continue;
 
-                if (translates[0] == GetKeyForLangYG(lang))
+                for (var i2 = 0; i2 < settings.languages.Count; i2++)
                 {
-                    for (int i2 = 0; i2 < lang.languages.Length; i2++)
-                    {
-                        if (LangMethods.LangArr(lang.Settings)[i2])
-                        {
-                            result[i2] = translates[i2 + 1].Replace("*", ",").Replace(@"\n", "\n");
-                            complete = true;
-                        }
-                    }
+                    if (!LangMethods.LangArr(settings)[i2]) continue;
+
+                    result[i2] = translates[i2 + 1].Replace("*", ",").Replace(@"\n", "\n");
+                    complete = true;
                 }
             }
 
@@ -40,14 +44,11 @@ namespace Localization
                 return result;
             else
             {
-                Debug.Log("(en) Couldn't find a translation for this object! (ru) Не удалось найти перевод для данного объекта!", lang);
+                Debug.Log(
+                    "(en) Couldn't find a translation for this object! (ru) Не удалось найти перевод для данного объекта!");
                 return null;
             }
         }
-
-
-
-        // Запись всего текста
         public static void WriteCSVFile(LocalizationSettings settings, string[,] keys, string[] idArray)
         {
             string textFile = "";
@@ -115,65 +116,44 @@ namespace Localization
 
             WriteCSV(settings, textFile);
         }
-
-
-
-        // Запись одного текста
         public static void SetIDLineFile(LocalizationSettings settings, LanguageText locObj)
         {
-            if (!File.Exists(Patch(settings))) // Eсли файла нет
-            {
-                // Создаём CSV файл и первую строчку
-                using (FileStream file = new FileStream(Patch(settings), FileMode.Create))
-                using (StreamWriter stream = new StreamWriter(file))
-                    stream.Write(CreateFirstLine(settings), Patch(settings));
-            }
+            SetIDLineFile(settings, GetKeyForObject(locObj), locObj.languages);
+        }
+        public static void SetIDLineFile(LocalizationSettings settings, string key, string[] languages)
+        {
+            CreateCSVFileIfNotExist(settings);
 
-            // Сздаём массив новых ключ-значений
-            string[] lines = File.ReadAllLines(Patch(settings));
+            var lines = File.ReadAllLines(Patch(settings));
             lines = CommaFormat(lines);
 
             string replace = null;
 
-            // Запускаем цикл для поиска клона
-            for (int i = 1; i < lines.Length; i++)
+            for (var i = 1; i < lines.Length; i++)
             {
-                // Если в станых строках обнаружится совпадение с именем ID
-                if (lines[i].StartsWith(GetKeyForLangYG(locObj) + ","))
+                if (lines[i].StartsWith(key + ","))
                 {
-                    // То мы вписываем в replace ID
-                    replace = AsteriskFormat(GetKeyForLangYG(locObj));
+                    replace = AsteriskFormat(key);
 
-                    // И вписываем все переводы
                     for (int i2 = 0; i2 < LangMethods.LangArr(settings).Length; i2++)
                     {
-                        replace += "," + RedLineFormat(locObj.languages[i2]).Replace(",", "*");
+                        replace += "," + RedLineFormat(languages[i2]).Replace(",", "*");
                     }
 
-                    // Меняем старый ключ-значение на новый
                     lines[i] = replace;
                     break;
                 }
             }
 
-            string result = "";
+            var result = lines.Aggregate("", (current, t) => current + (t + "\n"));
 
-            // Записываем имеющийся результат в result
-            for (int i = 0; i < lines.Length; i++)
-            {
-                result += lines[i] + "\n";
-            }
-
-            // Если не было дубляжа, то записываем ключ-значение на новой строкче
             if (replace == null)
             {
-                // Вписываем в новой строчке сначала ID нового ключ-зачения
-                result += RedLineFormat(AsteriskFormat(GetKeyForLangYG(locObj)));
+                result += RedLineFormat(AsteriskFormat(key));
 
-                // Потом записываем все переводы
                 for (int i = 0; i < LangMethods.LangArr(settings).Length; i++)
                 {
-                    result += "," + RedLineFormat(locObj.languages[i]).Replace(",", "*");
+                    result += "," + RedLineFormat(languages[i]).Replace(",", "*");
                 }
 
                 result += "\n";
@@ -182,11 +162,18 @@ namespace Localization
             WriteCSV(settings, result);
         }
 
-
-
-        static string Patch(LocalizationSettings settings)
+        private static void CreateCSVFileIfNotExist(LocalizationSettings settings)
         {
-            string patch = Application.dataPath + "/Resources/";
+            if (File.Exists(Patch(settings))) return;
+
+            using var file = new FileStream(Patch(settings), FileMode.Create);
+            using var stream = new StreamWriter(file);
+            stream.Write(CreateFirstLine(settings), Patch(settings));
+        }
+
+        private static string Patch(LocalizationSettings settings)
+        {
+            var patch = Application.dataPath + "/Resources/";
 
             if (!File.Exists(patch))
                 Directory.CreateDirectory(patch);
@@ -196,11 +183,11 @@ namespace Localization
 
         static string CreateFirstLine(LocalizationSettings infoYG)
         {
-            string firstLine = "KEYLANGUAGE";
+            var firstLine = "KEYLANGUAGE";
 
             for (int i = 0; i < LangMethods.LangArr(infoYG).Length; i++)
             {
-                firstLine += "," + FullNameLanguages()[i];
+                firstLine += "," + LangMethods.FullNameLanguages()[i];
             }
 
             firstLine += "\n";
@@ -208,19 +195,19 @@ namespace Localization
             return firstLine;
         }
 
-        static void WriteCSV(LocalizationSettings infoYG, string data)
+        static void WriteCSV(LocalizationSettings settings, string data)
         {
-            if (infoYG.CSVFileTranslate.format == FileFormat.ExcelOffice)
+            if (settings.CSVFileTranslate.format == FileFormat.ExcelOffice)
                 data = SemicolonFormat(data);
 
             data = AsteriskFormat(data);
 
-            using (FileStream file = new FileStream(Patch(infoYG), FileMode.Create))
+            using (FileStream file = new FileStream(Patch(settings), FileMode.Create))
             using (StreamWriter stream = new StreamWriter(file))
-                stream.Write(data, Patch(infoYG));
+                stream.Write(data, Patch(settings));
         }
 
-        public static string GetKeyForLangYG(LanguageText lang)
+        public static string GetKeyForObject(LanguageText lang)
         {
             string key = null;
 
@@ -270,41 +257,6 @@ namespace Localization
         static string RedLineFormat(string line)
         {
             return string.IsNullOrEmpty(line) ? "" : line.Replace("\n", @"\n");
-        }
-
-        public static string[] FullNameLanguages()
-        {
-            string[] s = new string[27];
-
-            s[0] = "RUSSIAN";
-            s[1] = "ENGLISH";
-            s[2] = "TURKISH";
-            s[3] = "AZERBAIJANIAN";
-            s[4] = "BELARUSIAN";
-            s[5] = "HEBREW";
-            s[6] = "ARMENIAN";
-            s[7] = "GEORGIAN";
-            s[8] = "ESTONIAN";
-            s[9] = "FRENCH";
-            s[10] = "KAZAKH";
-            s[11] = "KYRGYZ";
-            s[12] = "LITHUANIAN";
-            s[13] = "LATVIAN";
-            s[14] = "ROMANIAN";
-            s[15] = "TAJICK";
-            s[16] = "TURKMEN";
-            s[17] = "UKRAINIAN";
-            s[18] = "UZBEK";
-            s[19] = "SPANISH";
-            s[20] = "PORTUGUESE";
-            s[21] = "ARABIAN";
-            s[22] = "INDONESIAN";
-            s[23] = "JAPANESE";
-            s[24] = "ITALIAN";
-            s[25] = "GERMAN";
-            s[26] = "HINDI";
-
-            return s;
         }
     }
 }

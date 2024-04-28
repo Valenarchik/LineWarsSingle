@@ -8,7 +8,7 @@ using TMPro;
 namespace Localization
 {
     [CustomEditor(typeof(LanguageText))]
-    public class LanguageEditor : Editor
+    public class LanguageTextEditor : Editor
     {
         LanguageText scr;
 
@@ -308,7 +308,7 @@ namespace Localization
                 {
                     processTranslateLabel++;
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label(new GUIContent(LangMethods.LangName(i), CSVManager.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
+                    GUILayout.Label(new GUIContent(LangMethods.LangName(i), LangMethods.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
                     
                     switch (i)
                     {
