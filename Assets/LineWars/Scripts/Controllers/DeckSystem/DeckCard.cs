@@ -8,10 +8,6 @@ namespace LineWars.Model
     public class DeckCard : ScriptableObject,
         IDeckCard
     {
-        [SerializeField] private Optional<string> overrideCardName;
-        [SerializeField] private Optional<string> overrideDescription;
-        [SerializeField] private Optional<Sprite> overrideCardImage;
-        
         [SerializeField] private Rarity cardRarity;
         [SerializeField] private Unit unit;
         [SerializeField] private int cost;
@@ -30,9 +26,6 @@ namespace LineWars.Model
                 if(_zeroLevelInfo == null)
                 {
                     _zeroLevelInfo = new FullLevelInfo(
-                    overrideCardName.Enabled ? overrideCardName.Value : unit.UnitName,
-                    overrideDescription.Enabled ? overrideDescription.Value : unit.UnitDescription,
-                    overrideCardImage.Enabled ? overrideCardImage.Value : unit.Sprite,
                     unit,
                     cost,
                     costProgression,
@@ -77,10 +70,10 @@ namespace LineWars.Model
             return CostProgression.Calculate(Cost, unitCount);
         }
 
-        public string Name => currentLevelInfo.Name;
-        public string Description => currentLevelInfo.Description;
-        public Sprite Image => currentLevelInfo.Image;
         public Unit Unit => currentLevelInfo.Unit;
+        public string Name => Unit.UnitName;
+        public string Description => Unit.UnitDescription;
+        public Sprite Image => Unit.Sprite;
         public Rarity Rarity => cardRarity;
         public int Cost => currentLevelInfo.Cost;
         public UnitCost CostProgression => currentLevelInfo.CostProgression;

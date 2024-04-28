@@ -19,8 +19,10 @@ namespace LineWars.Model
             Player.CurrentMoney += addedGolds;
             Completed?.Invoke();
         }
-
-        protected override string DefaultName => "Благословление \"Золото\"";
-        protected override string DefaultDescription => $"Осывает вас <color=#F6C800>{addedGolds}</color> ед. золота";
+        
+        protected override object[] GetParams()
+        {
+            return new object[] {addedGolds};
+        }
     }
 }

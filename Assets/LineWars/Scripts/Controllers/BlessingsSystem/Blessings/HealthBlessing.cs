@@ -23,13 +23,9 @@ namespace LineWars.Model
             Completed?.Invoke();
         }
 
-        protected override string DefaultName => "Благословление \"Здоровье\"";
-        protected override string DefaultDescription
+        protected override object[] GetParams()
         {
-            get
-            {
-                return $"Востанавливает всем союзным юнитам <color=green>{addedHealth}</color> ед. здоровья";
-            }
+            return new object[] {addedHealth};
         }
     }
 }

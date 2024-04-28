@@ -43,7 +43,9 @@ namespace LineWars.Model
             Completed?.Invoke();
         }
 
-        protected override string DefaultName => "Благословление случайности";
-        protected override string DefaultDescription => "Случайное благословение случайной редкости";
+        protected override object[] GetParams()
+        {
+            return Array.Empty<object>();
+        }
     }
 }

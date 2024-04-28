@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Utilities.Editor
+namespace Utilities
 {
     [CustomPropertyDrawer(typeof(ConditionallyVisibleAttribute))]
     public class ConditionallyVisiblePropertyDrawer : PropertyDrawer

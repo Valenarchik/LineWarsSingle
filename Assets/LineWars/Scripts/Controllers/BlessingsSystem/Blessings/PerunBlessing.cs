@@ -26,8 +26,10 @@ namespace LineWars.Model
 
             Completed?.Invoke();
         }
-        
-        protected override string DefaultName => "Сила Перуна";
-        protected override string DefaultDescription => $"Наносит всем врагам <color=#E22B12>{damage}</color> ед. урона";
+
+        protected override object[] GetParams()
+        {
+            return new object[] {damage};
+        }
     }
 }

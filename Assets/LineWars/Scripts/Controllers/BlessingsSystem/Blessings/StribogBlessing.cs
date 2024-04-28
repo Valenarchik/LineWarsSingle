@@ -27,7 +27,9 @@ namespace LineWars.Model
             Completed?.Invoke();
         }
 
-        protected override string DefaultName => "Благословление Стриборга";
-        protected override string DefaultDescription => $"Рассеивает туман войны по всей карте на {turnsCount} раундов";
+        protected override object[] GetParams()
+        {
+            return new object[] {turnsCount};
+        }
     }
 }

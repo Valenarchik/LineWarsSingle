@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using Object = System.Object;
 
 namespace LineWars.Model
 {
@@ -22,7 +23,9 @@ namespace LineWars.Model
             Completed?.Invoke();
         }
 
-        protected override string DefaultName => "Ускорение";
-        protected override string DefaultDescription => $"Восстанавливает всем союзнам юнитам <color=#F6C800>{addedActionPoints}</color> ед. очков действия";
+        protected override object[] GetParams()
+        {
+            return new object[] {addedActionPoints};
+        }
     }
 }
