@@ -8,7 +8,10 @@ using UnityEngine;
 public class DrawHelperInstance : MonoBehaviour
 {
     [SerializeField] private Sprite goldSprite;
-
+    [SerializeField] private BlessingTypeToNameSwitch blessingToName;
+    [SerializeField] private MissionStatusToNameSwitch onMissionButtonTextByMissionStatusSwitch;
+    
+    [Header("Dictionaries")]
     [SerializeField] private SerializedDictionary<LootType, Color> lootTypeToColor;
     [SerializeField] private SerializedDictionary<LootType, Sprite> lootTypeToSprite;
     [SerializeField] private SerializedDictionary<Rarity, Color> rarityToColor;
@@ -28,6 +31,8 @@ public class DrawHelperInstance : MonoBehaviour
     public IReadOnlyDictionary<EffectType, Sprite> EffectTypeToSprite => effectTypeToSprite;
 
     public Sprite GoldSprite => goldSprite;
+    public BlessingTypeToNameSwitch BlessingToName => blessingToName;
+    public MissionStatusToNameSwitch OnMissionButtonTextByMissionStatusSwitch => onMissionButtonTextByMissionStatusSwitch;
 }
 
 public enum GradientType

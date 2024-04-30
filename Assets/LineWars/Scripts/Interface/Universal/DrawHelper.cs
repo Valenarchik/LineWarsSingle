@@ -8,10 +8,6 @@ using UnityEngine;
 
 public static class DrawHelper
 {
-    public const string FontForNumber = "New Rocker";
-    public const string FontForTitle = "Fita_Poluustav";
-    public const string FontForDescription = "ModestTYGRA";
-    
     private static DrawHelperInstance Instance => GameRoot.Instance.DrawHelper;
     public static IReadOnlyDictionary<LootType, Sprite> LootTypeToSprite => Instance.LootTypeToSprite;
     public static IReadOnlyDictionary<Rarity, Color> RarityToColor => Instance.RarityToColor;
@@ -49,20 +45,7 @@ public static class DrawHelper
 
     public static string GetBlessingTypeName(BlessingType blessingType)
     {
-        return blessingType switch
-        {
-            BlessingType.Perun => "Благословление Перуна",
-            BlessingType.Svarog => "Благословление Сварога",
-            BlessingType.Health => "Благословление Здоровья",
-            BlessingType.Stribog => "Благословление Стрибога",
-            BlessingType.Acceleration => "Благословление Шустрости",
-            BlessingType.Slowdown => "Благословление Сонливости",
-            BlessingType.Power => "Благословление Мощи",
-            BlessingType.Spawn => "Благословление Призыва",
-            BlessingType.Gold => "Благословление Богатства",
-            BlessingType.Random => "Благословление Случайности",
-            _ => "Если ты видишь это - ты уволен"
-        };
+        return Instance.BlessingToName.GetName(blessingType);
     }
     
     public static string GetBlessingNameByBlessingID(BlessingId blessingId)
@@ -240,16 +223,6 @@ public static class DrawHelper
 
     public static string GetOnMissionButtonTextByMissionStatus(MissionStatus missionStatus)
     {
-        switch (missionStatus)
-        {
-            case MissionStatus.Failed:
-                return "Реванш";
-            case MissionStatus.Unlocked:
-                return "В бой";
-            case MissionStatus.Completed:
-                return "Заново";
-            default:
-                return "В бой";
-        }
+        return Instance.OnMissionButtonTextByMissionStatusSwitch.GetName(missionStatus);
     }
 }

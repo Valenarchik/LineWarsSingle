@@ -17,6 +17,9 @@ namespace Localization
 
         public static string[] ImportTransfersByKey(LocalizationSettings settings, string key)
         {
+            if (string.IsNullOrEmpty(key))
+                return new string[settings.languages.Count];
+            
             key = key.Replace(",", "*");
 
             var data = Resources.Load(settings.CSVFileTranslate.name) as TextAsset;

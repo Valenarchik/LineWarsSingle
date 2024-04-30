@@ -1,7 +1,5 @@
-﻿using Localization;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using UnityEngine.UI;
 using UnityEditor.SceneManagement;
 using TMPro;
 
@@ -263,7 +261,7 @@ namespace Localization
                 GUILayout.EndVertical();
             }
 
-            if (GUI.changed)
+            if (GUI.changed && !Application.isPlaying)
             {
                 EditorUtility.SetDirty(scr.gameObject);
                 EditorSceneManager.MarkSceneDirty(scr.gameObject.scene);

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using LineWars.Model;
+﻿using LineWars.Model;
+using Localization;
 using UnityEngine;
 
 namespace LineWars
@@ -9,13 +7,13 @@ namespace LineWars
     [CreateAssetMenu(fileName = "New CompanyData", menuName = "Data/Create CompanyData", order = 50)]
     public class CompanyData: ScriptableObject
     {
-        [SerializeField] private string companyName;
-        [SerializeField] [TextArea(5,10)] private string companyDescription;
+        [SerializeField] private LanguageField<string> langCompanyName;
+        [SerializeField] [LanguageTextArea] private LanguageField<string> langCompanyDescription;
         [SerializeField] private Sprite companyImage;
         [SerializeField] private NationType companyNation;
         
-        public string Name => companyName;
-        public string Description => companyDescription;
+        public string Name => langCompanyName;
+        public string Description => langCompanyDescription;
         public Sprite Image => companyImage;
         public NationType Nation => companyNation;
     }

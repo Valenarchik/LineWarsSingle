@@ -23,7 +23,8 @@ namespace Localization
                 if (o != null)
                     o.SetActive(false);
             }
-            CurrentValue.SetActive(true);
+            if (CurrentValue != null)
+                CurrentValue.SetActive(true);
         }
     }
 }

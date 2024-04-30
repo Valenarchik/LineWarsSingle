@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LineWars.Controllers;
+using Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +15,10 @@ namespace LineWars
         [SerializeField] private TMP_Text missionDescription;
         [SerializeField] private Image missionImage;
         
-        [SerializeField] [TextArea] private string simpleDescription;
-        [SerializeField] [TextArea] private string mediumDescription;
-        [SerializeField] [TextArea] private string hardDescription;
-        [SerializeField] [TextArea] private string insaneDescription;
+        [SerializeField] [LanguageTextArea] private LanguageField<string> langSimpleDescription;
+        [SerializeField] [LanguageTextArea] private LanguageField<string> langMediumDescription;
+        [SerializeField] [LanguageTextArea] private LanguageField<string> langHardDescription;
+        [SerializeField] [LanguageTextArea] private LanguageField<string> langInsaneDescription;
 
 
         [SerializeField] private Color easyColor;
@@ -26,7 +27,7 @@ namespace LineWars
         [SerializeField] private Color insaneColor;
 
 
-        private Dictionary<InfinityGameMode, (string, Color)> tuplesDict;
+        private Dictionary<InfinityGameMode, (Func<string>, Color)> tuplesDict;
 
 
         private InfinityGameMode infinityGameMode;
@@ -36,12 +37,12 @@ namespace LineWars
             button.onClick.AddListener(OnButtonClick);
             missionImage.color = Color.white;
 
-            tuplesDict = new Dictionary<InfinityGameMode, (string, Color)>
+            tuplesDict = new Dictionary<InfinityGameMode, (Func<string>, Color)>
             {
-                { InfinityGameMode.Simple, (simpleDescription, easyColor) },
-                { InfinityGameMode.Medium, (mediumDescription, middleColor) },
-                { InfinityGameMode.Hard, (hardDescription, hardColor) },
-                { InfinityGameMode.Insane, (insaneDescription, insaneColor) },
+                { InfinityGameMode.Simple, (() => langSimpleDescription, easyColor) },
+                { InfinityGameMode.Medium, (() => langMediumDescription, middleColor) },
+                { InfinityGameMode.Hard, (() => langHardDescription, hardColor) },
+                { InfinityGameMode.Insane, (() => langInsaneDescription, insaneColor) },
             };
         }
 
@@ -61,7 +62,7 @@ namespace LineWars
         {
             infinityGameMode = gameMode;
             var tuple = tuplesDict[gameMode];
-            missionDescription.text = tuple.Item1;
+            missionDescription.text = tuple.Item1.Invoke();
             missionImage.color = tuple.Item2;
         }
     }

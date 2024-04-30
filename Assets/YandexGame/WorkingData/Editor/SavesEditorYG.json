@@ -1,12 +1,12 @@
 {
-    "idSave": 218,
+    "idSave": 245,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
         "Diamonds": 99733,
-        "Gold": 99021,
-        "UpgradeCards": 25,
+        "Gold": 99071,
+        "UpgradeCards": 1,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
         "LockAd": false,
@@ -54,7 +54,7 @@
                 },
                 {
                     "Key": 6,
-                    "Value": 0
+                    "Value": 2
                 },
                 {
                     "Key": 7,
@@ -62,7 +62,7 @@
                 },
                 {
                     "Key": 8,
-                    "Value": 0
+                    "Value": 2
                 },
                 {
                     "Key": 9,
@@ -271,7 +271,7 @@
                 },
                 {
                     "Key": "25gold",
-                    "Value": "03/29/2024 19:28:37"
+                    "Value": "04/30/2024 15:03:23"
                 }
             ]
         },
@@ -358,8 +358,8 @@
                 "rarity": 0
             },
             {
-                "blessingType": 0,
-                "rarity": 0
+                "blessingType": 9,
+                "rarity": 1
             },
             {
                 "blessingType": 3,

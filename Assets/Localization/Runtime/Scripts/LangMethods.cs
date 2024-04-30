@@ -7,7 +7,7 @@ namespace Localization
     {
         public static bool[] LangArr(LocalizationSettings inf)
         {
-            bool[] b = new bool[27];
+            var b = new bool[27];
 
             b[0] = inf.languages.ru;
             b[1] = inf.languages.en;
@@ -341,7 +341,7 @@ namespace Localization
         
         public static string[] FullNameLanguages()
         {
-            string[] s = new string[27];
+            var s = new string[27];
 
             s[0] = "RUSSIAN";
             s[1] = "ENGLISH";
