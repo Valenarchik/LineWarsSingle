@@ -1,6 +1,7 @@
 ﻿using System;
 using DataStructures;
 using LineWars.Model;
+using Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -138,41 +139,91 @@ namespace LineWars.Interface
                 Debug.LogError($"{nameof(UIPanel)} is null!");
         }
 
+        private static string ErrorTitle => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Ой-ой",
+            LangName.en => "Oh-oh",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string ErrorDescription => LocalizationManager.LangName switch
+        {
+            LangName.ru => "произошла ошибка",
+            LangName.en => "error has occurred",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
         public static void OpenErrorPanel()
         {
             OpenFullscreenPanel(
-                new TextInfo("Ой-ой", Color.white),
-                new TextInfo("произошла ошибка", Color.white)
+                new TextInfo(ErrorTitle, Color.white),
+                new TextInfo(ErrorDescription, Color.white)
             );
         }
 
+        private static string SuccessTitle => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Успешно",
+            LangName.en => "Successfully",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
         public static void OpenSuccessPanel(Money money)
         {
-            OpenFullscreenPanel(new TextInfo("Успешно", Color.red), money);
+            OpenFullscreenPanel(new TextInfo(SuccessTitle, Color.red), money);
         }
 
         public static void OpenSuccessPanel(Prize prize)
         {
-            OpenFullscreenPanel(new TextInfo("Успешно", Color.red), new Money(prize.Type.ToCostType(), prize.Amount));
+            OpenFullscreenPanel(new TextInfo(SuccessTitle, Color.red), new Money(prize.Type.ToCostType(), prize.Amount));
         }
 
+        private static string UsePromoCodeTitle => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Активация промокода",
+            LangName.en => "Activation of the promo code",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string UsePromoCodeDescription(string promoCode, Prize value) => LocalizationManager.LangName switch
+        {
+            LangName.ru => $"<font=\"modesttygra SDF\">Вы успешно активировали промокод " +
+                           $"<font=\"New Rocker\">\"{promoCode}\"</font> " +
+                           $"Награда - {value.ToString(LangName.ru)}</font>",
+            LangName.en => $"<font=\"New Rocker\">You have successfully activated the promo code " +
+                           $"\"{promoCode}\" " +
+                           $"Reward - {value.ToString(LangName.ru)}</font>",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
         public static void OpenSuccessUsePromoCodePanel(string promoCode, Prize value)
         {
             OpenFullscreenPanel(
-                new TextInfo("Активация промокода", Color.red),
-                new TextInfo(
-                    $"Вы успешно активировали промокод \"{promoCode}\" " +
-                    $"Награда - {value}", 
-                    Color.white
+                new TextInfo(UsePromoCodeTitle, Color.red),
+                new TextInfo(UsePromoCodeDescription(promoCode, value), Color.white
                 )
             );
         }
+        
+        private static string LockAdPanelTitle => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Отключение рекламы прошло успешно",
+            LangName.en => "Disabling ads was successful",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string LockAdPanelDescription => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Вы успешно отключили рекламу",
+            LangName.en => "You have successfully disabled the ads",
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public static void OpenSuccessLockAdPanel()
         {
             OpenFullscreenPanel(
-                new TextInfo("Отключение рекламы прошло успешно", Color.red),
-                new TextInfo($"Вы успешно отключили рекламу", Color.white));
+                new TextInfo(LockAdPanelTitle, Color.red),
+                new TextInfo(LockAdPanelDescription, Color.white));
         }
 
         private static void CloseAllPanels()

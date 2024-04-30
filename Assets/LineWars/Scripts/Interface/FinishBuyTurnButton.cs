@@ -1,6 +1,7 @@
 ﻿using System;
 using LineWars.Controllers;
 using LineWars.Model;
+using Localization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,15 +69,48 @@ namespace LineWars.Interface
                 }
             }
         }
-
+        
+        private static string OpenDialogPanelTitle => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Вы уверены что хотите завершить ход?",
+            LangName.en => "Are you sure you want to complete the move?",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string OpenDialogPanelDescription => LocalizationManager.LangName switch
+        {
+            LangName.ru => "У вас еще остались монеты, для покупки какого-то юнита.",
+            LangName.en => "You still have coins left to buy some kind of unit.",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string OpenDialogPanelAcceptText => LocalizationManager.LangName switch
+        {
+            LangName.ru => "да",
+            LangName.en => "yes",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        private static string OpenDialogPanelRejectText=> LocalizationManager.LangName switch
+        {
+            LangName.ru => "нет",
+            LangName.en => "no",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        private static string OpenDialogPanelToggleText => LocalizationManager.LangName switch
+        {
+            LangName.ru => "Не показывать это окно больше",
+            LangName.en => "Don't show this window anymore",
+            _ => throw new ArgumentOutOfRangeException()
+        };
         private void OpenDialogPanel(bool toggleIsOn)
         {
             UIPanel.OpenDialogPanel(
-                "Вы уверены что хотите завершить ход?",
-                "У вас еще остались монеты, для покупки какого-то юнита.",
-                "да",
-                "нет",
-                "Не показывать это окно больше",
+                OpenDialogPanelTitle,
+                OpenDialogPanelDescription,
+                OpenDialogPanelAcceptText,
+                OpenDialogPanelRejectText,
+                OpenDialogPanelToggleText,
                 toggleIsOn,
                 DialogOnAccept,
                 DialogOnReject

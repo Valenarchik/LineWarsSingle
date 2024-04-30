@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using LineWars.Controllers;
 using LineWars.Model;
 using UnityEngine;
@@ -13,18 +14,21 @@ namespace LineWars.Interface
         [SerializeField] private LayoutGroup blessingsLayout;
 
         private BlessingId selectedBlessing;
+        private readonly List<GameObject> instances = new ();
+        
         private static Store Store => GameRoot.Instance.Store;
 
-        private void Start()
+        private void OnEnable()
         {
-            ReDrawBoxes();
             buyPanel.OnClick.AddListener(BuyBlessing);
+            ReDrawBoxes();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (buyPanel != null)
                 buyPanel.OnClick.RemoveListener(BuyBlessing);
+            ReleaseInstances();
         }
 
 
@@ -40,6 +44,7 @@ namespace LineWars.Interface
                     buyPanel.OpenWindow(GetBuyPanelReDrawInfo(blessing));
                     selectedBlessing = blessing;
                 });
+                instances.Add(instance.gameObject);
             }
         }
         
@@ -59,6 +64,16 @@ namespace LineWars.Interface
             if (!Store.CanBuy(selectedBlessing))
                 throw new InvalidOperationException("Can't buy this Blessing");
             Store.Buy(selectedBlessing);
+        }
+        
+        private void ReleaseInstances()
+        {
+            foreach (var o in instances)
+            {
+                if (o != null)
+                    Destroy(o);
+            }
+            instances.Clear();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using LineWars.Controllers;
 using LineWars.Model;
+using Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,13 +20,13 @@ namespace LineWars.Interface
 
         private static UserInfoController UserController => GameRoot.Instance.UserController;
 
-        private void Start()
+        private void OnEnable()
         {
             ReDraw();
             buyButton.onClick.AddListener(OnButtonClick);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             buyButton.onClick.RemoveListener(OnButtonClick);
         }
@@ -68,12 +69,22 @@ namespace LineWars.Interface
 
         private string GetDescription()
         {
-            return $"Вы приобретаете {ParseAmount(goldAmount)} за {costInDiamonds} кристаллов";
+            return LocalizationManager.LangName switch
+            {
+                LangName.ru => $"Вы приобретаете {ParseAmount(goldAmount)} за <font=\"New Rocker\">{costInDiamonds}</font> кристаллов",
+                LangName.en => $"You purchase {ParseAmount(goldAmount)} for <font=\"New Rocker\">{costInDiamonds}</font> crystals",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
         
         private string ParseAmount(int amount)
         {
-            return $"{amount} монет";
+            return LocalizationManager.LangName switch
+            {
+                LangName.ru => $"<font=\"New Rocker\">{amount}</font> монет",
+                LangName.en => $"<font=\"New Rocker\">{amount}</font> coins",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }   

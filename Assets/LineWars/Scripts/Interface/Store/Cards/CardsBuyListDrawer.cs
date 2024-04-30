@@ -16,19 +16,21 @@ namespace LineWars.Interface
         [SerializeField] private BoxImagesShower boxImagesShower;
 
         private DeckCard selectedCard;
+        private readonly List<GameObject> instances = new ();
         
         private Store Store => GameRoot.Instance.Store;
         private IStorage<int, DeckCard> DeckCardStorage => GameRoot.Instance.CardsDatabase;
 
-        private void Start()
+        private void OnEnable()
         {
-            ReDrawBoxes();
             buyPanel.OnClick.AddListener(BuySelectedCard);
+            ReDrawBoxes();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             buyPanel.OnClick.RemoveListener(BuySelectedCard);
+            ReleaseInstances();
         }
 
         private void ReDrawBoxes()
@@ -44,6 +46,7 @@ namespace LineWars.Interface
                         buyPanel.OpenWindow(deckCard, Store.CanBuy(deckCard));
                         selectedCard = deckCard;
                     });
+                instances.Add(instance.gameObject);
             }
         }
         
@@ -63,6 +66,16 @@ namespace LineWars.Interface
             
             boxImagesShower.gameObject.SetActive(true);
             boxImagesShower.ShowItems(contextedDropArray);
+        }
+
+        private void ReleaseInstances()
+        {
+            foreach (var o in instances)
+            {
+                if (o != null)
+                    Destroy(o);
+            }
+            instances.Clear();
         }
     }
 }

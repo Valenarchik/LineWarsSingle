@@ -1,11 +1,11 @@
 {
-    "idSave": 245,
+    "idSave": 280,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
-        "Diamonds": 99733,
-        "Gold": 99071,
+        "Diamonds": 99821,
+        "Gold": 99171,
         "UpgradeCards": 1,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
@@ -271,7 +271,7 @@
                 },
                 {
                     "Key": "25gold",
-                    "Value": "04/30/2024 15:03:23"
+                    "Value": "04/30/2024 22:27:32"
                 }
             ]
         },
@@ -324,6 +324,10 @@
                 {
                     "Key": "MainMenuSettingsButton",
                     "Value": true
+                },
+                {
+                    "Key": "MainMenuOpenAdButton",
+                    "Value": true
                 }
             ]
         },
@@ -370,7 +374,14 @@
             "UIPGLFQDS",
             "BVURUYSEW",
             "ZZPQJOVCR",
-            "SFGHJCZCC"
+            "SFGHJCZCC",
+            "KOLINZBIG",
+            "REDIUSBIG",
+            "WMBJYHOEQ",
+            "NTSDFHWNT",
+            "YXYKTARRQ",
+            "VMMMAQJGS",
+            "OYUEVOIUK"
         ]
     },
     "Decks": [

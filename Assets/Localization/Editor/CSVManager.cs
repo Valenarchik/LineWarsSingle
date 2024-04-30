@@ -27,8 +27,6 @@ namespace Localization
             var keys = Regex.Split(CommaFormat(data.text), LINE_SPLIT_RE);
             var result = new string[settings.languages.Count];
 
-            var complete = false;
-
             for (var i = 1; i < keys.Length; i++)
             {
                 var translates = Regex.Split(keys[i], ",");
@@ -39,18 +37,12 @@ namespace Localization
                     if (!LangMethods.LangArr(settings)[i2]) continue;
 
                     result[i2] = translates[i2 + 1].Replace("*", ",").Replace(@"\n", "\n");
-                    complete = true;
                 }
-            }
 
-            if (complete)
                 return result;
-            else
-            {
-                Debug.Log(
-                    "(en) Couldn't find a translation for this object! (ru) Не удалось найти перевод для данного объекта!");
-                return null;
             }
+            Debug.Log("(en) Couldn't find a translation for this object! (ru) Не удалось найти перевод для данного объекта!");
+            return null;
         }
         public static void WriteCSVFile(LocalizationSettings settings, string[,] keys, string[] idArray)
         {

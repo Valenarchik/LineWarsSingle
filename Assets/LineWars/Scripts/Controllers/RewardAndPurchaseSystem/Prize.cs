@@ -1,4 +1,5 @@
 ﻿using System;
+using Localization;
 using UnityEngine;
 
 namespace LineWars.Model
@@ -20,15 +21,12 @@ namespace LineWars.Model
 
         public override string ToString()
         {
-            var currency = type switch
-            {
-                PrizeType.Gold => amount.Pluralize("монета", "монеты", "монет"),
-                PrizeType.Diamonds => amount.Pluralize("кристалл", "кристалла", "кристаллов"),
-                PrizeType.UpgradeCards => amount.Pluralize("карта улучшений", "карты улучшений", "карт улучшений"),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return $"{amount} {currency}";
+            return $"<font=\"New Rocker\">{amount}</font> {type.ToString(amount)}";
+        }
+        
+        public string ToString(LangName langName)
+        {
+            return $"<font=\"New Rocker\">{amount}</font> {type.ToString(amount, langName)}";
         }
     }
 }
