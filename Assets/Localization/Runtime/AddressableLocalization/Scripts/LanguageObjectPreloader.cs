@@ -18,7 +18,7 @@ namespace Localization.Addressable
             Release();
         }
         
-        protected override void OnLanguageSwitch(LangName langName)
+        protected override void OnLanguageSwitch()
         {
             Release();
             Load();

@@ -53,9 +53,6 @@ namespace Localization
 
         public void SwitchLanguage(string lang)
         {
-            if (!Settings.LocalizationEnable)
-                return;
-            
             for (int i = 0; i < languages.Length; i++)
             {
                 if (lang == LangMethods.LangName(i))
@@ -71,9 +68,8 @@ namespace Localization
         }
 
         public void SwitchLanguage()
-        {
-            if (Settings.LocalizationEnable)
-                SwitchLanguage(LocalizationManager.Lang);
+        { 
+            SwitchLanguage(LocalizationManager.Lang);
         }
 
         void AssignTranslate(string translation)
@@ -130,7 +126,7 @@ namespace Localization
         {
             get
             {
-                string[] s = new string[27];
+                var s = new string[27];
 
                 s[0] = ru;
                 s[1] = en;

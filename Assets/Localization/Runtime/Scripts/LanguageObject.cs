@@ -7,8 +7,8 @@ namespace Localization
     public abstract class LanguageObject<T> : MonoBehaviour
     {
         public LanguageField<T> Value;
-        public T CurrentValue => Value.CurrentValue;
-        public T[] Values => Value.Values;
+        protected T CurrentValue => Value.CurrentValue;
+        protected T[] Values => Value.Values;
         
 
         protected virtual void OnEnable()
@@ -23,9 +23,9 @@ namespace Localization
 
         private void LocalizationManagerOnSwitchLangEvent()
         {
-            OnLanguageSwitch(LocalizationManager.LangName);
+            OnLanguageSwitch();
         }
         
-        protected abstract void OnLanguageSwitch(LangName langName);
+        protected abstract void OnLanguageSwitch();
     }
 }

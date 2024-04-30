@@ -19,9 +19,9 @@ namespace Localization.Addressable
             audioSource = GetComponent<AudioSource>();
         }
 
-        protected override void OnLanguageSwitch(LangName langName)
+        protected override void OnLanguageSwitch()
         {
-            PlayClip(langName);
+            PlayClip(LocalizationManager.LangName);
         }
 
         protected override void OnEnable()

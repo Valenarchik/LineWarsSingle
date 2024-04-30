@@ -11,7 +11,7 @@ namespace Localization
             SwitchObjects();
         }
 
-        protected override void OnLanguageSwitch(LangName langName)
+        protected override void OnLanguageSwitch()
         {
             SwitchObjects();
         }
