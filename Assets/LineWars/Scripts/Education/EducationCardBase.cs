@@ -5,7 +5,7 @@ namespace LineWars.Education
 {
     public abstract class EducationCardBase: MonoBehaviour
     {
-        [SerializeField] protected TransformCarousel carousel;
+        [SerializeField, HideInInspector] protected TransformCarousel carousel;
 
         private void OnValidate()
         {
