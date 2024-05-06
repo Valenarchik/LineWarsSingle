@@ -11,16 +11,6 @@ namespace Localization
     public class LanguageText : MonoBehaviour
     {
         [SerializeField, HideInInspector] private LocalizationSettings settings;
-        public LocalizationSettings Settings
-        {
-            get
-            {
-                if (settings == null)
-                    settings = SettingsLoader.LoadSettings();
-                return settings;
-            }
-        }
-
         [SerializeField] public TMP_Text textMPComponent;
         [SerializeField] public TMP_FontAsset uniqueFontTMP;
         
@@ -30,7 +20,17 @@ namespace Localization
 
         public bool changeOnlyFont;
         public int fontNumber;
-        int baseFontSize;
+        private int baseFontSize;
+        
+        public LocalizationSettings Settings
+        {
+            get
+            {
+                if (settings == null)
+                    settings = SettingsLoader.LoadSettings();
+                return settings;
+            }
+        }
 
         private void Awake()
         {
@@ -49,7 +49,41 @@ namespace Localization
             LocalizationManager.SwitchLangEvent += SwitchLanguage;
         }
 
-        private void OnDisable() => LocalizationManager.SwitchLangEvent -= SwitchLanguage;
+        private void OnDisable()
+        {
+            LocalizationManager.SwitchLangEvent -= SwitchLanguage;
+        }
+
+        public void ClearAllValues()
+        {
+            ru = "";
+            en = "";
+            tr = "";
+            az = "";
+            be = "";
+            he = "";
+            hy = "";
+            ka = "";
+            et = "";
+            fr = "";
+            kk = "";
+            ky = "";
+            lt = "";
+            lv = "";
+            ro = "";
+            tg = "";
+            tk = "";
+            uk = "";
+            uz = "";
+            es = "";
+            pt = "";
+            ar = "";
+            id = "";
+            ja = "";
+            it = "";
+            de = "";
+            hi = "";
+        }
 
         public void SwitchLanguage(string lang)
         {

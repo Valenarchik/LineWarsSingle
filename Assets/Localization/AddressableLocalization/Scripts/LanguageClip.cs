@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Localization.Addressable
@@ -13,7 +14,9 @@ namespace Localization.Addressable
         private Coroutine waitCoroutine;
         private AudioClip currentClip;
         private AsyncOperationHandle<AudioClip> handle;
-
+        [SerializeField] private UnityEvent clipFinished;
+        [SerializeField] private UnityEvent onDisable;
+        
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -34,6 +37,7 @@ namespace Localization.Addressable
         {
             base.OnDisable();
             Release();
+            onDisable.Invoke();
         }
 
         private void PlayClip(LangName langName)
@@ -79,6 +83,7 @@ namespace Localization.Addressable
             }
             ReleaseCurrentClip();
             waitCoroutine = null;
+            clipFinished.Invoke();
         }
 
         // полное освобождение памяти

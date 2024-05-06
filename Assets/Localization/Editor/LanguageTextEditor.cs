@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using TMPro;
@@ -8,12 +9,12 @@ namespace Localization
     [CustomEditor(typeof(LanguageText))]
     public class LanguageTextEditor : Editor
     {
-        LanguageText scr;
+        private const string buttonText_ReplaseFont = "Replace the font with the standard one";
+        private LanguageText scr;
 
-        GUIStyle red;
-        GUIStyle green;
-
-        int processTranslateLabel;
+        private GUIStyle red;
+        private GUIStyle green;
+        private int processTranslateLabel;
 
         private void OnEnable()
         {
@@ -28,12 +29,22 @@ namespace Localization
             scr = (LanguageText)target;
             Undo.RecordObject(scr, "Undo LanguageYG");
 
-            red = new GUIStyle(EditorStyles.label);
-            red.normal.textColor = Color.red;
-            green = new GUIStyle(EditorStyles.label);
-            green.normal.textColor = Color.green;
+            red = new GUIStyle(EditorStyles.label)
+            {
+                normal =
+                {
+                    textColor = Color.red
+                }
+            };
+            green = new GUIStyle(EditorStyles.label)
+            {
+                normal =
+                {
+                    textColor = Color.green
+                }
+            };
 
-            bool isNullTextComponent = scr.textMPComponent == null;
+            var isNullTextComponent = scr.textMPComponent == null;
 
 
             if (isNullTextComponent)
@@ -60,7 +71,7 @@ namespace Localization
                         TranslationTableEditorWindow.ShowWindow();
                     }
 
-                    bool availableStr = true;
+                    var availableStr = true;
 
                     if (scr.componentTextField)
                     {
@@ -95,7 +106,7 @@ namespace Localization
 
                     if (GUILayout.Button("Import"))
                     {
-                        string[] translfers = CSVManager.ImportTransfersByKey(scr);
+                        var translfers = CSVManager.ImportTransfersByKey(scr);
                         if (translfers != null)
                             scr.languages = CSVManager.ImportTransfersByKey(scr);
                     }
@@ -106,8 +117,7 @@ namespace Localization
 
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
-
-                    scr.textHeight = EditorGUILayout.Slider("Text Height", scr.textHeight, 20f, 400f);
+                    
                     UpdateLanguages();
                 }
                 else
@@ -156,33 +166,7 @@ namespace Localization
 
                         if (GUILayout.Button("CLEAR"))
                         {
-                            scr.ru = "";
-                            scr.en = "";
-                            scr.tr = "";
-                            scr.az = "";
-                            scr.be = "";
-                            scr.he = "";
-                            scr.hy = "";
-                            scr.ka = "";
-                            scr.et = "";
-                            scr.fr = "";
-                            scr.kk = "";
-                            scr.ky = "";
-                            scr.lt = "";
-                            scr.lv = "";
-                            scr.ro = "";
-                            scr.tg = "";
-                            scr.tk = "";
-                            scr.uk = "";
-                            scr.uz = "";
-                            scr.es = "";
-                            scr.pt = "";
-                            scr.ar = "";
-                            scr.id = "";
-                            scr.ja = "";
-                            scr.it = "";
-                            scr.de = "";
-                            scr.hi = "";
+
 
                             scr.processTranslateLabel = "";
                             scr.countLang = processTranslateLabel;
@@ -195,7 +179,7 @@ namespace Localization
                     GUILayout.BeginVertical("box");
                     GUILayout.BeginHorizontal();
 
-                    bool labelProcess = false;
+                    var labelProcess = false;
 
                     if (scr.Settings.translateMethod == TranslateMethod.AutoLocalization)
                     {
@@ -215,17 +199,11 @@ namespace Localization
                                 GUILayout.Label(scr.processTranslateLabel, GUILayout.Height(20));
                                 labelProcess = true;
                             }
-
-                            try
+                            
+                            if (scr.processTranslateLabel != null && scr.processTranslateLabel.Contains("error"))
                             {
-                                if (scr.processTranslateLabel.Contains("error"))
-                                {
-                                    GUILayout.Label(scr.processTranslateLabel, red, GUILayout.Height(20));
-                                    labelProcess = true;
-                                }
-                            }
-                            catch
-                            {
+                                GUILayout.Label(scr.processTranslateLabel, red, GUILayout.Height(20));
+                                labelProcess = true;
                             }
                         }
                     }
@@ -233,14 +211,10 @@ namespace Localization
                     if (labelProcess == false)
                         GUILayout.Label(processTranslateLabel + " Languages", GUILayout.Height(20));
 
-                    try
-                    {
-                        if (!scr.processTranslateLabel.Contains("completed"))
-                            GUILayout.Label("Go back to the inspector!", GUILayout.Height(20));
-                    }
-                    catch
-                    {
-                    }
+ 
+                    if (scr.processTranslateLabel != null && !scr.processTranslateLabel.Contains("completed"))
+                        GUILayout.Label("Go back to the inspector!", GUILayout.Height(20));
+                    
 
                     GUILayout.EndHorizontal();
 
@@ -267,8 +241,6 @@ namespace Localization
                 EditorSceneManager.MarkSceneDirty(scr.gameObject.scene);
             }
         }
-
-        readonly string buttonText_ReplaseFont = "Replace the font with the standard one";
         
         void FontTMPSettingsDraw()
         {
@@ -289,113 +261,33 @@ namespace Localization
             }
         }
 
-        void TranslateButton()
+        private void TranslateButton()
         {
             scr.processTranslateLabel = "";
             scr.Translate(processTranslateLabel);
         }
 
-        void UpdateLanguages()
+        private void UpdateLanguages()
         {
+            serializedObject.Update();
             processTranslateLabel = 0;
-            bool[] langArr = LangMethods.LangArr(scr.Settings);
-
-            for (int i = 0; i < langArr.Length; i++)
+            scr.textHeight = EditorGUILayout.Slider("Text Height", scr.textHeight, 20f, 400f);
+            var langArr = LangMethods.LangArr(scr.Settings);
+            for (var i = 0; i < langArr.Length; i++)
             {
-                if (langArr[i])
-                {
-                    processTranslateLabel++;
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(new GUIContent(LangMethods.LangName(i), LangMethods.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
-                    
-                    switch (i)
-                    {
-                        case 0:
-                            scr.ru = EditorGUILayout.TextArea(scr.ru, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 1:
-                            scr.en = EditorGUILayout.TextArea(scr.en, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 2:
-                            scr.tr = EditorGUILayout.TextArea(scr.tr, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 3:
-                            scr.az = EditorGUILayout.TextArea(scr.az, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 4:
-                            scr.be = EditorGUILayout.TextArea(scr.be, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 5:
-                            scr.he = EditorGUILayout.TextArea(scr.he, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 6:
-                            scr.hy = EditorGUILayout.TextArea(scr.hy, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 7:
-                            scr.ka = EditorGUILayout.TextArea(scr.ka, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 8:
-                            scr.et = EditorGUILayout.TextArea(scr.et, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 9:
-                            scr.fr = EditorGUILayout.TextArea(scr.fr, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 10:
-                            scr.kk = EditorGUILayout.TextArea(scr.kk, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 11:
-                            scr.ky = EditorGUILayout.TextArea(scr.ky, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 12:
-                            scr.lt = EditorGUILayout.TextArea(scr.lt, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 13:
-                            scr.lv = EditorGUILayout.TextArea(scr.lv, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 14:
-                            scr.ro = EditorGUILayout.TextArea(scr.ro, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 15:
-                            scr.tg = EditorGUILayout.TextArea(scr.tg, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 16:
-                            scr.tk = EditorGUILayout.TextArea(scr.tk, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 17:
-                            scr.uk = EditorGUILayout.TextArea(scr.uk, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 18:
-                            scr.uz = EditorGUILayout.TextArea(scr.uz, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 19:
-                            scr.es = EditorGUILayout.TextArea(scr.es, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 20:
-                            scr.pt = EditorGUILayout.TextArea(scr.pt, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 21:
-                            scr.ar = EditorGUILayout.TextArea(scr.ar, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 22:
-                            scr.id = EditorGUILayout.TextArea(scr.id, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 23:
-                            scr.ja = EditorGUILayout.TextArea(scr.ja, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 24:
-                            scr.it = EditorGUILayout.TextArea(scr.it, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 25:
-                            scr.de = EditorGUILayout.TextArea(scr.de, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                        case 26:
-                            scr.hi = EditorGUILayout.TextArea(scr.hi, EditorStyles.textArea, GUILayout.Height(scr.textHeight));
-                            break;
-                    }
-                    
-                    GUILayout.EndHorizontal();
-                }
+                if (!langArr[i]) continue;
+                processTranslateLabel++;
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(new GUIContent(LangMethods.LangName(i), LangMethods.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
+                var property = serializedObject.FindProperty(LangMethods.LangName(i));
+                property.stringValue = EditorGUILayout.TextArea(
+                    property.stringValue,
+                    EditorStyles.textArea, GUILayout.Height(scr.textHeight)
+                );
+                GUILayout.EndHorizontal();
             }
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }
