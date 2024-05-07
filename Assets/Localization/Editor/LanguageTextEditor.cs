@@ -7,6 +7,7 @@ using TMPro;
 namespace Localization
 {
     [CustomEditor(typeof(LanguageText))]
+    [CanEditMultipleObjects]
     public class LanguageTextEditor : Editor
     {
         private const string buttonText_ReplaseFont = "Replace the font with the standard one";
@@ -272,14 +273,14 @@ namespace Localization
             serializedObject.Update();
             processTranslateLabel = 0;
             scr.textHeight = EditorGUILayout.Slider("Text Height", scr.textHeight, 20f, 400f);
-            var langArr = LangMethods.LangArr(scr.Settings);
+            var langArr = LangMethods.GetLangArr(scr.Settings);
             for (var i = 0; i < langArr.Length; i++)
             {
                 if (!langArr[i]) continue;
                 processTranslateLabel++;
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(new GUIContent(LangMethods.LangName(i), LangMethods.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
-                var property = serializedObject.FindProperty(LangMethods.LangName(i));
+                GUILayout.Label(new GUIContent(LangMethods.GetLangName(i), LangMethods.FullNameLanguages()[i]), GUILayout.Width(20), GUILayout.Height(20));
+                var property = serializedObject.FindProperty(LangMethods.GetLangName(i));
                 property.stringValue = EditorGUILayout.TextArea(
                     property.stringValue,
                     EditorStyles.textArea, GUILayout.Height(scr.textHeight)

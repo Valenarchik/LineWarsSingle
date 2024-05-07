@@ -85,74 +85,42 @@ namespace Localization
             hi = "";
         }
 
-        public void SwitchLanguage(string lang)
-        {
-            for (int i = 0; i < languages.Length; i++)
-            {
-                if (lang == LangMethods.LangName(i))
-                {
-                    if (!changeOnlyFont)
-                        AssignTranslate(languages[i]);
-                    if (textMPComponent)
-                        ChangeFont(LangMethods.GetFontTMP(i, Settings));
-
-                    FontSizeCorrect(LangMethods.GetFontSize(i, Settings));
-                }
-            }
-        }
-
-        public void SwitchLanguage()
+        private void SwitchLanguage()
         { 
-            SwitchLanguage(LocalizationManager.Lang);
+            if (!changeOnlyFont)
+                AssignTranslate(currentLanguage);
+            if (textMPComponent)
+                ChangeFont();
+
+            FontSizeCorrect();
         }
 
-        void AssignTranslate(string translation)
+        private void AssignTranslate(string translation)
         { 
             if (textMPComponent)
                 textMPComponent.text = translation;
         }
         
-        public void ChangeFont(TMP_FontAsset[] fontArray)
+        private void ChangeFont()
         {
-            TMP_FontAsset font;
-
-            if (fontArray.Length >= fontNumber + 1 && fontArray[fontNumber])
-            {
-                font = fontArray[fontNumber];
-            }
-            else font = null;
-
             if (uniqueFontTMP)
             {
-                font = uniqueFontTMP;
+                textMPComponent.font = uniqueFontTMP;
+                return;
             }
-            else if (font == null)
+            var currentFont = LangMethods.GetCurrentFont(LocalizationManager.LangName, fontNumber, Settings);
+            if (currentFont)
             {
-                if (Settings.fonts.defaultFont.Length >= fontNumber + 1 && Settings.fonts.defaultFont[fontNumber])
-                {
-                    font = Settings.fonts.defaultFont[fontNumber];
-                }
-                else if (Settings.fonts.defaultFont.Length >= 1 && Settings.fonts.defaultFont[0])
-                {
-                    font = Settings.fonts.defaultFont[0];
-                }
-            }
-
-            if (font != null)
-            {
-                textMPComponent.font = font;
+                textMPComponent.font = currentFont;
             }
         }
 
-        void FontSizeCorrect(int[] fontSizeArray)
+        void FontSizeCorrect()
         { 
             if (textMPComponent)
-                textMPComponent.fontSize = baseFontSize;
-            
-            if (fontSizeArray.Length != 0 && fontSizeArray.Length - 1 >= fontNumber)
-            { 
-                if (textMPComponent)
-                    textMPComponent.fontSize += fontSizeArray[fontNumber];
+            {
+                var correct = LangMethods.GetCurrentFontSizeCorrect(LocalizationManager.LangName, fontNumber, Settings);
+                textMPComponent.fontSize = baseFontSize + correct;
             }
         }
 
@@ -223,6 +191,8 @@ namespace Localization
                 hi = value[26];
             }
         }
+
+        public string currentLanguage => languages[(int) LocalizationManager.LangName];
         
 #if UNITY_EDITOR
         [HideInInspector] public float textHeight = 20f;
@@ -297,10 +267,10 @@ namespace Localization
 
             for (int i = 0; i < languages.Length; i++)
             {
-                if (LangMethods.LangArr(Settings)[i] && (languages[i] == null || languages[i] == ""))
+                if (LangMethods.GetLangArr(Settings)[i] && (languages[i] == null || languages[i] == ""))
                 {
                     bool complete = false;
-                    string translate = TranslateGoogle(LangMethods.LangName(i));
+                    string translate = TranslateGoogle(LangMethods.GetLangName(i));
 
                     if (translate == null)
                         yield return null;
@@ -332,9 +302,9 @@ namespace Localization
 
             for (int i = 0; i < languages.Length; i++)
             {
-                if (LangMethods.LangArr(Settings)[i] && (languages[i] == null || languages[i] == ""))
+                if (LangMethods.GetLangArr(Settings)[i] && (languages[i] == null || languages[i] == ""))
                 {
-                    string translate = TranslateGoogle(LangMethods.LangName(i));
+                    string translate = TranslateGoogle(LangMethods.GetLangName(i));
 
                     if (translate == null)
                         return;

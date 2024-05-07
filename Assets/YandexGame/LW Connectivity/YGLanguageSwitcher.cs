@@ -6,9 +6,9 @@ using YG;
 public class YGLanguageSwitcher : MonoBehaviour
 {
     public UnityEvent onSwitchLanguage; 
-    private void Awake()
+    private void Start()
     {
-        LocalizationManager.lang = YandexGame.lang;
+        LocalizationManager.Lang = YandexGame.lang;
     }
 
     private void OnEnable()

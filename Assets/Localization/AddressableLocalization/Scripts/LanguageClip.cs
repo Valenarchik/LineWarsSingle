@@ -14,8 +14,9 @@ namespace Localization.Addressable
         private Coroutine waitCoroutine;
         private AudioClip currentClip;
         private AsyncOperationHandle<AudioClip> handle;
-        [SerializeField] private UnityEvent clipFinished;
-        [SerializeField] private UnityEvent onDisable;
+        public UnityEvent clipFinished;
+        public UnityEvent onEnable;
+        public UnityEvent onDisable;
         
         private void Awake()
         {
@@ -31,6 +32,7 @@ namespace Localization.Addressable
         {
             base.OnEnable();
             PlayClip(LocalizationManager.LangName);
+            onEnable.Invoke();
         }
         
         protected override void OnDisable()

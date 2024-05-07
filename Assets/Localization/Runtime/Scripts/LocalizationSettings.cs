@@ -29,8 +29,6 @@ namespace Localization
     [Serializable]
     public class Languages
     {
-        public readonly int Count = 27;
-        
         [Tooltip("RUSSIAN")] public bool ru = true;
         [Tooltip("ENGLISH")] public bool en = true;
         [Tooltip("TURKISH")] public bool tr = true;
@@ -58,6 +56,13 @@ namespace Localization
         [Tooltip("ITALIAN")] public bool it;
         [Tooltip("GERMAN")] public bool de;
         [Tooltip("HINDI")] public bool hi;
+
+        public const int COUNT = 27;
+        public readonly int Count = COUNT;
+        public bool[] Values => new[]
+        {
+            ru, en, tr, az, be, he, hy, ka, et, fr, kk, ky, lt, lv, ro, tg, tk, uk, uz, es, pt, ar, id, ja, it, de, hi
+        };
     }
     
     [Serializable]
@@ -91,6 +96,11 @@ namespace Localization
         [Tooltip("ITALIAN")] public TMP_FontAsset[] it;
         [Tooltip("GERMAN")] public TMP_FontAsset[] de;
         [Tooltip("HINDI")] public TMP_FontAsset[] hi;
+        
+        public TMP_FontAsset[][] Values => new[]
+        {
+            ru, en, tr, az, be, he, hy, ka, et, fr, kk, ky, lt, lv, ro, tg, tk, uk, uz, es, pt, ar, id, ja, it, de, hi
+        };
     }
     
     [Serializable]
@@ -123,6 +133,11 @@ namespace Localization
         [Tooltip("ITALIAN")] public int[] it;
         [Tooltip("GERMAN")] public int[] de;
         [Tooltip("HINDI")] public int[] hi;
+        
+        public int[][] Values => new[]
+        {
+            ru, en, tr, az, be, he, hy, ka, et, fr, kk, ky, lt, lv, ro, tg, tk, uk, uz, es, pt, ar, id, ja, it, de, hi
+        };
     }
 
     public enum TranslateMethod

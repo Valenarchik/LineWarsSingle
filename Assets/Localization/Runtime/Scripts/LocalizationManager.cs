@@ -7,20 +7,20 @@ namespace Localization
     public class LocalizationManager : MonoBehaviour
     {
         private static LocalizationManager Instance;
-        public static string lang = "ru";
+        [SerializeField] private string lang = "ru";
         public static string Lang
         {
-            get => lang;
+            get => Instance.lang;
             set
             {
-                lang = value ?? throw new ArgumentNullException();
+                Instance.lang = value ?? throw new ArgumentNullException();
                 SwitchLangEvent?.Invoke();
             }
         }
 
         public static LangName LangName
         {
-            get => Enum.Parse<LangName>(lang);
+            get => Enum.Parse<LangName>(Instance.lang);
             set => SetLanguage(value);
         }
 
@@ -41,7 +41,7 @@ namespace Localization
 
         private static void SetLanguage(LangName langName)
         {
-            Lang = LangMethods.LangName(langName);
+            Lang = LangMethods.GetLangName(langName);
         }
 
         private void OnValidate()

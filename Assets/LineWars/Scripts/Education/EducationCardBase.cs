@@ -7,7 +7,7 @@ namespace LineWars.Education
     {
         [SerializeField, HideInInspector] protected TransformCarousel carousel;
 
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
             carousel ??= GetComponentInParent<TransformCarousel>();
         }

@@ -5,6 +5,7 @@ namespace Localization
 {
     [CustomPropertyDrawer(typeof(LanguageField<>), true)]
     [CustomPropertyDrawer(typeof(LanguageTextAreaAttribute), true)]
+    [CustomPropertyDrawer(typeof(LanguageFieldAttribute), true)]
     public class LanguageFieldDrawer: PropertyDrawer
     {
         private LocalizationSettings settings;
@@ -130,7 +131,7 @@ namespace Localization
         {
             for (var i = 0; i < settings.languages.Count; i++)
             {
-                var langProperty = property.FindPropertyRelative(LangMethods.LangName(i));
+                var langProperty = property.FindPropertyRelative(LangMethods.GetLangName(i));
                 langProperty.stringValue = values[i];
             }
         }
@@ -140,7 +141,7 @@ namespace Localization
             var result = new string[settings.languages.Count];
             for (var i = 0; i < settings.languages.Count; i++)
             {
-                var langProperty = property.FindPropertyRelative(LangMethods.LangName(i));
+                var langProperty = property.FindPropertyRelative(LangMethods.GetLangName(i));
                 result[i] = langProperty.stringValue;
             }
 
@@ -149,19 +150,19 @@ namespace Localization
         
         private void DrawFields(Rect position, SerializedProperty property, GUIContent label)
         {
-            var langArr = LangMethods.LangArr(settings);
+            var langArr = LangMethods.GetLangArr(settings);
             for (var i = 0; i < langArr.Length; i++)
             {
                 var enableLang = langArr[i];
                 if (!enableLang) continue;
 
-                var relativeProperty = property.FindPropertyRelative(LangMethods.LangName(i));
+                var relativeProperty = property.FindPropertyRelative(LangMethods.GetLangName(i));
 
                 if (attribute is LanguageTextAreaAttribute textArea
                     && relativeProperty.propertyType == SerializedPropertyType.String)
                 {
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField(LangMethods.LangName(i), GUILayout.Width(35), GUILayout.Height(20));
+                    EditorGUILayout.LabelField(LangMethods.GetLangName(i), GUILayout.Width(35), GUILayout.Height(20));
 
                     relativeProperty.stringValue = EditorGUILayout.TextArea(
                         relativeProperty.stringValue,
@@ -173,7 +174,7 @@ namespace Localization
                 {
                     EditorGUILayout.PropertyField(
                         relativeProperty,
-                        new GUIContent(LangMethods.LangName(i))
+                        new GUIContent(LangMethods.GetLangName(i))
                     );
                 }
             }

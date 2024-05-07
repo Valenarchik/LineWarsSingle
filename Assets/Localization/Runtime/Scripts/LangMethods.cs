@@ -5,42 +5,17 @@ namespace Localization
 {
     public class LangMethods
     {
-        public static bool[] LangArr(LocalizationSettings inf)
+        public static bool[] GetLangArr(LocalizationSettings settings)
         {
-            var b = new bool[27];
-
-            b[0] = inf.languages.ru;
-            b[1] = inf.languages.en;
-            b[2] = inf.languages.tr;
-            b[3] = inf.languages.az;
-            b[4] = inf.languages.be;
-            b[5] = inf.languages.he;
-            b[6] = inf.languages.hy;
-            b[7] = inf.languages.ka;
-            b[8] = inf.languages.et;
-            b[9] = inf.languages.fr;
-            b[10] = inf.languages.kk;
-            b[11] = inf.languages.ky;
-            b[12] = inf.languages.lt;
-            b[13] = inf.languages.lv;
-            b[14] = inf.languages.ro;
-            b[15] = inf.languages.tg;
-            b[16] = inf.languages.tk;
-            b[17] = inf.languages.uk;
-            b[18] = inf.languages.uz;
-            b[19] = inf.languages.es;
-            b[20] = inf.languages.pt;
-            b[21] = inf.languages.ar;
-            b[22] = inf.languages.id;
-            b[23] = inf.languages.ja;
-            b[24] = inf.languages.it;
-            b[25] = inf.languages.de;
-            b[26] = inf.languages.hi;
-
-            return b;
+            return settings.languages.Values;
         }
-
-        public static string LangName(int i)
+        
+        public static string GetLangName(LangName langName)
+        {
+            return GetLangName((int) langName);
+        }
+        
+        public static string GetLangName(int i)
         {
             return i switch
             {
@@ -74,78 +49,83 @@ namespace Localization
                 _ => null
             };
         }
-
-        public static string LangName(LangName langName)
+        
+        public static TMP_FontAsset[] GetFontTMP(LangName langName, LocalizationSettings settings)
         {
-            return LangName((int) langName);
+            return GetFontTMP((int) langName, settings);
         }
         
-        public static TMP_FontAsset[] GetFontTMP(int i, LocalizationSettings inf)
+        public static TMP_FontAsset[] GetFontTMP(int i, LocalizationSettings settings)
         {
             return i switch
             {
-                0 => inf.fonts.ru,
-                1 => inf.fonts.en,
-                2 => inf.fonts.tr,
-                3 => inf.fonts.az,
-                4 => inf.fonts.be,
-                5 => inf.fonts.he,
-                6 => inf.fonts.hy,
-                7 => inf.fonts.ka,
-                8 => inf.fonts.et,
-                9 => inf.fonts.fr,
-                10 => inf.fonts.kk,
-                11 => inf.fonts.ky,
-                12 => inf.fonts.lt,
-                13 => inf.fonts.lv,
-                14 => inf.fonts.ro,
-                15 => inf.fonts.tg,
-                16 => inf.fonts.tk,
-                17 => inf.fonts.uk,
-                18 => inf.fonts.uz,
-                19 => inf.fonts.es,
-                20 => inf.fonts.pt,
-                21 => inf.fonts.ar,
-                22 => inf.fonts.id,
-                23 => inf.fonts.ja,
-                24 => inf.fonts.it,
-                25 => inf.fonts.de,
-                26 => inf.fonts.hi,
+                0 => settings.fonts.ru,
+                1 => settings.fonts.en,
+                2 => settings.fonts.tr,
+                3 => settings.fonts.az,
+                4 => settings.fonts.be,
+                5 => settings.fonts.he,
+                6 => settings.fonts.hy,
+                7 => settings.fonts.ka,
+                8 => settings.fonts.et,
+                9 => settings.fonts.fr,
+                10 => settings.fonts.kk,
+                11 => settings.fonts.ky,
+                12 => settings.fonts.lt,
+                13 => settings.fonts.lv,
+                14 => settings.fonts.ro,
+                15 => settings.fonts.tg,
+                16 => settings.fonts.tk,
+                17 => settings.fonts.uk,
+                18 => settings.fonts.uz,
+                19 => settings.fonts.es,
+                20 => settings.fonts.pt,
+                21 => settings.fonts.ar,
+                22 => settings.fonts.id,
+                23 => settings.fonts.ja,
+                24 => settings.fonts.it,
+                25 => settings.fonts.de,
+                26 => settings.fonts.hi,
                 _ => null
             };
         }
 
-        public static int[] GetFontSize(int i, LocalizationSettings inf)
+        public static int[] GetFontSize(LangName langName, LocalizationSettings settings)
+        {
+            return GetFontSize((int) langName, settings);
+        }
+
+        public static int[] GetFontSize(int i, LocalizationSettings settings)
         {
             return i switch
             {
-                0 => inf.fontsSizeCorrect.ru,
-                1 => inf.fontsSizeCorrect.en,
-                2 => inf.fontsSizeCorrect.tr,
-                3 => inf.fontsSizeCorrect.az,
-                4 => inf.fontsSizeCorrect.be,
-                5 => inf.fontsSizeCorrect.he,
-                6 => inf.fontsSizeCorrect.hy,
-                7 => inf.fontsSizeCorrect.ka,
-                8 => inf.fontsSizeCorrect.et,
-                9 => inf.fontsSizeCorrect.fr,
-                10 => inf.fontsSizeCorrect.kk,
-                11 => inf.fontsSizeCorrect.ky,
-                12 => inf.fontsSizeCorrect.lt,
-                13 => inf.fontsSizeCorrect.lv,
-                14 => inf.fontsSizeCorrect.ro,
-                15 => inf.fontsSizeCorrect.tg,
-                16 => inf.fontsSizeCorrect.tk,
-                17 => inf.fontsSizeCorrect.uk,
-                18 => inf.fontsSizeCorrect.uz,
-                19 => inf.fontsSizeCorrect.es,
-                20 => inf.fontsSizeCorrect.pt,
-                21 => inf.fontsSizeCorrect.ar,
-                22 => inf.fontsSizeCorrect.id,
-                23 => inf.fontsSizeCorrect.ja,
-                24 => inf.fontsSizeCorrect.it,
-                25 => inf.fontsSizeCorrect.de,
-                26 => inf.fontsSizeCorrect.hi,
+                0 => settings.fontsSizeCorrect.ru,
+                1 => settings.fontsSizeCorrect.en,
+                2 => settings.fontsSizeCorrect.tr,
+                3 => settings.fontsSizeCorrect.az,
+                4 => settings.fontsSizeCorrect.be,
+                5 => settings.fontsSizeCorrect.he,
+                6 => settings.fontsSizeCorrect.hy,
+                7 => settings.fontsSizeCorrect.ka,
+                8 => settings.fontsSizeCorrect.et,
+                9 => settings.fontsSizeCorrect.fr,
+                10 => settings.fontsSizeCorrect.kk,
+                11 => settings.fontsSizeCorrect.ky,
+                12 => settings.fontsSizeCorrect.lt,
+                13 => settings.fontsSizeCorrect.lv,
+                14 => settings.fontsSizeCorrect.ro,
+                15 => settings.fontsSizeCorrect.tg,
+                16 => settings.fontsSizeCorrect.tk,
+                17 => settings.fontsSizeCorrect.uk,
+                18 => settings.fontsSizeCorrect.uz,
+                19 => settings.fontsSizeCorrect.es,
+                20 => settings.fontsSizeCorrect.pt,
+                21 => settings.fontsSizeCorrect.ar,
+                22 => settings.fontsSizeCorrect.id,
+                23 => settings.fontsSizeCorrect.ja,
+                24 => settings.fontsSizeCorrect.it,
+                25 => settings.fontsSizeCorrect.de,
+                26 => settings.fontsSizeCorrect.hi,
                 _ => null
             };
         }
@@ -372,6 +352,39 @@ namespace Localization
             s[26] = "HINDI";
 
             return s;
+        }
+        
+        public static TMP_FontAsset GetCurrentFont(LangName langName, int fontNumber, LocalizationSettings settings)
+        {
+            var fontArray = GetFontTMP(langName, settings);
+
+            if (fontArray.Length >= fontNumber + 1 && fontArray[fontNumber])
+            {
+                return fontArray[fontNumber];
+            }
+
+            if (settings.fonts.defaultFont.Length >= fontNumber + 1 && settings.fonts.defaultFont[fontNumber])
+            {
+                return settings.fonts.defaultFont[fontNumber];
+            }
+
+            if (settings.fonts.defaultFont.Length >= 1 && settings.fonts.defaultFont[0])
+            {
+                return settings.fonts.defaultFont[0];
+            }
+
+            return null;
+        }
+
+        public static int GetCurrentFontSizeCorrect(LangName langName, int fontNumber, LocalizationSettings settings)
+        {
+            var fontSizeArray = GetFontSize(langName, settings);
+            if (fontSizeArray.Length != 0 && fontSizeArray.Length - 1 >= fontNumber)
+            { 
+                return fontSizeArray[fontNumber];
+            }
+
+            return 0;
         }
     }
 }

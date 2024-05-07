@@ -1,11 +1,11 @@
 {
-    "idSave": 283,
+    "idSave": 314,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
         "Diamonds": 99825,
-        "Gold": 99221,
+        "Gold": 99271,
         "UpgradeCards": 1,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,
@@ -271,7 +271,7 @@
                 },
                 {
                     "Key": "25gold",
-                    "Value": "04/30/2024 22:27:32"
+                    "Value": "05/07/2024 20:15:41"
                 }
             ]
         },

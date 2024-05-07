@@ -34,7 +34,7 @@ namespace Localization
 
                 for (var i2 = 0; i2 < settings.languages.Count; i2++)
                 {
-                    if (!LangMethods.LangArr(settings)[i2]) continue;
+                    if (!LangMethods.GetLangArr(settings)[i2]) continue;
 
                     result[i2] = translates[i2 + 1].Replace("*", ",").Replace(@"\n", "\n");
                 }
@@ -96,12 +96,12 @@ namespace Localization
                 // Запись текста
                 if (!clone)
                 {
-                    for (int line = 0; line < LangMethods.LangArr(settings).Length + 1; line++)
+                    for (int line = 0; line < LangMethods.GetLangArr(settings).Length + 1; line++)
                     {
                         keys[column, line] = RedLineFormat(AsteriskFormat(keys[column, line])).Replace(",", "*");
                         textFile += keys[column, line];
 
-                        if (line != LangMethods.LangArr(settings).Length)
+                        if (line != LangMethods.GetLangArr(settings).Length)
                             textFile += ",";
                     }
 
@@ -130,7 +130,7 @@ namespace Localization
                 {
                     replace = AsteriskFormat(key);
 
-                    for (int i2 = 0; i2 < LangMethods.LangArr(settings).Length; i2++)
+                    for (int i2 = 0; i2 < LangMethods.GetLangArr(settings).Length; i2++)
                     {
                         replace += "," + RedLineFormat(languages[i2]).Replace(",", "*");
                     }
@@ -146,7 +146,7 @@ namespace Localization
             {
                 result += RedLineFormat(AsteriskFormat(key));
 
-                for (int i = 0; i < LangMethods.LangArr(settings).Length; i++)
+                for (int i = 0; i < LangMethods.GetLangArr(settings).Length; i++)
                 {
                     result += "," + RedLineFormat(languages[i]).Replace(",", "*");
                 }
@@ -180,7 +180,7 @@ namespace Localization
         {
             var firstLine = "KEYLANGUAGE";
 
-            for (int i = 0; i < LangMethods.LangArr(infoYG).Length; i++)
+            for (int i = 0; i < LangMethods.GetLangArr(infoYG).Length; i++)
             {
                 firstLine += "," + LangMethods.FullNameLanguages()[i];
             }

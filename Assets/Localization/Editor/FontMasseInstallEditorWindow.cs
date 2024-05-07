@@ -81,8 +81,9 @@ namespace Localization
 
                         if (scr.Settings.fonts.defaultFont.Length >= scr.fontNumber + 1 && scr.Settings.fonts.defaultFont[scr.fontNumber])
                         { 
-                            if (scr.textMPComponent)
-                                scr.ChangeFont(scr.Settings.fonts.defaultFont);
+                            // TODO
+                            // if (scr.textMPComponent)
+                            //     scr.ChangeFont(scr.Settings.fonts.defaultFont);
                             completeObjCoint++;
                         }
                         else

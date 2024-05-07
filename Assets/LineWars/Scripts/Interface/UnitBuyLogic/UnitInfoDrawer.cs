@@ -1,4 +1,5 @@
 using LineWars.Model;
+using Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +38,11 @@ public class UnitInfoDrawer : MonoBehaviour
 
     public void RestoreDefaults()
     {
-        unitName.text = "Выберите воина";
+        unitName.text = LocalizationManager.LangName switch
+        {
+            LangName.ru => "Выберите воина",
+            LangName.en => "Choose a warrior"
+        };
         unitDescription.text = "";
         
         if (hpAmount != null)
