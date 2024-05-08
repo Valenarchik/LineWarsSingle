@@ -14,6 +14,7 @@ namespace Localization
         protected virtual void OnEnable()
         {
             LocalizationManager.SwitchLangEvent += LocalizationManagerOnSwitchLangEvent;
+            OnLanguageSwitch();
         }
 
         protected virtual void OnDisable()

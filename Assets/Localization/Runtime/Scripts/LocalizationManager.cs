@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Localization
 {
@@ -8,6 +9,7 @@ namespace Localization
     {
         private static LocalizationManager Instance;
         [SerializeField] private string lang = "ru";
+        [SerializeField, FormerlySerializedAs("settings")] private LocalizationSettings m_settings;
         public static string Lang
         {
             get => Instance.lang;
@@ -23,11 +25,11 @@ namespace Localization
             get => Enum.Parse<LangName>(Instance.lang);
             set => SetLanguage(value);
         }
-
-        public LocalizationSettings settings;
-        public static LocalizationSettings Settings => Instance?.settings;
-
+        
+        public LocalizationSettings settings => m_settings;
+        public static LocalizationSettings Settings => Instance?.m_settings;
         public static event Action SwitchLangEvent;
+        
         private void Awake()
         {
             if (Instance != null && Instance != this)

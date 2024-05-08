@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Localization
@@ -19,20 +17,12 @@ namespace Localization
 
         private void OnEnable()
         {
-            enabled = true;
-            TextAsset data = Resources.Load(LocalizationManager.Settings.CSVFileTranslate.name) as TextAsset;
-            if (data == null)
-            {
-                Debug.LogError("CSV file was not found!");
-                enabled = false;
-            }
-
             settings = SettingsLoader.LoadSettings();
-        }
-
-        private void OnDisable()
-        {
-            enabled = false;
+            var data = Resources.Load(settings.CSVFileTranslate.name) as TextAsset;
+            enabled = data != null;
+            
+            if (!enabled)
+                Debug.LogError("CSV file was not found!");
         }
 
         private void OnGUI()

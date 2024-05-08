@@ -44,6 +44,7 @@ namespace Localization
             Debug.Log("(en) Couldn't find a translation for this object! (ru) Не удалось найти перевод для данного объекта!");
             return null;
         }
+        
         public static void WriteCSVFile(LocalizationSettings settings, string[,] keys, string[] idArray)
         {
             string textFile = "";
@@ -111,10 +112,12 @@ namespace Localization
 
             WriteCSV(settings, textFile);
         }
+        
         public static void SetIDLineFile(LocalizationSettings settings, LanguageText locObj)
         {
             SetIDLineFile(settings, GetKeyForObject(locObj), locObj.languages);
         }
+        
         public static void SetIDLineFile(LocalizationSettings settings, string key, string[] languages)
         {
             CreateCSVFileIfNotExist(settings);
@@ -176,7 +179,7 @@ namespace Localization
             return patch + settings.CSVFileTranslate.name + ".csv";
         }
 
-        static string CreateFirstLine(LocalizationSettings infoYG)
+        private static string CreateFirstLine(LocalizationSettings infoYG)
         {
             var firstLine = "KEYLANGUAGE";
 
@@ -190,7 +193,7 @@ namespace Localization
             return firstLine;
         }
 
-        static void WriteCSV(LocalizationSettings settings, string data)
+        private static void WriteCSV(LocalizationSettings settings, string data)
         {
             if (settings.CSVFileTranslate.format == FileFormat.ExcelOffice)
                 data = SemicolonFormat(data);
@@ -223,9 +226,9 @@ namespace Localization
             return AsteriskFormat(line.Replace(";", ","));
         }
 
-        static string[] CommaFormat(string[] lines)
+        private static string[] CommaFormat(string[] lines)
         {
-            for (int i = 0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Length; i++)
             {
                 lines[i] = CommaFormat(lines[i]);
             }
@@ -233,7 +236,7 @@ namespace Localization
             return lines;
         }
 
-        static string SemicolonFormat(string line)
+        private static string SemicolonFormat(string line)
         {
             if (line.Length > 0)
                 return line.Replace(",", ";");
@@ -241,7 +244,7 @@ namespace Localization
                 return "";
         }
 
-        static string AsteriskFormat(string line)
+        private static string AsteriskFormat(string line)
         {
             if (line.Length > 0)
                 return line.Replace(", ", "* ");
@@ -249,7 +252,7 @@ namespace Localization
                 return "";
         }
 
-        static string RedLineFormat(string line)
+        private static string RedLineFormat(string line)
         {
             return string.IsNullOrEmpty(line) ? "" : line.Replace("\n", @"\n");
         }

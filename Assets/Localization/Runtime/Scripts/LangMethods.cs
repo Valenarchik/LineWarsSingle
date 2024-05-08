@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using TMPro;
 
 namespace Localization
 {
     public class LangMethods
     {
+        public static LangName[] GetActiveLanguages(LocalizationSettings settings)
+        {
+            return GetLangArr(settings)
+                .Select((enable, langId) => (enable, langId))
+                .Where(x => x.enable)
+                .Select(x => (LangName) x.langId)
+                .ToArray();
+        } 
+        
         public static bool[] GetLangArr(LocalizationSettings settings)
         {
             return settings.languages.Values;
@@ -132,191 +142,71 @@ namespace Localization
 
         public static string UnauthorizedTextTranslate(string languageTranslate)
         {
-            string name;
-
-            switch (languageTranslate)
+            return languageTranslate switch
             {
-                case "ru":
-                    name = "неавторизованный";
-                    break;
-                case "en":
-                    name = "unauthorized";
-                    break;
-                case "tr":
-                    name = "yetkisiz";
-                    break;
-                case "az":
-                    name = "icazəsiz";
-                    break;
-                case "be":
-                    name = "неаўтарызаваны";
-                    break;
-                case "he":
-                    name = "---";
-                    break;
-                case "hy":
-                    name = "---";
-                    break;
-                case "ka":
-                    name = "---";
-                    break;
-                case "et":
-                    name = "loata";
-                    break;
-                case "fr":
-                    name = "non autorisé";
-                    break;
-                case "kk":
-                    name = "рұқсат етілмеген";
-                    break;
-                case "ky":
-                    name = "уруксатсыз";
-                    break;
-                case "lt":
-                    name = "neleistinas";
-                    break;
-                case "lv":
-                    name = "neleistinas";
-                    break;
-                case "ro":
-                    name = "neautorizat";
-                    break;
-                case "tg":
-                    name = "беиҷозат";
-                    break;
-                case "tk":
-                    name = "yetkisiz";
-                    break;
-                case "uk":
-                    name = "несанкціонований";
-                    break;
-                case "uz":
-                    name = "ruxsatsiz";
-                    break;
-                case "es":
-                    name = "autorizado";
-                    break;
-                case "pt":
-                    name = "autorizado";
-                    break;
-                case "ar":
-                    name = "---";
-                    break;
-                case "id":
-                    name = "tidak sah";
-                    break;
-                case "ja":
-                    name = "---";
-                    break;
-                case "it":
-                    name = "autorizzato";
-                    break;
-                case "de":
-                    name = "unerlaubter";
-                    break;
-                case "hi":
-                    name = "---";
-                    break;
-                default:
-                    name = "unauthorized";
-                    break;
-            }
-
-            return name;
+                "ru" => "неавторизованный",
+                "en" => "unauthorized",
+                "tr" => "yetkisiz",
+                "az" => "icazəsiz",
+                "be" => "неаўтарызаваны",
+                "he" => "---",
+                "hy" => "---",
+                "ka" => "---",
+                "et" => "loata",
+                "fr" => "non autorisé",
+                "kk" => "рұқсат етілмеген",
+                "ky" => "уруксатсыз",
+                "lt" => "neleistinas",
+                "lv" => "neleistinas",
+                "ro" => "neautorizat",
+                "tg" => "беиҷозат",
+                "tk" => "yetkisiz",
+                "uk" => "несанкціонований",
+                "uz" => "ruxsatsiz",
+                "es" => "autorizado",
+                "pt" => "autorizado",
+                "ar" => "---",
+                "id" => "tidak sah",
+                "ja" => "---",
+                "it" => "autorizzato",
+                "de" => "unerlaubter",
+                "hi" => "---",
+                _ => "unauthorized"
+            };
         }
         public static string IsHiddenTextTranslate(string languageTranslate)
         {
-            string name;
-
-            switch (languageTranslate)
+            return languageTranslate switch
             {
-                case "ru":
-                    name = "скрыт";
-                    break;
-                case "en":
-                    name = "is hidden";
-                    break;
-                case "tr":
-                    name = "gizli";
-                    break;
-                case "az":
-                    name = "gizlidir";
-                    break;
-                case "be":
-                    name = "скрыты";
-                    break;
-                case "he":
-                    name = "---";
-                    break;
-                case "hy":
-                    name = "---";
-                    break;
-                case "ka":
-                    name = "---";
-                    break;
-                case "et":
-                    name = "on peidetud";
-                    break;
-                case "fr":
-                    name = "est caché";
-                    break;
-                case "kk":
-                    name = "жасырылған";
-                    break;
-                case "ky":
-                    name = "жашыруун";
-                    break;
-                case "lt":
-                    name = "yra paslėpta";
-                    break;
-                case "lv":
-                    name = "ir paslēpts";
-                    break;
-                case "ro":
-                    name = "este ascuns";
-                    break;
-                case "tg":
-                    name = "пинҳон аст";
-                    break;
-                case "tk":
-                    name = "gizlenendir";
-                    break;
-                case "uk":
-                    name = "прихований";
-                    break;
-                case "uz":
-                    name = "yashiringan";
-                    break;
-                case "es":
-                    name = "Está oculto";
-                    break;
-                case "pt":
-                    name = "está escondido";
-                    break;
-                case "ar":
-                    name = "---";
-                    break;
-                case "id":
-                    name = "tersembunyi";
-                    break;
-                case "ja":
-                    name = "---";
-                    break;
-                case "it":
-                    name = "è nascosto";
-                    break;
-                case "de":
-                    name = "ist versteckt";
-                    break;
-                case "hi":
-                    name = "---";
-                    break;
-                default:
-                    name = "is hidden";
-                    break;
-            }
-
-            return name;
+                "ru" => "скрыт",
+                "en" => "is hidden",
+                "tr" => "gizli",
+                "az" => "gizlidir",
+                "be" => "скрыты",
+                "he" => "---",
+                "hy" => "---",
+                "ka" => "---",
+                "et" => "on peidetud",
+                "fr" => "est caché",
+                "kk" => "жасырылған",
+                "ky" => "жашыруун",
+                "lt" => "yra paslėpta",
+                "lv" => "ir paslēpts",
+                "ro" => "este ascuns",
+                "tg" => "пинҳон аст",
+                "tk" => "gizlenendir",
+                "uk" => "прихований",
+                "uz" => "yashiringan",
+                "es" => "Está oculto",
+                "pt" => "está escondido",
+                "ar" => "---",
+                "id" => "tersembunyi",
+                "ja" => "---",
+                "it" => "è nascosto",
+                "de" => "ist versteckt",
+                "hi" => "---",
+                _ => "is hidden"
+            };
         }
         
         public static string[] FullNameLanguages()

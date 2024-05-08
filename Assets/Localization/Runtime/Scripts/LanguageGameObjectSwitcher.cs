@@ -5,12 +5,6 @@ namespace Localization
 {
     public class LanguageGameObjectSwitcher: LanguageObject<GameObject>
     {
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            SwitchObjects();
-        }
-
         protected override void OnLanguageSwitch()
         {
             SwitchObjects();
