@@ -68,6 +68,9 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 910bc253395f8f347b522a054710f720, type: 3}
     - {fileID: 2800000, guid: ec6e85289dcde8145b0413905e37dabf, type: 3}
     - {fileID: 2800000, guid: cb35db2b581c0504e81ad28920cc31e9, type: 3}
+    - {fileID: 2800000, guid: a8db7a473f1beff4f88ceaca3d23af4f, type: 3}
+    - {fileID: 2800000, guid: 17bf912a2de66ca4dba68902a7452aa0, type: 3}
+    - {fileID: 2800000, guid: 28d1a317f42e08f4298a96e7468a978c, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -78,9 +81,12 @@ SpriteAtlas:
     - 7e5d8d932c98ebb4a95fa01c12372c25: 21300000
     - e8fe35d382f21134a8805f7b69d0c0c7: 21300000
     - 6a37c8b5311d96e41a24a1c6123111a7: 21300000
+    - 28d1a317f42e08f4298a96e7468a978c: 21300000
     - d56fd34701d12b843801ad78057406d6: 21300000
+    - a8db7a473f1beff4f88ceaca3d23af4f: 21300000
     - ec6e85289dcde8145b0413905e37dabf: 21300000
     - c782f2f91f3b8fb42b0352a7728996ce: 21300000
+    - 17bf912a2de66ca4dba68902a7452aa0: 21300000
     - 4309fd1bb13f16147a59b024b3a9c688: 21300000
     - cb35db2b581c0504e81ad28920cc31e9: 21300000
     - 388b30fbcd41579439ce7cd33c8ddf3b: 21300000
@@ -97,9 +103,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7e5d8d932c98ebb4a95fa01c12372c25, type: 3}
   - {fileID: 21300000, guid: e8fe35d382f21134a8805f7b69d0c0c7, type: 3}
   - {fileID: 21300000, guid: 6a37c8b5311d96e41a24a1c6123111a7, type: 3}
+  - {fileID: 21300000, guid: 28d1a317f42e08f4298a96e7468a978c, type: 3}
   - {fileID: 21300000, guid: d56fd34701d12b843801ad78057406d6, type: 3}
+  - {fileID: 21300000, guid: a8db7a473f1beff4f88ceaca3d23af4f, type: 3}
   - {fileID: 21300000, guid: ec6e85289dcde8145b0413905e37dabf, type: 3}
   - {fileID: 21300000, guid: c782f2f91f3b8fb42b0352a7728996ce, type: 3}
+  - {fileID: 21300000, guid: 17bf912a2de66ca4dba68902a7452aa0, type: 3}
   - {fileID: 21300000, guid: 4309fd1bb13f16147a59b024b3a9c688, type: 3}
   - {fileID: 21300000, guid: cb35db2b581c0504e81ad28920cc31e9, type: 3}
   - {fileID: 21300000, guid: 388b30fbcd41579439ce7cd33c8ddf3b, type: 3}
@@ -115,9 +124,12 @@ SpriteAtlas:
   - 1 Command Empty
   - RusTurn
   - Buy
+  - russ turn en
   - MusicIcon
+  - buy turn en
   - 3 Commands Empty
   - LizardsTurn
+  - liz turn en
   - MapCapture
   - 4 Commands Empty
   - Education Panel

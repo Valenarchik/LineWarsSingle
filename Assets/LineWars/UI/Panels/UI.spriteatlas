@@ -80,6 +80,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 71c9bf541ef2de046b4ae467da8dbc66, type: 3}
     - {fileID: 2800000, guid: a015392df615fcd4e9f6df174803aefd, type: 3}
     - {fileID: 2800000, guid: 8c23fc40accf7a44b98504a9834b5096, type: 3}
+    - {fileID: 2800000, guid: 26b3604270fb86f44808191070bc788b, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -89,6 +90,7 @@ SpriteAtlas:
     - 2337dc215ab024e46a748813b666a81e: 21300000
     - 3361fd5117e823d47be7de43a806bbae: 21300000
     - d51ebde1ccf1e7c4187abf0153047592: 21300000
+    - 26b3604270fb86f44808191070bc788b: 21300000
     - 83eb6152626c06344b393123bac4ffce: 21300000
     - 750ed973b77400143aa56f9e716de514: 21300000
     - f95f6d9358514b44e9656d75565e8910: 21300000
@@ -126,6 +128,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2337dc215ab024e46a748813b666a81e, type: 3}
   - {fileID: 21300000, guid: 3361fd5117e823d47be7de43a806bbae, type: 3}
   - {fileID: 21300000, guid: d51ebde1ccf1e7c4187abf0153047592, type: 3}
+  - {fileID: 21300000, guid: 26b3604270fb86f44808191070bc788b, type: 3}
   - {fileID: 21300000, guid: 83eb6152626c06344b393123bac4ffce, type: 3}
   - {fileID: 21300000, guid: 750ed973b77400143aa56f9e716de514, type: 3}
   - {fileID: 21300000, guid: f95f6d9358514b44e9656d75565e8910, type: 3}
@@ -162,6 +165,7 @@ SpriteAtlas:
   - ShortLine
   - MenuIcon
   - Arrow
+  - logo en
   - LogoText
   - ButtonBlack
   - OpenMission

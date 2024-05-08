@@ -48,11 +48,11 @@ namespace Localization
             LoadSettings();
             InitializeColors();
             
-            //EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginProperty(position, label, property);
             property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, property.displayName);
             if (!property.isExpanded)
             {
-                //EditorGUI.EndProperty();
+                EditorGUI.EndProperty();
                 return;
             }
             
@@ -64,7 +64,7 @@ namespace Localization
             DrawFields(position, property, label);
             
             EditorGUI.indentLevel -= 1;
-            //EditorGUI.EndProperty();
+            EditorGUI.EndProperty();
         }
 
         private void DrawAutoLocalizationIfAvailable(Rect position, SerializedProperty property, GUIContent label)
