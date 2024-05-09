@@ -19,9 +19,19 @@ namespace Localization
             return new Rect(rect.x, rect.y, rect.width + value, rect.height);
         }
         
+        public static Rect SubtractWidth(this Rect rect, float value)
+        {
+            return new Rect(rect.x, rect.y, rect.width - value, rect.height);
+        }
+        
         public static Rect AddHeight(this Rect rect, float value)
         {
             return new Rect(rect.x, rect.y, rect.width, rect.height + value);
+        }
+        
+        public static Rect SubtractHeight(this Rect rect, float value)
+        {
+            return new Rect(rect.x, rect.y, rect.width, rect.height - value);
         }
         
         public static Rect SetX(this Rect rect, float value)
@@ -46,7 +56,7 @@ namespace Localization
         
         public static Rect RelativeX(this Rect rect, float value)
         {
-            return new Rect(rect.width * value, rect.y, rect.width, rect.height);
+            return new Rect(rect.x + rect.width * value, rect.y, rect.width, rect.height);
         }
         public static Rect WidthPercent(this Rect rect, float value)
         {

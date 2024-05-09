@@ -11,5 +11,6 @@ namespace LineWars
         [LanguageTextArea(70), SerializeField] private LanguageField<string> textArea;
         public List<LanguageField<string>> test;
         public SerializedDictionary<string, LanguageField<List<string>>> test2;
+        public Color Color;
     }
 }

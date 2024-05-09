@@ -128,7 +128,6 @@ namespace Localization
                         GUILayout.BeginVertical("HelpBox");
 
                         scr.componentTextField = EditorGUILayout.ToggleLeft("Component Text/TextMeshPro Translate", scr.componentTextField);
-                        scr.textHeight = EditorGUILayout.Slider("Text Height", scr.textHeight, 20f, 400f);
 
                         if (!scr.componentTextField)
                             scr.text = EditorGUILayout.TextArea(scr.text, GUILayout.Height(scr.textHeight));

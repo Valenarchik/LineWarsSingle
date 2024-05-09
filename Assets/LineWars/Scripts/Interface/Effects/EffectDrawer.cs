@@ -42,14 +42,7 @@ namespace LineWars.Interface
             {
                 roundsObjects.SetActive(false);
             }
-
-            if (GameRoot.Instance != null &&
-                GameRoot.Instance.DrawHelper != null &&
-                GameRoot.Instance.DrawHelper.EffectTypeToSprite.ContainsKey(effect.EffectType))
-            {
-                var icon = GameRoot.Instance.DrawHelper.EffectTypeToSprite[effect.EffectType];
-                image.sprite = icon;
-            }
+            image.sprite = DrawHelper.GetOrderIconEffectType(effect.EffectType);
         }
 
         private void OnDestroy()

@@ -1,11 +1,11 @@
 {
-    "idSave": 321,
+    "idSave": 342,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "UserInfo": {
         "Diamonds": 99825,
-        "Gold": 99271,
+        "Gold": 99321,
         "UpgradeCards": 1,
         "PassingGameModes": 1,
         "DefaultBlessingsIsAdded": true,

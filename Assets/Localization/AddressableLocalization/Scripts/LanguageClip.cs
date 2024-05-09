@@ -31,7 +31,6 @@ namespace Localization.Addressable
         protected override void OnEnable()
         {
             base.OnEnable();
-            PlayClip(LocalizationManager.LangName);
             onEnable.Invoke();
         }
         

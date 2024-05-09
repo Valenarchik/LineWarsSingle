@@ -8,10 +8,6 @@ namespace Localization
     [CustomPropertyDrawer(typeof(LanguageFieldAttribute), true)]
     public class LanguageFieldDrawer : PropertyDrawer
     {
-        private const float FOLDOUT_HEIGHT = 16f;
-        private const float SPACE = 2f;
-        private const float LABEL_HEIGHT = 20;
-
         private LocalizationSettings settings;
         private GUIStyle red;
         private GUIStyle green;
@@ -25,31 +21,15 @@ namespace Localization
             }
 
             LoadSettings();
-            var height = FOLDOUT_HEIGHT;
+            var height = EditorGUIUtility.singleLineHeight;
             if (!property.isExpanded)
                 return height;
 
             height += GetManualIfAvailableHeight(property, label);
             height += GetAutoLocalizationIfAvailableHeight(property, label);
             height += GetCsvIfAvailableHeight(property, label);
-
-            foreach (var lang in LangMethods.GetActiveLanguages(settings))
-            {
-                var langString = LangMethods.GetLangName(lang);
-                var relativeProperty = property.FindPropertyRelative(langString);
-
-                if (attribute is LanguageTextAreaAttribute textArea
-                    && relativeProperty.propertyType == SerializedPropertyType.String)
-                {
-                    height += textArea.Height + SPACE;
-                }
-                else
-                {
-                    height += EditorGUI.GetPropertyHeight(relativeProperty) + SPACE;
-                }
-            }
-
-            return height + SPACE;
+            height += GetFieldsHeight(property);
+            return height + EditorGUIUtility.standardVerticalSpacing;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -64,7 +44,7 @@ namespace Localization
             InitializeStyles();
 
             EditorGUI.BeginProperty(position, label, property);
-            property.isExpanded = EditorGUI.Foldout(position.SetHeight(FOLDOUT_HEIGHT), property.isExpanded,
+            property.isExpanded = EditorGUI.Foldout(position.SetHeight(EditorGUIUtility.singleLineHeight), property.isExpanded,
                 property.displayName);
 
             if (!property.isExpanded)
@@ -74,7 +54,7 @@ namespace Localization
             }
 
             EditorGUI.indentLevel += 1;
-            position = position.AddY(FOLDOUT_HEIGHT + SPACE);
+            position = position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
             position = DrawAutoLocalizationIfAvailable(position, property, label);
             position = DrawManualIfAvailable(position, property, label);
             position = DrawCsvIfAvailable(position, property, label);
@@ -85,20 +65,48 @@ namespace Localization
 
         private void DrawFields(Rect position, SerializedProperty property, GUIContent label)
         {
-            foreach (var lang in LangMethods.GetActiveLanguages(settings))
+            var textHeight = property.FindPropertyRelative("textHeight");
+            var isString = IsString(property);
+            
+            EditorGUI.DrawRect(position
+                .SetHeight(GetFieldsHeight(property)),
+                new Color(0.2f,0.2f,0.2f));
+            
+            var activeLanguages = LangMethods.GetActiveLanguages(settings);
+            EditorGUI.LabelField(position
+                .SetHeight(EditorGUIUtility.singleLineHeight),
+                $"{activeLanguages.Length} Languages");
+            position = position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
+
+            if (isString)
+            {
+                var leftValue = 20f;
+                var rightValue = 500f;
+                if (attribute is LanguageTextAreaAttribute textAreaAttribute)
+                {
+                    leftValue = textAreaAttribute.MinHeight;
+                    rightValue = textAreaAttribute.MaxHeight;
+                }
+                
+                textHeight.floatValue = EditorGUI.Slider(position.SetHeight(EditorGUIUtility.singleLineHeight), "Text height", textHeight.floatValue, leftValue, rightValue);
+                position = position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
+            }
+            
+            foreach (var lang in activeLanguages)
             {
                 var langString = LangMethods.GetLangName(lang);
                 var relativeProperty = property.FindPropertyRelative(langString);
 
-                if (attribute is LanguageTextAreaAttribute textArea
-                    && relativeProperty.propertyType == SerializedPropertyType.String)
+                if (isString)
                 {
-                    EditorGUI.LabelField(position.SetWidth(40).SetHeight(textArea.Height), langString);
+                    EditorGUI.LabelField(position.SetWidth(40).SetHeight(textHeight.floatValue), langString);
                     relativeProperty.stringValue = EditorGUI.TextArea(
-                        position.SetHeight(textArea.Height).SetX(40).AddWidth(-20-SPACE),
+                        position.SetHeight(textHeight.floatValue)
+                            .SetX(40)
+                            .AddWidth(-30-EditorGUIUtility.standardVerticalSpacing),
                         relativeProperty.stringValue,
                         EditorStyles.textArea);
-                    position = position.AddY(textArea.Height + SPACE);
+                    position = position.AddY(textHeight.floatValue + EditorGUIUtility.standardVerticalSpacing);
                 }
                 else
                 {
@@ -108,49 +116,77 @@ namespace Localization
                         relativeProperty,
                         new GUIContent(langString)
                     );
-                    position = position.AddY(relativePropertyHeight + SPACE);
+                    position = position.AddY(relativePropertyHeight + EditorGUIUtility.standardVerticalSpacing);
                 }
             }
+        }
+
+        private float GetFieldsHeight(SerializedProperty property)
+        {
+            var textHeight = property.FindPropertyRelative("textHeight");
+            var isString = IsString(property);
+            var height = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+            if (isString)
+            {
+                height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            }
+            foreach (var lang in LangMethods.GetActiveLanguages(settings))
+            {
+                var langString = LangMethods.GetLangName(lang);
+                var relativeProperty = property.FindPropertyRelative(langString);
+
+                if (isString)
+                {
+                    height += textHeight.floatValue + EditorGUIUtility.standardVerticalSpacing;
+                }
+                else
+                {
+                    height += EditorGUI.GetPropertyHeight(relativeProperty) + EditorGUIUtility.standardVerticalSpacing;
+                }
+            }
+
+            return height;
         }
 
         private float GetAutoLocalizationIfAvailableHeight(SerializedProperty property, GUIContent label)
         {
             if (settings.translateMethod != TranslateMethod.AutoLocalization)
                 return 0;
-            return LABEL_HEIGHT + SPACE;
+            return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
         }
 
         private Rect DrawAutoLocalizationIfAvailable(Rect position, SerializedProperty property, GUIContent label)
         {
             if (settings.translateMethod != TranslateMethod.AutoLocalization)
                 return position;
-            EditorGUI.LabelField(position.SetHeight(LABEL_HEIGHT), "> Auto Localization", green);
-            return position.AddY(LABEL_HEIGHT + SPACE);
+            EditorGUI.LabelField(position.SetHeight(EditorGUIUtility.singleLineHeight), "> Auto Localization (not support now)", green);
+            return position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
         }
 
         private float GetManualIfAvailableHeight(SerializedProperty property, GUIContent label)
         {
             if (settings.translateMethod != TranslateMethod.Manual)
                 return 0;
-            return LABEL_HEIGHT + SPACE;
+            return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
         }
 
         private Rect DrawManualIfAvailable(Rect position, SerializedProperty property, GUIContent label)
         {
             if (settings.translateMethod != TranslateMethod.Manual)
                 return position;
-            EditorGUI.LabelField(position.SetHeight(LABEL_HEIGHT), "> Manual Localization", green);
-            return position.AddY(LABEL_HEIGHT);
+            EditorGUI.LabelField(position.SetHeight(EditorGUIUtility.singleLineHeight), "> Manual Localization", green);
+            return position.AddY(EditorGUIUtility.singleLineHeight);
         }
         
         private float GetCsvIfAvailableHeight(SerializedProperty property, GUIContent label)
         {
             if (settings.translateMethod != TranslateMethod.CSVFile)
                 return 0;
-            var height = LABEL_HEIGHT + SPACE;
+            var height = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
             if (property.FindPropertyRelative("ru").propertyType != SerializedPropertyType.String)
                 return height;
-            height += (LABEL_HEIGHT + SPACE) * 2;
+            height += (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing) * 2;
             return height;
         }
 
@@ -159,38 +195,38 @@ namespace Localization
             if (settings.translateMethod != TranslateMethod.CSVFile)
                 return position;
             EditorGUI.LabelField(
-                position.SetHeight(LABEL_HEIGHT),
+                position.SetHeight(EditorGUIUtility.singleLineHeight),
                 "> CSV Localization (support only string type)",
                 green);
-            position = position.AddY(LABEL_HEIGHT + SPACE);
+            position = position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
 
-            if (property.FindPropertyRelative("ru").propertyType != SerializedPropertyType.String)
+            if (!IsString(property))
                 return position;
 
             var identity = property.FindPropertyRelative("identity");
             identity.stringValue = EditorGUI.TextField(
                 position
                     .WidthPercent(0.65f)
-                    .SetHeight(LABEL_HEIGHT),
+                    .SetHeight(EditorGUIUtility.singleLineHeight),
                 identity.stringValue);
 
             var helperPosition = position
                 .RelativeX(0.65f)
-                .AddX(SPACE*4)
+                .AddX(EditorGUIUtility.standardVerticalSpacing)
                 .WidthPercent(0.4f)
-                .SetHeight(LABEL_HEIGHT);
+                .SetHeight(EditorGUIUtility.singleLineHeight);
 
             if (!string.IsNullOrEmpty(identity.stringValue))
                 EditorGUI.LabelField(helperPosition, "ID Translate");
             else
                 EditorGUI.LabelField(helperPosition, "ID Translate (necessarily)", red);
-
-            position = position.AddY(LABEL_HEIGHT + SPACE);
+            
+            position = position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
             if (GUI.Button(position
-                    .SetX(EditorGUI.indentLevel * 30 + SPACE)
-                    .AddWidth(-EditorGUI.indentLevel * 15 - SPACE)
+                    .AddX(EditorGUI.indentLevel * 15)
+                    .SubtractWidth(EditorGUI.indentLevel * 15 + EditorGUIUtility.standardVerticalSpacing)
                     .WidthPercent(0.5f)
-                    .SetHeight(LABEL_HEIGHT), "Import", button))
+                    .SetHeight(EditorGUIUtility.singleLineHeight), "Import", button))
             {
                 var transfers = CSVManager.ImportTransfersByKey(settings, identity.stringValue);
                 if (transfers != null)
@@ -199,16 +235,21 @@ namespace Localization
 
             if (GUI.Button(position
                     .RelativeX(0.5f)
-                    .AddX(EditorGUI.indentLevel * 30)
-                    .AddWidth(-EditorGUI.indentLevel * 15 - SPACE)
+                    .AddX(EditorGUI.indentLevel * 15)
+                    .SubtractWidth(EditorGUI.indentLevel * 15)
                     .WidthPercent(0.5f)
-                    .AddWidth(-SPACE)
-                    .SetHeight(LABEL_HEIGHT), "Export", button))
+                    .SubtractWidth(EditorGUIUtility.standardVerticalSpacing * 4)
+                    .SetHeight(EditorGUIUtility.singleLineHeight), "Export", button))
             {
                 CSVManager.SetIDLineFile(settings, identity.stringValue, GetLanguages(property));
             }
 
-            return position.AddY(LABEL_HEIGHT + SPACE);
+            return position.AddY(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing);
+        }
+
+        private static bool IsString(SerializedProperty property)
+        {
+            return property.FindPropertyRelative("ru").propertyType == SerializedPropertyType.String;
         }
 
         private void SetLanguages(SerializedProperty property, string[] values)

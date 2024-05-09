@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Localization;
 using UnityEngine;
 
 namespace LineWars.Model
@@ -7,8 +8,8 @@ namespace LineWars.Model
     [CreateAssetMenu(fileName = "New Loot Box Info", menuName = "Loot Boxes/Info")]
     public class LootBoxInfo : ScriptableObject
     {
-        [SerializeField] private string boxName;
-        [SerializeField] private string boxDescription;
+        [SerializeField] private LanguageField<string> langBoxName;
+        [SerializeField] private LanguageField<string> langBoxDescription;
         [SerializeField] private Sprite boxSprite;
         [SerializeField] private GameObject bg;
         [SerializeField] private LootBoxType boxType;
@@ -17,7 +18,7 @@ namespace LineWars.Model
         [SerializeField] private CostType costType;
         [SerializeField] private int cost;
 
-        public string Name => boxName;
+        public string Name => langBoxName;
         public Sprite BoxSprite => boxSprite;
         public GameObject Bg => bg;
         public CostType CostType => costType;
@@ -25,7 +26,7 @@ namespace LineWars.Model
         public LootBoxType BoxType => boxType;
         public IReadOnlyList<LootInfo> AllLoot => allLoot;
 
-        public string Description => boxDescription;
+        public string Description => langBoxDescription;
         
     }
 

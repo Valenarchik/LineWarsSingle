@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using LineWars;
 using LineWars.Model;
 using TMPro;
@@ -16,44 +13,40 @@ public class LevelInfoPanel : MonoBehaviour
         switch (gameReferee)
         {
             case CaptureThePointsGameReferee captureThePointsGameReferee:
-                typeName.text = "Режим захват точек";
-                typeDescription.text =
-                    "Для победы нужно удерживать ключевые точки, они обведены желтым. За контроль каждой точки вы будете получать одно победное очко" +
-                    $"\n \nЧтобы победить наберите {captureThePointsGameReferee.ScoreForWin}" +
-                    $" победных {captureThePointsGameReferee.ScoreForWin.Pluralize("очко","очка","очков")}";
+                typeName.text = DrawHelper.AllRefereeInfo.CaptureThePoints.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.CaptureThePoints.Description,
+                    captureThePointsGameReferee.ScoreForWin);
                 break;
             case NewDominationGameReferee newDominationGameReferee:
-                typeName.text = "Режим доминация";
-                typeDescription.text = 
-                    $"Для победы нужно захватить больше точек чем ящеры и удерживать их. Игра длится " +
-                    $"{newDominationGameReferee.RoundsForWin} {newDominationGameReferee.RoundsForWin.Pluralize("раунд","раунда","раундов")}" +
-                    $"\n \nВы победите, если на момент последнего раунда у вас будет больше точек, чем у ящеров";
+                typeName.text = DrawHelper.AllRefereeInfo.NewDomination.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.NewDomination.Description,
+                    newDominationGameReferee.RoundsForWin);
                 break;
             case KingOfMountainScoreReferee kingOfMountainScoreReferee:
-                typeName.text = "Режим царь горы";
-                typeDescription.text = 
-                    $"На карте есть точка горы, она обведена желтым цветом. За каждый раунд, который вы контроллируете гору вам достается одно очко." +
-                    $"\n \nЧтобы победить удерживайте контроль над горой " +
-                    $"{kingOfMountainScoreReferee.ScoreForWin} {kingOfMountainScoreReferee.ScoreForWin.Pluralize("раунд","раунда","раундов")}";
+                typeName.text = DrawHelper.AllRefereeInfo.KingOfMountain.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.KingOfMountain.Description,
+                    kingOfMountainScoreReferee.ScoreForWin);
                 break;
             case MapCaptureScoreReferee mapCaptureScoreReferee:
-                typeName.text = "Режим захват карты";
-                typeDescription.text =
-                    $"Чтобы победить нужно захватить " +
-                    $"{mapCaptureScoreReferee.ScoreForWin} {mapCaptureScoreReferee.ScoreForWin.Pluralize("точка","точки", "точек")}" +
-                    $" раньше, чем это сделают ящеры.";
+                typeName.text = DrawHelper.AllRefereeInfo.MapCapture.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.MapCapture.Description,
+                    mapCaptureScoreReferee.ScoreForWin);
                 break;
             case SiegeGameReferee siegeGameReferee:
-                typeName.text = "Режим осада";
-                typeDescription.text =
-                    $"Чтобы победить нужно продержаться " +
-                    $"{siegeGameReferee.RoundsToWin} {siegeGameReferee.RoundsToWin.Pluralize("раунд", "раунда", "раундов")}" +
-                    $"\n \nВ этом режиме вы не можете покупать юнитов во время боя, их нужно выбрать заранее.";
+                typeName.text = DrawHelper.AllRefereeInfo.Siege.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.Siege.Description,
+                    siegeGameReferee.RoundsToWin);
                 break;
             case WallToWallGameReferee wallToWallGameReferee:
-                typeName.text = "Режим заруба";
-                typeDescription.text =
-                    $"Чтобы победить нужно убить всех ящеров.\n \nВ этом режиме ни вы, ни ящеры не можете получать новых юнитов во время боя, вам нужно выбрать их заранее";
+                typeName.text = DrawHelper.AllRefereeInfo.WallToWall.Name;
+                typeDescription.text = string.Format(
+                    DrawHelper.AllRefereeInfo.WallToWall.Description
+                    );
                 break;
         }
     }
